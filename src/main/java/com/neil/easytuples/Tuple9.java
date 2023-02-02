@@ -3,7 +3,6 @@ package com.neil.easytuples;
 import com.neil.easytuples.annotations.TupleGeneration;
 
 import java.util.Objects;
-import java.util.function.Function;
 
 @TupleGeneration(tupleArity = 9)
 public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
@@ -38,61 +37,6 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
 //  public Tuple2<Tuple4<T1, T2, T3, T4>, Tuple5<T5, T6, T7, T8, T9>> splitAfterElem4() {
 //
 //  }
-
-  public <R> Tuple9<R, T2, T3, T4, T5, T6, T7, T8, T9> mapElem1(Function<T1, R> function) {
-    return Tuple9.of(
-        function.apply(t1), t2, t3, t4, t5, t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, R, T3, T4, T5, T6, T7, T8, T9> mapElem2(Function<T2, R> function) {
-    return Tuple9.of(
-        t1, function.apply(t2), t3, t4, t5, t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, R, T4, T5, T6, T7, T8, T9> mapElem3(Function<T3, R> function) {
-    return Tuple9.of(
-        t1, t2, function.apply(t3), t4, t5, t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, R, T5, T6, T7, T8, T9> mapElem4(Function<T4, R> function) {
-    return Tuple9.of(
-        t1, t2, t3, function.apply(t4), t5, t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, R, T6, T7, T8, T9> mapElem5(Function<T5, R> function) {
-    return Tuple9.of(
-        t1, t2, t3, t4, function.apply(t5), t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, T5, R, T7, T8, T9> mapElem6(Function<T6, R> function) {
-    return Tuple9.of(
-        t1, t2, t3, t4, t5, function.apply(t6), t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, T5, T6, R, T8, T9> mapElem7(Function<T7, R> function) {
-    return Tuple9.of(
-        t1, t2, t3, t4, t5, t6, function.apply(t7), t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, T5, T6, T7, R, T9> mapElem8(Function<T8, R> function) {
-    return Tuple9.of(
-        t1, t2, t3, t4, t5, t6, t7, function.apply(t8), t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, R> mapElem9(Function<T9, R> function) {
-    return Tuple9.of(
-        t1, t2, t3, t4, t5, t6, t7, t8, function.apply(t9)
-    );
-  }
-
 
   @Override
   public boolean equals(Object o) {

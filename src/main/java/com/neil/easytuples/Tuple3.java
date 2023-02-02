@@ -3,7 +3,6 @@ package com.neil.easytuples;
 import com.neil.easytuples.annotations.TupleGeneration;
 
 import java.util.Objects;
-import java.util.function.Function;
 
 @TupleGeneration(tupleArity = 3)
 public final class Tuple3<T1, T2, T3>
@@ -29,24 +28,6 @@ public final class Tuple3<T1, T2, T3>
 
   public <T> Tuple4<T1, T2, T3, T> append(T t) {
     return Tuple4.of(t1, t2, t3, t);
-  }
-
-  public <R> Tuple3<R, T2, T3> mapElem1(Function<T1, R> function) {
-    return Tuple3.of(
-        function.apply(t1), t2, t3
-    );
-  }
-
-  public <R> Tuple3<T1, R, T3> mapElem2(Function<T2, R> function) {
-    return Tuple3.of(
-        t1, function.apply(t2), t3
-    );
-  }
-
-  public <R> Tuple3<T1, T2, R> mapElem3(Function<T3, R> function) {
-    return Tuple3.of(
-        t1, t2, function.apply(t3)
-    );
   }
 
   @Override

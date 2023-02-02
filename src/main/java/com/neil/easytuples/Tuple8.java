@@ -3,7 +3,6 @@ package com.neil.easytuples;
 import com.neil.easytuples.annotations.TupleGeneration;
 
 import java.util.Objects;
-import java.util.function.Function;
 
 @TupleGeneration(tupleArity = 8)
 public final class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>
@@ -32,54 +31,6 @@ public final class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8>
 
   public <T> Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T> append(T t) {
     return Tuple9.of(t1, t2, t3, t4, t5, t6, t7, t8, t);
-  }
-
-  public <R> Tuple8<R, T2, T3, T4, T5, T6, T7, T8> mapElem1(Function<T1, R> function) {
-    return Tuple8.of(
-        function.apply(t1), t2, t3, t4, t5, t6, t7, t8
-    );
-  }
-
-  public <R> Tuple8<T1, R, T3, T4, T5, T6, T7, T8> mapElem2(Function<T2, R> function) {
-    return Tuple8.of(
-        t1, function.apply(t2), t3, t4, t5, t6, t7, t8
-    );
-  }
-
-  public <R> Tuple8<T1, T2, R, T4, T5, T6, T7, T8> mapElem3(Function<T3, R> function) {
-    return Tuple8.of(
-        t1, t2, function.apply(t3), t4, t5, t6, t7, t8
-    );
-  }
-
-  public <R> Tuple8<T1, T2, T3, R, T5, T6, T7, T8> mapElem4(Function<T4, R> function) {
-    return Tuple8.of(
-        t1, t2, t3, function.apply(t4), t5, t6, t7, t8
-    );
-  }
-
-  public <R> Tuple8<T1, T2, T3, T4, R, T6, T7, T8> mapElem5(Function<T5, R> function) {
-    return Tuple8.of(
-        t1, t2, t3, t4, function.apply(t5), t6, t7, t8
-    );
-  }
-
-  public <R> Tuple8<T1, T2, T3, T4, T5, R, T7, T8> mapElem6(Function<T6, R> function) {
-    return Tuple8.of(
-        t1, t2, t3, t4, t5, function.apply(t6), t7, t8
-    );
-  }
-
-  public <R> Tuple8<T1, T2, T3, T4, T5, T6, R, T8> mapElem7(Function<T7, R> function) {
-    return Tuple8.of(
-        t1, t2, t3, t4, t5, t6, function.apply(t7), t8
-    );
-  }
-
-  public <R> Tuple8<T1, T2, T3, T4, T5, T6, T7, R> mapElem8(Function<T8, R> function) {
-    return Tuple8.of(
-        t1, t2, t3, t4, t5, t6, t7, function.apply(t8)
-    );
   }
 
   @Override

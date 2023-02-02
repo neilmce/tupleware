@@ -4,7 +4,6 @@ import com.neil.easytuples.annotations.TupleGeneration;
 
 import java.util.Objects;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 @TupleGeneration(tupleArity = 2)
 public final class Tuple2<T1, T2>
@@ -28,18 +27,6 @@ public final class Tuple2<T1, T2>
 
   public Tuple2<T2, T1> reverse() {
     return Tuple2.of(t2, t1);
-  }
-
-  public <R> Tuple2<R, T2> mapElem1(Function<T1, R> function) {
-    return Tuple2.of(
-        function.apply(t1), t2
-    );
-  }
-
-  public <R> Tuple2<T1, R> mapElem2(Function<T2, R> function) {
-    return Tuple2.of(
-        t1, function.apply(t2)
-    );
   }
 
   public Object[] toArray() {

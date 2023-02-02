@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.StreamSupport;
 
@@ -102,6 +103,7 @@ public class TupleProcessor extends AbstractProcessor {
             }
 
             out.println("import java.util.List;");
+            out.println("import java.util.function.Function;");
             out.println();
 
             out.print(String.format("public class %s", implClassName));
@@ -126,6 +128,8 @@ public class TupleProcessor extends AbstractProcessor {
             writeToListMethod(out, arity);
 
             writeWithElementMethods(out, arity);
+
+            writeMapElementMethods(out, arity);
 
             writeToStringMethod(out, arity);
 
@@ -233,6 +237,29 @@ public class TupleProcessor extends AbstractProcessor {
             out.print(String.format("  public final <R> Tuple%d<", arity));
             out.print(String.join(", ", newTypeParams));
             out.println(String.format("> withElem%d(R newValue) {", elemToReplace));
+
+            out.print(String.format("    return Tuple%d.of(", arity));
+            out.print(String.join(", ", newParams));
+            out.println(");");
+            out.println("  }");
+            out.println();
+        }
+    }
+
+    private void writeMapElementMethods(PrintWriter out, int arity) {
+        final List<String> currentTypeParams = typeParamsTo(arity);
+        final List<String> currentParams = paramsTo(arity);
+
+        for (int elemToReplace = 1; elemToReplace <= arity; elemToReplace++) {
+            final List<String> newTypeParams = new ArrayList<>(currentTypeParams);
+            newTypeParams.set(elemToReplace - 1, "R");
+
+            final List<String> newParams = new ArrayList<>(currentParams);
+            newParams.set(elemToReplace - 1, String.format("function.apply(t%d)", elemToReplace));
+
+            out.print(String.format("  public final <R> Tuple%d<", arity));
+            out.print(String.join(", ", newTypeParams));
+            out.println(String.format("> mapElem%d(Function<T%d, R> function) {", elemToReplace, elemToReplace));
 
             out.print(String.format("    return Tuple%d.of(", arity));
             out.print(String.join(", ", newParams));

@@ -3,7 +3,6 @@ package com.neil.easytuples;
 import com.neil.easytuples.annotations.TupleGeneration;
 
 import java.util.Objects;
-import java.util.function.Function;
 
 @TupleGeneration(tupleArity = 5)
 public final class Tuple5<T1, T2, T3, T4, T5>
@@ -30,36 +29,6 @@ public final class Tuple5<T1, T2, T3, T4, T5>
 
   public <T> Tuple6<T1, T2, T3, T4, T5, T> append(T t) {
     return Tuple6.of(t1, t2, t3, t4, t5, t);
-  }
-
-  public <R> Tuple5<R, T2, T3, T4, T5> mapElem1(Function<T1, R> function) {
-    return Tuple5.of(
-        function.apply(t1), t2, t3, t4, t5
-    );
-  }
-
-  public <R> Tuple5<T1, R, T3, T4, T5> mapElem2(Function<T2, R> function) {
-    return Tuple5.of(
-        t1, function.apply(t2), t3, t4, t5
-    );
-  }
-
-  public <R> Tuple5<T1, T2, R, T4, T5> mapElem3(Function<T3, R> function) {
-    return Tuple5.of(
-        t1, t2, function.apply(t3), t4, t5
-    );
-  }
-
-  public <R> Tuple5<T1, T2, T3, R, T5> mapElem4(Function<T4, R> function) {
-    return Tuple5.of(
-        t1, t2, t3, function.apply(t4), t5
-    );
-  }
-
-  public <R> Tuple5<T1, T2, T3, T4, R> mapElem5(Function<T5, R> function) {
-    return Tuple5.of(
-        t1, t2, t3, t4, function.apply(t5)
-    );
   }
 
   @Override

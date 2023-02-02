@@ -4,7 +4,6 @@ import com.neil.easytuples.annotations.TupleGeneration;
 
 import java.util.Objects;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 @TupleGeneration(tupleArity = 10)
 public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
@@ -31,67 +30,6 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
 
   public Tuple10<T10, T9, T8, T7, T6, T5, T4, T3, T2, T1> reverse() {
     return Tuple10.of(t10, t9, t8, t7, t6, t5, t4, t3, t2, t1);
-  }
-
-
-  public <R> Tuple10<R, T2, T3, T4, T5, T6, T7, T8, T9, T10> mapElem1(Function<T1, R> function) {
-    return Tuple10.of(
-        function.apply(t1), t2, t3, t4, t5, t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, R, T3, T4, T5, T6, T7, T8, T9, T10> mapElem2(Function<T2, R> function) {
-    return Tuple10.of(
-        t1, function.apply(t2), t3, t4, t5, t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, R, T4, T5, T6, T7, T8, T9, T10> mapElem3(Function<T3, R> function) {
-    return Tuple10.of(
-        t1, t2, function.apply(t3), t4, t5, t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, R, T5, T6, T7, T8, T9, T10> mapElem4(Function<T4, R> function) {
-    return Tuple10.of(
-        t1, t2, t3, function.apply(t4), t5, t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, R, T6, T7, T8, T9, T10> mapElem5(Function<T5, R> function) {
-    return Tuple10.of(
-        t1, t2, t3, t4, function.apply(t5), t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, R, T7, T8, T9, T10> mapElem6(Function<T6, R> function) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, function.apply(t6), t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, T6, R, T8, T9, T10> mapElem7(Function<T7, R> function) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, t6, function.apply(t7), t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, T6, T7, R, T9, T10> mapElem8(Function<T8, R> function) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, t6, t7, function.apply(t8), t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, R, T10> mapElem9(Function<T9, R> function) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, t6, t7, t8, function.apply(t9), t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, R> mapElem10(Function<T10, R> function) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, t6, t7, t8, t9, function.apply(t10)
-    );
   }
 
   public <S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10> Tuple10<R1, R2, R3, R4,

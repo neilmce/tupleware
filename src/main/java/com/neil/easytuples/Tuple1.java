@@ -3,7 +3,6 @@ package com.neil.easytuples;
 import com.neil.easytuples.annotations.TupleGeneration;
 
 import java.util.Objects;
-import java.util.function.Function;
 
 @TupleGeneration(tupleArity = 1)
 public final class Tuple1<T1>
@@ -25,13 +24,6 @@ public final class Tuple1<T1>
   public <T> Tuple2<T1, T> append(T t) {
     return Tuple2.of(t1, t);
   }
-
-  public <R> Tuple1<R> mapElem1(Function<T1, R> function) {
-    return Tuple1.of(
-        function.apply(t1)
-    );
-  }
-
 
   @Override
   public boolean equals(Object o) {
