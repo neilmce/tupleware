@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-    annotationProcessor project(':annotations')
-    implementation project(':annotations')
+    implementation 'com.google.auto.service:auto-service:1.0.1'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0.1'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
@@ -23,10 +23,4 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-tasks.withType(JavaCompile) {
-    doFirst {
-        println "AnnotationProcessorPath for $name is ${options.getAnnotationProcessorPath().getFiles()}"
-    }
 }

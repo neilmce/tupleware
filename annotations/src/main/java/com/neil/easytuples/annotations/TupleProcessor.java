@@ -1,0 +1,207 @@
+package com.neil.easytuples.annotations;
+
+import com.google.auto.service.AutoService;
+
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Processor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.TypeElement;
+import javax.tools.Diagnostic.Kind;
+import javax.tools.JavaFileObject;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.partitioningBy;
+import static java.util.stream.Collectors.toList;
+
+@SupportedAnnotationTypes("com.neil.easytuples.annotations.TupleGeneration")
+@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@AutoService(Processor.class)
+public class TupleProcessor extends AbstractProcessor {
+
+    private void note(String msg) {
+        processingEnv.getMessager().printMessage(Kind.NOTE, msg);
+    }
+
+    private void error(String msg) {
+        processingEnv.getMessager().printMessage(Kind.ERROR, msg);
+    }
+
+    @Override
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        Set<? extends Element> elems = roundEnv.getElementsAnnotatedWith(TupleGeneration.class);
+        note(String.format("Processing %d @TupleGeneration elements: %s", elems.size(), elems));
+
+        // You can only annotate _classes_ with TupleGeneration (not interfaces etc).
+        Map<ElementKind, List<Element>> elementsByKind = elems.stream()
+                                                              .collect(groupingBy(Element::getKind));
+        List<Element> classElements = elementsByKind.get(ElementKind.CLASS);
+
+        if (classElements != null) {
+            List<TypeElement> taggedClassElements = classElements.stream()
+                                                                 .map(e -> (TypeElement)e).collect(toList());
+            if (elems.size() > taggedClassElements.size()) {
+                error("Only classes can be annotated with @TupleGeneration: " + elems);
+            }
+
+            taggedClassElements.forEach(classElem -> {
+                TupleGeneration anno = classElem.getAnnotation(TupleGeneration.class);
+                int arity = anno.tupleArity();
+
+                final String packageName;
+                String className = classElem.getQualifiedName().toString();
+                int lastDot = className.lastIndexOf('.');
+                if (lastDot > 0) {
+                    packageName = className.substring(0, lastDot);
+                }
+                else {
+                    packageName = null;
+                }
+
+                if (arity < 0 || arity > 10) {
+                    error("Illegal arity on @TupleGeneration: " + arity);
+                }
+                try {
+                    writeTupleImplFile(packageName, arity);
+                } catch (IOException e) {
+                    error("IOException while writing builder file");
+
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+
+        return true;
+    }
+
+    private void writeTupleImplFile(String packageName, int arity) throws IOException {
+        final String implClassName = String.format("Tuple%dImpl", arity);
+        final String fqImplClassName = packageName == null ? implClassName : packageName + "." + implClassName;
+
+        JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(fqImplClassName);
+
+        try (PrintWriter out = new PrintWriter(builderFile.openWriter())) {
+            if (packageName != null) {
+                out.print("package ");
+                out.print(packageName);
+                out.println(";");
+                out.println();
+            }
+
+            out.println("import java.util.List;");
+            out.println();
+
+            out.print(String.format("public class %s", implClassName));
+            // Generic types
+            out.print(" <");
+            for (int i = 1; i <= arity; i++) {
+                out.print(String.format("T%d", i));
+                if (i < arity) {
+                    out.print(", ");
+                }
+            }
+            out.println("> implements Tuple {");
+
+            writeFieldsAndConstructor(out, implClassName, arity);
+
+            writeGetArityMethod(out, arity);
+
+            writeElementGetters(out, arity);
+
+            writeContainsAnyNullsMethod(out, arity);
+
+            writeToListMethod(out, arity);
+
+            writeToStringMethod(out, arity);
+
+            out.println("}");
+        }
+    }
+
+    private void writeFieldsAndConstructor(PrintWriter out, String implClassName, int arity) {
+        // Fields
+        for (int i = 1; i <= arity; i++) {
+            out.println(String.format("  protected final T%d t%d;", i, i));
+        }
+        // Constructor
+        out.print(String.format("  protected %s(", implClassName));
+        // Constructor params
+        for (int i = 1; i <= arity; i++) {
+            out.print(String.format("T%d t%d", i, i));
+            if (i < arity) {
+                out.print(", ");
+            }
+        }
+        out.println(") {");
+        // Field assignments
+        for (int i = 1; i <= arity; i++) {
+            out.println(String.format("    this.t%d = t%d;", i, i));
+        }
+        out.println("  }");
+    }
+
+    private void writeElementGetters(PrintWriter out, int arity) {
+        for (int i = 1; i <= arity; i++) {
+            out.println(String.format("  public final T%d elem%d() { return this.t%d; }", i, i, i));
+        }
+    }
+
+    private void writeContainsAnyNullsMethod(PrintWriter out, int arity) {
+        out.println("  @Override public final boolean containsAnyNulls() {");
+        out.print("      return ");
+        for (int i = 1; i <= arity; i++) {
+            out.print(String.format("t%d == null", i));
+            if (i < arity) {
+                out.print(" || ");
+            }
+        }
+        out.println(";");
+        out.println("  }");
+    }
+
+    private void writeToListMethod(PrintWriter out, int arity) {
+        out.println("  @Override public final List<Object> toList() {");
+        out.print("      return List.of(");
+        for (int i = 1; i <= arity; i++) {
+            out.print(String.format("t%d", i));
+            if (i < arity) {
+                out.print(", ");
+            }
+        }
+        out.println(");");
+        out.println("  }");
+    }
+
+    private void writeGetArityMethod(PrintWriter out, int arity) {
+        out.println(String.format("  @Override public final int getArity() { return %d; }", arity));
+    }
+
+    private void writeToStringMethod(PrintWriter out, int arity) {
+        out.println("  @Override public final String toString() {");
+        out.print("      return String.format(\"(");
+        for (int i = 1; i <= arity; i++) {
+            out.print("%s");
+            if (i < arity) {
+                out.print(", ");
+            }
+        }
+        out.print(")\", ");
+        for (int i = 1; i <= arity; i++) {
+            out.print(String.format("t%d", i));
+            if (i < arity) {
+                out.print(", ");
+            }
+        }
+        out.println(");");
+        out.println("  }");
+    }
+}

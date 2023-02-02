@@ -1,26 +1,17 @@
 package com.neil.easytuples;
 
-import java.util.List;
+import com.neil.easytuples.annotations.TupleGeneration;
+
 import java.util.Objects;
 import java.util.function.Function;
 
-public final class Tuple7<T1, T2, T3, T4, T5, T6, T7> implements Tuple {
-  private final T1 t1;
-  private final T2 t2;
-  private final T3 t3;
-  private final T4 t4;
-  private final T5 t5;
-  private final T6 t6;
-  private final T7 t7;
+@TupleGeneration(tupleArity = 7)
+public final class Tuple7<T1, T2, T3, T4, T5, T6, T7>
+    extends Tuple7Impl<T1, T2, T3, T4, T5, T6, T7>
+    implements Tuple {
 
   private Tuple7(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7) {
-    this.t1 = t1;
-    this.t2 = t2;
-    this.t3 = t3;
-    this.t4 = t4;
-    this.t5 = t5;
-    this.t6 = t6;
-    this.t7 = t7;
+    super(t1, t2, t3, t4, t5, t6, t7);
   }
 
   public static <S1, S2, S3, S4, S5, S6, S7> Tuple7<S1, S2, S3, S4, S5, S6, S7> of(S1 s1, S2 s2,
@@ -30,33 +21,6 @@ public final class Tuple7<T1, T2, T3, T4, T5, T6, T7> implements Tuple {
     return new Tuple7<>(s1, s2, s3, s4, s5, s6, s7);
   }
 
-  public T1 elem1() {
-    return this.t1;
-  }
-
-  public T2 elem2() {
-    return this.t2;
-  }
-
-  public T3 elem3() {
-    return this.t3;
-  }
-
-  public T4 elem4() {
-    return this.t4;
-  }
-
-  public T5 elem5() {
-    return this.t5;
-  }
-
-  public T6 elem6() {
-    return this.t6;
-  }
-
-  public T7 elem7() {
-    return this.t7;
-  }
 
   public Tuple7<T7, T6, T5, T4, T3, T2, T1> reverse() {
     return Tuple7.of(t7, t6, t5, t4, t3, t2, t1);
@@ -70,14 +34,6 @@ public final class Tuple7<T1, T2, T3, T4, T5, T6, T7> implements Tuple {
     return Tuple8.of(t1, t2, t3, t4, t5, t6, t7, t);
   }
 
-  @Override
-  public List<Object> toList() {
-    return List.of(t1, t2, t3, t4, t5, t6, t7);
-  }
-  @Override
-  public boolean containsAnyNulls() {
-    return t1 == null || t2 == null || t3 == null || t4 == null || t5 == null || t6 == null || t7 == null;
-  }
   public <R> Tuple7<R, T2, T3, T4, T5, T6, T7> mapElem1(Function<T1, R> function) {
     return Tuple7.of(
         function.apply(t1), t2, t3, t4, t5, t6, t7
@@ -119,6 +75,7 @@ public final class Tuple7<T1, T2, T3, T4, T5, T6, T7> implements Tuple {
         t1, t2, t3, t4, t5, t6, function.apply(t7)
     );
   }
+
   public <R> Tuple7<R, T2, T3, T4, T5, T6, T7> withElem1(R newValue) {
     return Tuple7.of(
         newValue, t2, t3, t4, t5, t6, t7
@@ -159,16 +116,6 @@ public final class Tuple7<T1, T2, T3, T4, T5, T6, T7> implements Tuple {
     return Tuple7.of(
         t1, t2, t3, t4, t5, t6, newValue
     );
-  }
-
-  @Override
-  public int getArity() {
-    return 7;
-  }
-
-  @Override
-  public String toString() {
-    return String.format("(%s, %s, %s, %s, %s, %s, %s)", t1, t2, t3, t4, t5, t6, t7);
   }
 
   @Override

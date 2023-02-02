@@ -1,33 +1,18 @@
 package com.neil.easytuples;
 
-import java.util.List;
+import com.neil.easytuples.annotations.TupleGeneration;
+
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> implements Tuple {
-  private final T1 t1;
-  private final T2 t2;
-  private final T3 t3;
-  private final T4 t4;
-  private final T5 t5;
-  private final T6 t6;
-  private final T7 t7;
-  private final T8 t8;
-  private final T9 t9;
-  private final T10 t10;
+@TupleGeneration(tupleArity = 10)
+public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
+    extends Tuple10Impl<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
+    implements Tuple {
 
   private Tuple10(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T10 t10) {
-    this.t1 = t1;
-    this.t2 = t2;
-    this.t3 = t3;
-    this.t4 = t4;
-    this.t5 = t5;
-    this.t6 = t6;
-    this.t7 = t7;
-    this.t8 = t8;
-    this.t9 = t9;
-    this.t10 = t10;
+    super(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
   }
 
   public static <S1, S2, S3, S4, S5, S6, S7, S8, S9, S10> Tuple10<S1, S2, S3, S4, S5, S6, S7, S8, S9, S10> of(S1 s1,
@@ -43,60 +28,11 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> implements T
     return new Tuple10<>(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10);
   }
 
-  public T1 elem1() {
-    return this.t1;
-  }
-
-  public T2 elem2() {
-    return this.t2;
-  }
-
-  public T3 elem3() {
-    return this.t3;
-  }
-
-  public T4 elem4() {
-    return this.t4;
-  }
-
-  public T5 elem5() {
-    return this.t5;
-  }
-
-  public T6 elem6() {
-    return this.t6;
-  }
-
-  public T7 elem7() {
-    return this.t7;
-  }
-
-  public T8 elem8() {
-    return this.t8;
-  }
-
-  public T9 elem9() {
-    return this.t9;
-  }
-
-  public T10 elem10() {
-    return this.t10;
-  }
 
   public Tuple10<T10, T9, T8, T7, T6, T5, T4, T3, T2, T1> reverse() {
     return Tuple10.of(t10, t9, t8, t7, t6, t5, t4, t3, t2, t1);
   }
 
-
-  @Override
-  public List<Object> toList() {
-    return List.of(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
-  }
-
-  @Override
-  public boolean containsAnyNulls() {
-    return t1 == null || t2 == null || t3 == null || t4 == null || t5 == null || t6 == null || t7 == null || t8 == null || t9 == null || t10 == null;
-  }
 
   public <R> Tuple10<R, T2, T3, T4, T5, T6, T7, T8, T9, T10> mapElem1(Function<T1, R> function) {
     return Tuple10.of(
@@ -157,6 +93,7 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> implements T
         t1, t2, t3, t4, t5, t6, t7, t8, t9, function.apply(t10)
     );
   }
+
   public <R> Tuple10<R, T2, T3, T4, T5, T6, T7, T8, T9, T10> withElem1(R newValue) {
     return Tuple10.of(
         newValue, t2, t3, t4, t5, t6, t7, t8, t9, t10
@@ -241,16 +178,6 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> implements T
         combine9.apply(this.t9, that.t9),
         combine10.apply(this.t10, that.t10)
     );
-  }
-
-  @Override
-  public String toString() {
-    return String.format("(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", t1, t2, t3, t4, t5, t6, t7, t8, t9, t10);
-  }
-
-  @Override
-  public int getArity() {
-    return 10;
   }
 
   @Override

@@ -1,22 +1,16 @@
 package com.neil.easytuples;
 
-import java.util.List;
+import com.neil.easytuples.annotations.TupleGeneration;
+
 import java.util.Objects;
 import java.util.function.Function;
 
-public final class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
-  private final T1 t1;
-  private final T2 t2;
-  private final T3 t3;
-  private final T4 t4;
-  private final T5 t5;
-
+@TupleGeneration(tupleArity = 5)
+public final class Tuple5<T1, T2, T3, T4, T5>
+    extends Tuple5Impl<T1, T2, T3, T4, T5>
+    implements Tuple {
   private Tuple5(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5) {
-    this.t1 = t1;
-    this.t2 = t2;
-    this.t3 = t3;
-    this.t4 = t4;
-    this.t5 = t5;
+    super(t1, t2, t3, t4, t5);
   }
 
   public static <S1, S2, S3, S4, S5> Tuple5<S1, S2, S3, S4, S5> of(S1 s1, S2 s2,
@@ -25,25 +19,6 @@ public final class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
     return new Tuple5<>(s1, s2, s3, s4, s5);
   }
 
-  public T1 elem1() {
-    return this.t1;
-  }
-
-  public T2 elem2() {
-    return this.t2;
-  }
-
-  public T3 elem3() {
-    return this.t3;
-  }
-
-  public T4 elem4() {
-    return this.t4;
-  }
-
-  public T5 elem5() {
-    return this.t5;
-  }
 
   public Tuple5<T5, T4, T3, T2, T1> reverse() {
     return Tuple5.of(t5, t4, t3, t2, t1);
@@ -57,14 +32,6 @@ public final class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
     return Tuple6.of(t1, t2, t3, t4, t5, t);
   }
 
-  @Override
-  public List<Object> toList() {
-    return List.of(t1, t2, t3, t4, t5);
-  }
-  @Override
-  public boolean containsAnyNulls() {
-    return t1 == null || t2 == null || t3 == null || t4 == null || t5 == null;
-  }
   public <R> Tuple5<R, T2, T3, T4, T5> mapElem1(Function<T1, R> function) {
     return Tuple5.of(
         function.apply(t1), t2, t3, t4, t5
@@ -94,6 +61,7 @@ public final class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
         t1, t2, t3, t4, function.apply(t5)
     );
   }
+
   public <R> Tuple5<R, T2, T3, T4, T5> withElem1(R newValue) {
     return Tuple5.of(
         newValue, t2, t3, t4, t5
@@ -122,16 +90,6 @@ public final class Tuple5<T1, T2, T3, T4, T5> implements Tuple {
     return Tuple5.of(
         t1, t2, t3, t4, newValue
     );
-  }
-
-  @Override
-  public int getArity() {
-    return 5;
-  }
-
-  @Override
-  public String toString() {
-    return String.format("(%s, %s, %s, %s, %s)", t1, t2, t3, t4, t5);
   }
 
   @Override
