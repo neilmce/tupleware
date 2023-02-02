@@ -5,15 +5,12 @@ import com.neil.easytuples.annotations.TupleGeneration;
 import java.util.Objects;
 
 @TupleGeneration(tupleArity = 4)
-public final class Tuple4<T1, T2, T3, T4>
-    extends Tuple4Impl<T1, T2, T3, T4>
-    implements Tuple {
+public final class Tuple4<T1, T2, T3, T4> extends Tuple4Impl<T1, T2, T3, T4> implements Tuple {
   private Tuple4(T1 t1, T2 t2, T3 t3, T4 t4) {
     super(t1, t2, t3, t4);
   }
 
-  public static <S1, S2, S3, S4> Tuple4<S1, S2, S3, S4> of(S1 s1, S2 s2,
-                                                           S3 s3, S4 s4) {
+  public static <S1, S2, S3, S4> Tuple4<S1, S2, S3, S4> of(S1 s1, S2 s2, S3 s3, S4 s4) {
     return new Tuple4<>(s1, s2, s3, s4);
   }
 

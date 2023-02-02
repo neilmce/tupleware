@@ -5,9 +5,7 @@ import com.neil.easytuples.annotations.TupleGeneration;
 import java.util.Objects;
 
 @TupleGeneration(tupleArity = 1)
-public final class Tuple1<T1>
-    extends Tuple1Impl<T1>
-    implements Tuple {
+public final class Tuple1<T1> extends Tuple1Impl<T1> implements Tuple {
   private Tuple1(T1 t1) {
     super(t1);
   }
@@ -15,7 +13,6 @@ public final class Tuple1<T1>
   public static <S1> Tuple1<S1> of(S1 s1) {
     return new Tuple1<>(s1);
   }
-
 
   public <T> Tuple2<T, T1> prepend(T t) {
     return Tuple2.of(t, t1);

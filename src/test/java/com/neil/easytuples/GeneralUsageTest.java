@@ -332,26 +332,4 @@ class GeneralUsageTest {
     assertTrue(tuple9.withElem9(null).containsAnyNulls());
     assertTrue(tuple10.withElem10(null).containsAnyNulls());
   }
-
-  @Test
-  void basicUsage() {
-    var t10 = Tuple10.of("Hi", 2, inst, 3.2, true, JANUARY, UTC, "Bye", (short) 8, 'x');
-
-    var t12Alt = Tuple10.of("Hi", 2, inst, 3.2, true, JANUARY, UTC, "Bye", (short) 8, 'x');
-
-    var zipped = t10.zipWith(t12Alt,
-                             (l, r) -> l.toUpperCase() + r,
-                             (l, r) -> l > r,
-                             Instant::isAfter,
-                             Double::sum,
-                             (l, r) -> l == r,
-                             (l, r) -> l.plus(2).equals(r),
-                             ZoneOffset::equals,
-                             (l, r) -> l + r.toUpperCase(),
-                             (l, r) -> l + r,
-                             (l, r) -> new String(new char[]{l, r})
-    );
-
-    System.out.println(zipped);
-  }
 }

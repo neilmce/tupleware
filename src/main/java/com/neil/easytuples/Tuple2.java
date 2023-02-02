@@ -3,12 +3,9 @@ package com.neil.easytuples;
 import com.neil.easytuples.annotations.TupleGeneration;
 
 import java.util.Objects;
-import java.util.function.BiFunction;
 
 @TupleGeneration(tupleArity = 2)
-public final class Tuple2<T1, T2>
-    extends Tuple2Impl<T1, T2>
-    implements Tuple {
+public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
   private Tuple2(T1 t1, T2 t2) {
     super(t1, t2);
   }
@@ -27,15 +24,6 @@ public final class Tuple2<T1, T2>
 
   public Tuple2<T2, T1> reverse() {
     return Tuple2.of(t2, t1);
-  }
-
-  public Object[] toArray() {
-    return new Object[]{t1, t2};
-  }
-
-  public <S1, S2, R1, R2> Tuple2<R1, R2> zipWith(Tuple2<S1, S2> that, BiFunction<T1, S1, R1> combine1, BiFunction<T2,
-      S2, R2> combine2) {
-    return Tuple2.of(combine1.apply(this.t1, that.t1), combine2.apply(this.t2, that.t2));
   }
 
   @Override

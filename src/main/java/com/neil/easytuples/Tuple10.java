@@ -3,7 +3,6 @@ package com.neil.easytuples;
 import com.neil.easytuples.annotations.TupleGeneration;
 
 import java.util.Objects;
-import java.util.function.BiFunction;
 
 @TupleGeneration(tupleArity = 10)
 public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
@@ -30,32 +29,6 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
 
   public Tuple10<T10, T9, T8, T7, T6, T5, T4, T3, T2, T1> reverse() {
     return Tuple10.of(t10, t9, t8, t7, t6, t5, t4, t3, t2, t1);
-  }
-
-  public <S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10> Tuple10<R1, R2, R3, R4,
-      R5, R6, R7, R8, R9, R10> zipWith(Tuple10<S1, S2, S3, S4, S5, S6, S7, S8, S9, S10> that,
-                                       BiFunction<T1, S1, R1> combine1,
-                                       BiFunction<T2, S2, R2> combine2,
-                                       BiFunction<T3, S3, R3> combine3,
-                                       BiFunction<T4, S4, R4> combine4,
-                                       BiFunction<T5, S5, R5> combine5,
-                                       BiFunction<T6, S6, R6> combine6,
-                                       BiFunction<T7, S7, R7> combine7,
-                                       BiFunction<T8, S8, R8> combine8,
-                                       BiFunction<T9, S9, R9> combine9,
-                                       BiFunction<T10, S10, R10> combine10) {
-    return Tuple10.of(
-        combine1.apply(this.t1, that.t1),
-        combine2.apply(this.t2, that.t2),
-        combine3.apply(this.t3, that.t3),
-        combine4.apply(this.t4, that.t4),
-        combine5.apply(this.t5, that.t5),
-        combine6.apply(this.t6, that.t6),
-        combine7.apply(this.t7, that.t7),
-        combine8.apply(this.t8, that.t8),
-        combine9.apply(this.t9, that.t9),
-        combine10.apply(this.t10, that.t10)
-    );
   }
 
   @Override

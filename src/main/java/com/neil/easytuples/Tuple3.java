@@ -5,16 +5,13 @@ import com.neil.easytuples.annotations.TupleGeneration;
 import java.util.Objects;
 
 @TupleGeneration(tupleArity = 3)
-public final class Tuple3<T1, T2, T3>
-    extends Tuple3Impl<T1, T2, T3>
-    implements Tuple {
+public final class Tuple3<T1, T2, T3> extends Tuple3Impl<T1, T2, T3> implements Tuple {
 
   private Tuple3(T1 t1, T2 t2, T3 t3) {
     super(t1, t2, t3);
   }
 
-  public static <S1, S2, S3> Tuple3<S1, S2, S3> of(S1 s1, S2 s2,
-                                                   S3 s3) {
+  public static <S1, S2, S3> Tuple3<S1, S2, S3> of(S1 s1, S2 s2, S3 s3) {
     return new Tuple3<>(s1, s2, s3);
   }
 

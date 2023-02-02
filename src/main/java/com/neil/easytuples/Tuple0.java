@@ -3,7 +3,7 @@ package com.neil.easytuples;
 import java.util.List;
 
 public final class Tuple0 implements Tuple {
-  private final static Tuple0 INSTANCE = new Tuple0();
+  private static final Tuple0 INSTANCE = new Tuple0();
 
   public static Tuple0 of() {
     return INSTANCE;
