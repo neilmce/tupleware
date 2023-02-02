@@ -24,9 +24,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
-tasks.withType(JavaCompile) {
-    doFirst {
-        println "AnnotationProcessorPath for $name is ${options.getAnnotationProcessorPath().getFiles()}"
-    }
-}
