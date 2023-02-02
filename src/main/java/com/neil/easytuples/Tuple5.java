@@ -1,4 +1,4 @@
-package com.neil.ntuples;
+package com.neil.easytuples;
 
 import java.util.List;
 import java.util.Objects;

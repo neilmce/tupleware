@@ -1,4 +1,4 @@
-package com.neil.ntuples;
+package com.neil.easytuples;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,6 @@ import static java.time.ZoneOffset.UTC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class GeneralUsageTest {
   private final Instant inst = Instant.now();
