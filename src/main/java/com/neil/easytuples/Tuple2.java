@@ -42,18 +42,6 @@ public final class Tuple2<T1, T2>
     );
   }
 
-  public <R> Tuple2<R, T2> withElem1(R newValue) {
-    return Tuple2.of(
-        newValue, t2
-    );
-  }
-
-  public <R> Tuple2<T1, R> withElem2(R newValue) {
-    return Tuple2.of(
-        t1, newValue
-    );
-  }
-
   public Object[] toArray() {
     return new Object[]{t1, t2};
   }

@@ -76,48 +76,6 @@ public final class Tuple7<T1, T2, T3, T4, T5, T6, T7>
     );
   }
 
-  public <R> Tuple7<R, T2, T3, T4, T5, T6, T7> withElem1(R newValue) {
-    return Tuple7.of(
-        newValue, t2, t3, t4, t5, t6, t7
-    );
-  }
-
-  public <R> Tuple7<T1, R, T3, T4, T5, T6, T7> withElem2(R newValue) {
-    return Tuple7.of(
-        t1, newValue, t3, t4, t5, t6, t7
-    );
-  }
-
-  public <R> Tuple7<T1, T2, R, T4, T5, T6, T7> withElem3(R newValue) {
-    return Tuple7.of(
-        t1, t2, newValue, t4, t5, t6, t7
-    );
-  }
-
-  public <R> Tuple7<T1, T2, T3, R, T5, T6, T7> withElem4(R newValue) {
-    return Tuple7.of(
-        t1, t2, t3, newValue, t5, t6, t7
-    );
-  }
-
-  public <R> Tuple7<T1, T2, T3, T4, R, T6, T7> withElem5(R newValue) {
-    return Tuple7.of(
-        t1, t2, t3, t4, newValue, t6, t7
-    );
-  }
-
-  public <R> Tuple7<T1, T2, T3, T4, T5, R, T7> withElem6(R newValue) {
-    return Tuple7.of(
-        t1, t2, t3, t4, t5, newValue, t7
-    );
-  }
-
-  public <R> Tuple7<T1, T2, T3, T4, T5, T6, R> withElem7(R newValue) {
-    return Tuple7.of(
-        t1, t2, t3, t4, t5, t6, newValue
-    );
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

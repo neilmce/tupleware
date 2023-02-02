@@ -93,59 +93,6 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9>
     );
   }
 
-  public <R> Tuple9<R, T2, T3, T4, T5, T6, T7, T8, T9> withElem1(R newValue) {
-    return Tuple9.of(
-        newValue, t2, t3, t4, t5, t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, R, T3, T4, T5, T6, T7, T8, T9> withElem2(R newValue) {
-    return Tuple9.of(
-        t1, newValue, t3, t4, t5, t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, R, T4, T5, T6, T7, T8, T9> withElem3(R newValue) {
-    return Tuple9.of(
-        t1, t2, newValue, t4, t5, t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, R, T5, T6, T7, T8, T9> withElem4(R newValue) {
-    return Tuple9.of(
-        t1, t2, t3, newValue, t5, t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, R, T6, T7, T8, T9> withElem5(R newValue) {
-    return Tuple9.of(
-        t1, t2, t3, t4, newValue, t6, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, T5, R, T7, T8, T9> withElem6(R newValue) {
-    return Tuple9.of(
-        t1, t2, t3, t4, t5, newValue, t7, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, T5, T6, R, T8, T9> withElem7(R newValue) {
-    return Tuple9.of(
-        t1, t2, t3, t4, t5, t6, newValue, t8, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, T5, T6, T7, R, T9> withElem8(R newValue) {
-    return Tuple9.of(
-        t1, t2, t3, t4, t5, t6, t7, newValue, t9
-    );
-  }
-
-  public <R> Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, R> withElem9(R newValue) {
-    return Tuple9.of(
-        t1, t2, t3, t4, t5, t6, t7, t8, newValue
-    );
-  }
 
   @Override
   public boolean equals(Object o) {

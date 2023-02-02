@@ -68,42 +68,6 @@ public final class Tuple6<T1, T2, T3, T4, T5, T6>
     );
   }
 
-  public <R> Tuple6<R, T2, T3, T4, T5, T6> withElem1(R newValue) {
-    return Tuple6.of(
-        newValue, t2, t3, t4, t5, t6
-    );
-  }
-
-  public <R> Tuple6<T1, R, T3, T4, T5, T6> withElem2(R newValue) {
-    return Tuple6.of(
-        t1, newValue, t3, t4, t5, t6
-    );
-  }
-
-  public <R> Tuple6<T1, T2, R, T4, T5, T6> withElem3(R newValue) {
-    return Tuple6.of(
-        t1, t2, newValue, t4, t5, t6
-    );
-  }
-
-  public <R> Tuple6<T1, T2, T3, R, T5, T6> withElem4(R newValue) {
-    return Tuple6.of(
-        t1, t2, t3, newValue, t5, t6
-    );
-  }
-
-  public <R> Tuple6<T1, T2, T3, T4, R, T6> withElem5(R newValue) {
-    return Tuple6.of(
-        t1, t2, t3, t4, newValue, t6
-    );
-  }
-
-  public <R> Tuple6<T1, T2, T3, T4, T5, R> withElem6(R newValue) {
-    return Tuple6.of(
-        t1, t2, t3, t4, t5, newValue
-    );
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

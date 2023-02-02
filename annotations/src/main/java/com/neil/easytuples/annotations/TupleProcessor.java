@@ -15,11 +15,15 @@ import javax.tools.Diagnostic.Kind;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.IntStream;
+import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.partitioningBy;
 import static java.util.stream.Collectors.toList;
 
@@ -121,6 +125,8 @@ public class TupleProcessor extends AbstractProcessor {
 
             writeToListMethod(out, arity);
 
+            writeWithElementMethods(out, arity);
+
             writeToStringMethod(out, arity);
 
             out.println("}");
@@ -203,5 +209,36 @@ public class TupleProcessor extends AbstractProcessor {
         }
         out.println(");");
         out.println("  }");
+    }
+
+    private List<String> typeParamsTo(int inclLimit) {
+        return IntStream.range(1, inclLimit + 1).mapToObj(i -> String.format("T%d", i)).collect(toList());
+    }
+
+    private List<String> paramsTo(int limit) {
+        return IntStream.range(1, limit + 1).mapToObj(i -> String.format("t%d", i)).collect(toList());
+    }
+
+    private void writeWithElementMethods(PrintWriter out, int arity) {
+        final List<String> currentTypeParams = typeParamsTo(arity);
+        final List<String> currentParams = paramsTo(arity);
+
+        for (int elemToReplace = 1; elemToReplace <= arity; elemToReplace++) {
+            final List<String> newTypeParams = new ArrayList<>(currentTypeParams);
+            newTypeParams.set(elemToReplace - 1, "R");
+
+            final List<String> newParams = new ArrayList<>(currentParams);
+            newParams.set(elemToReplace - 1, "newValue");
+
+            out.print(String.format("  public final <R> Tuple%d<", arity));
+            out.print(String.join(", ", newTypeParams));
+            out.println(String.format("> withElem%d(R newValue) {", elemToReplace));
+
+            out.print(String.format("    return Tuple%d.of(", arity));
+            out.print(String.join(", ", newParams));
+            out.println(");");
+            out.println("  }");
+            out.println();
+        }
     }
 }

@@ -54,30 +54,6 @@ public final class Tuple4<T1, T2, T3, T4>
     );
   }
 
-  public <R> Tuple4<R, T2, T3, T4> withElem1(R newValue) {
-    return Tuple4.of(
-        newValue, t2, t3, t4
-    );
-  }
-
-  public <R> Tuple4<T1, R, T3, T4> withElem2(R newValue) {
-    return Tuple4.of(
-        t1, newValue, t3, t4
-    );
-  }
-
-  public <R> Tuple4<T1, T2, R, T4> withElem3(R newValue) {
-    return Tuple4.of(
-        t1, t2, newValue, t4
-    );
-  }
-
-  public <R> Tuple4<T1, T2, T3, R> withElem4(R newValue) {
-    return Tuple4.of(
-        t1, t2, t3, newValue
-    );
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

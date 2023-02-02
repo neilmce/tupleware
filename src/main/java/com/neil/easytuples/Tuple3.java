@@ -49,24 +49,6 @@ public final class Tuple3<T1, T2, T3>
     );
   }
 
-  public <R> Tuple3<R, T2, T3> withElem1(R newValue) {
-    return Tuple3.of(
-        newValue, t2, t3
-    );
-  }
-
-  public <R> Tuple3<T1, R, T3> withElem2(R newValue) {
-    return Tuple3.of(
-        t1, newValue, t3
-    );
-  }
-
-  public <R> Tuple3<T1, T2, R> withElem3(R newValue) {
-    return Tuple3.of(
-        t1, t2, newValue
-    );
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

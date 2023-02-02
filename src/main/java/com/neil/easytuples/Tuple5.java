@@ -62,36 +62,6 @@ public final class Tuple5<T1, T2, T3, T4, T5>
     );
   }
 
-  public <R> Tuple5<R, T2, T3, T4, T5> withElem1(R newValue) {
-    return Tuple5.of(
-        newValue, t2, t3, t4, t5
-    );
-  }
-
-  public <R> Tuple5<T1, R, T3, T4, T5> withElem2(R newValue) {
-    return Tuple5.of(
-        t1, newValue, t3, t4, t5
-    );
-  }
-
-  public <R> Tuple5<T1, T2, R, T4, T5> withElem3(R newValue) {
-    return Tuple5.of(
-        t1, t2, newValue, t4, t5
-    );
-  }
-
-  public <R> Tuple5<T1, T2, T3, R, T5> withElem4(R newValue) {
-    return Tuple5.of(
-        t1, t2, t3, newValue, t5
-    );
-  }
-
-  public <R> Tuple5<T1, T2, T3, T4, R> withElem5(R newValue) {
-    return Tuple5.of(
-        t1, t2, t3, t4, newValue
-    );
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

@@ -32,12 +32,6 @@ public final class Tuple1<T1>
     );
   }
 
-  public <R> Tuple1<R> withElem1(R newValue) {
-    return Tuple1.of(
-        newValue
-    );
-  }
-
 
   @Override
   public boolean equals(Object o) {

@@ -94,66 +94,6 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
     );
   }
 
-  public <R> Tuple10<R, T2, T3, T4, T5, T6, T7, T8, T9, T10> withElem1(R newValue) {
-    return Tuple10.of(
-        newValue, t2, t3, t4, t5, t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, R, T3, T4, T5, T6, T7, T8, T9, T10> withElem2(R newValue) {
-    return Tuple10.of(
-        t1, newValue, t3, t4, t5, t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, R, T4, T5, T6, T7, T8, T9, T10> withElem3(R newValue) {
-    return Tuple10.of(
-        t1, t2, newValue, t4, t5, t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, R, T5, T6, T7, T8, T9, T10> withElem4(R newValue) {
-    return Tuple10.of(
-        t1, t2, t3, newValue, t5, t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, R, T6, T7, T8, T9, T10> withElem5(R newValue) {
-    return Tuple10.of(
-        t1, t2, t3, t4, newValue, t6, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, R, T7, T8, T9, T10> withElem6(R newValue) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, newValue, t7, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, T6, R, T8, T9, T10> withElem7(R newValue) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, t6, newValue, t8, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, T6, T7, R, T9, T10> withElem8(R newValue) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, t6, t7, newValue, t9, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, R, T10> withElem9(R newValue) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, t6, t7, t8, newValue, t10
-    );
-  }
-
-  public <R> Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, R> withElem10(R newValue) {
-    return Tuple10.of(
-        t1, t2, t3, t4, t5, t6, t7, t8, t9, newValue
-    );
-  }
-
   public <S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10> Tuple10<R1, R2, R3, R4,
       R5, R6, R7, R8, R9, R10> zipWith(Tuple10<S1, S2, S3, S4, S5, S6, S7, S8, S9, S10> that,
                                        BiFunction<T1, S1, R1> combine1,
