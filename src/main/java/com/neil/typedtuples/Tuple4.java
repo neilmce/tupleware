@@ -14,10 +14,6 @@ public final class Tuple4<T1, T2, T3, T4> extends Tuple4Impl<T1, T2, T3, T4> imp
     return new Tuple4<>(s1, s2, s3, s4);
   }
 
-  public Tuple4<T4, T3, T2, T1> reverse() {
-    return Tuple4.of(t4, t3, t2, t1);
-  }
-
   public <T> Tuple5<T, T1, T2, T3, T4> prepend(T t) {
     return Tuple5.of(t, t1, t2, t3, t4);
   }

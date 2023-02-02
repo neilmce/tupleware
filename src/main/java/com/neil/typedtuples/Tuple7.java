@@ -15,11 +15,6 @@ public final class Tuple7<T1, T2, T3, T4, T5, T6, T7> extends Tuple7Impl<T1, T2,
     return new Tuple7<>(s1, s2, s3, s4, s5, s6, s7);
   }
 
-
-  public Tuple7<T7, T6, T5, T4, T3, T2, T1> reverse() {
-    return Tuple7.of(t7, t6, t5, t4, t3, t2, t1);
-  }
-
   public <T> Tuple8<T, T1, T2, T3, T4, T5, T6, T7> prepend(T t) {
     return Tuple8.of(t, t1, t2, t3, t4, t5, t6, t7);
   }

@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -128,6 +129,8 @@ public class TupleProcessor extends AbstractProcessor {
             writeContainsAnyNullsMethod(out, arity);
 
             writeToListMethod(out, arity);
+
+            writeReverseMethod(out, arity);
 
             writeSplitMethods(out, arity);
 
@@ -295,5 +298,21 @@ public class TupleProcessor extends AbstractProcessor {
             out.println("  }");
             out.println();
         }
+    }
+
+    private void writeReverseMethod(PrintWriter out, int arity) {
+        final List<String> currentTypeParams = typeParamsTo(arity);
+        final List<String> currentParams = paramsTo(arity);
+
+        final List<String> newTypeParams = new ArrayList<>(currentTypeParams);
+        final List<String> newParams = new ArrayList<>(currentParams);
+        Collections.reverse(newTypeParams);
+        Collections.reverse(newParams);
+
+        out.println(String.format("  public final Tuple%d<%s> reverse() {",
+                                arity, String.join(", ", newTypeParams)));
+        out.println(String.format("    return Tuple%d.of(%s);", arity, String.join(", ", newParams)));
+        out.println("  }");
+        out.println();
     }
 }

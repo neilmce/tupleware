@@ -26,11 +26,6 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
     return new Tuple10<>(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10);
   }
 
-
-  public Tuple10<T10, T9, T8, T7, T6, T5, T4, T3, T2, T1> reverse() {
-    return Tuple10.of(t10, t9, t8, t7, t6, t5, t4, t3, t2, t1);
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
