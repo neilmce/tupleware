@@ -15,17 +15,16 @@ import javax.tools.Diagnostic.Kind;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.IntStream;
-import java.util.stream.StreamSupport;
 
 import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.partitioningBy;
 import static java.util.stream.Collectors.toList;
 
 @SupportedAnnotationTypes("com.neil.easytuples.annotations.TupleGeneration")
@@ -105,6 +104,9 @@ public class TupleProcessor extends AbstractProcessor {
             out.println("import java.util.List;");
             out.println("import java.util.function.Function;");
             out.println();
+
+            out.println(String.format("// This code was generated on %s by %s", LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)), this.getClass().getName()));
+            out.println("// You should not edit it.");
 
             out.print(String.format("public class %s", implClassName));
             // Generic types
