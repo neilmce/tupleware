@@ -1,4 +1,4 @@
-package com.neil.easytuples.annotations;
+package com.neil.typedtuples.annotations;
 
 import com.google.auto.service.AutoService;
 
@@ -27,7 +27,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
-@SupportedAnnotationTypes("com.neil.easytuples.annotations.TupleGeneration")
+@SupportedAnnotationTypes("com.neil.typedtuples.annotations.TupleGeneration")
 @SupportedSourceVersion(SourceVersion.RELEASE_11)
 @AutoService(Processor.class)
 public class TupleProcessor extends AbstractProcessor {

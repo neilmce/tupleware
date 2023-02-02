@@ -1,8 +1,7 @@
-package com.neil.easytuples;
+package com.neil.typedtuples;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.Iterator;

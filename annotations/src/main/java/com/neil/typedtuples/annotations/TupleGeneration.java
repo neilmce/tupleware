@@ -1,4 +1,4 @@
-package com.neil.easytuples.annotations;
+package com.neil.typedtuples.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

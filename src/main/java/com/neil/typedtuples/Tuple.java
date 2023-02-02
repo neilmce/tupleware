@@ -1,4 +1,4 @@
-package com.neil.easytuples;
+package com.neil.typedtuples;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.neil.easytuples;
+package com.neil.typedtuples;
 
-import com.neil.easytuples.annotations.TupleGeneration;
+import com.neil.typedtuples.annotations.TupleGeneration;
 
 import java.util.Map.Entry;
 import java.util.Objects;
