@@ -330,4 +330,68 @@ class GeneralUsageTest {
     assertTrue(tuple9.withElem9(null).containsAnyNulls());
     assertTrue(tuple10.withElem10(null).containsAnyNulls());
   }
+
+  @Test
+  void tuple2FromMapEntry() {
+    var map = Map.of("Hello", 42);
+    Tuple2<String, Integer> t2 = Tuple2.from(map.entrySet().iterator().next());
+
+    assertEquals(Tuple2.of("Hello", 42), t2);
+  }
+
+  @Test void splitTuple() {
+    assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple1.of(2)), tuple2.splitAfterElement1());
+
+    assertEquals(Tuple2.of(Tuple2.of("Hi", 2), Tuple1.of(3.1)), tuple3.splitAfterElement2());
+    assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple2.of(2, 3.1)), tuple3.splitAfterElement1());
+
+    assertEquals(Tuple2.of(Tuple3.of("Hi", 2, 3.1), Tuple1.of(true)), tuple4.splitAfterElement3());
+    assertEquals(Tuple2.of(Tuple2.of("Hi", 2), Tuple2.of(3.1, true)), tuple4.splitAfterElement2());
+    assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple3.of(2, 3.1, true)), tuple4.splitAfterElement1());
+
+    assertEquals(Tuple2.of(Tuple4.of("Hi", 2, 3.1, true), Tuple1.of(JANUARY)), tuple5.splitAfterElement4());
+    assertEquals(Tuple2.of(Tuple3.of("Hi", 2, 3.1), Tuple2.of(true, JANUARY)), tuple5.splitAfterElement3());
+    assertEquals(Tuple2.of(Tuple2.of("Hi", 2), Tuple3.of(3.1, true, JANUARY)), tuple5.splitAfterElement2());
+    assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple4.of(2, 3.1, true, JANUARY)), tuple5.splitAfterElement1());
+
+    assertEquals(Tuple2.of(Tuple5.of("Hi", 2, 3.1, true, JANUARY), Tuple1.of(UTC)), tuple6.splitAfterElement5());
+    assertEquals(Tuple2.of(Tuple4.of("Hi", 2, 3.1, true), Tuple2.of(JANUARY, UTC)), tuple6.splitAfterElement4());
+    assertEquals(Tuple2.of(Tuple3.of("Hi", 2, 3.1), Tuple3.of(true, JANUARY, UTC)), tuple6.splitAfterElement3());
+    assertEquals(Tuple2.of(Tuple2.of("Hi", 2), Tuple4.of(3.1, true, JANUARY, UTC)), tuple6.splitAfterElement2());
+    assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple5.of(2, 3.1, true, JANUARY, UTC)), tuple6.splitAfterElement1());
+
+    assertEquals(Tuple2.of(Tuple6.of("Hi", 2, 3.1, true, JANUARY, UTC), Tuple1.of('x')), tuple7.splitAfterElement6());
+    assertEquals(Tuple2.of(Tuple5.of("Hi", 2, 3.1, true, JANUARY), Tuple2.of(UTC, 'x')), tuple7.splitAfterElement5());
+    assertEquals(Tuple2.of(Tuple4.of("Hi", 2, 3.1, true), Tuple3.of(JANUARY, UTC, 'x')), tuple7.splitAfterElement4());
+    assertEquals(Tuple2.of(Tuple3.of("Hi", 2, 3.1), Tuple4.of(true, JANUARY, UTC, 'x')), tuple7.splitAfterElement3());
+    assertEquals(Tuple2.of(Tuple2.of("Hi", 2), Tuple5.of(3.1, true, JANUARY, UTC, 'x')), tuple7.splitAfterElement2());
+    assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple6.of(2, 3.1, true, JANUARY, UTC, 'x')), tuple7.splitAfterElement1());
+
+    assertEquals(Tuple2.of(Tuple7.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x'), Tuple1.of(List.of(1))), tuple8.splitAfterElement7());
+    assertEquals(Tuple2.of(Tuple6.of("Hi", 2, 3.1, true, JANUARY, UTC), Tuple2.of('x', List.of(1))), tuple8.splitAfterElement6());
+    assertEquals(Tuple2.of(Tuple5.of("Hi", 2, 3.1, true, JANUARY), Tuple3.of(UTC, 'x', List.of(1))), tuple8.splitAfterElement5());
+    assertEquals(Tuple2.of(Tuple4.of("Hi", 2, 3.1, true), Tuple4.of(JANUARY, UTC, 'x', List.of(1))), tuple8.splitAfterElement4());
+    assertEquals(Tuple2.of(Tuple3.of("Hi", 2, 3.1), Tuple5.of(true, JANUARY, UTC, 'x', List.of(1))), tuple8.splitAfterElement3());
+    assertEquals(Tuple2.of(Tuple2.of("Hi", 2), Tuple6.of(3.1, true, JANUARY, UTC, 'x', List.of(1))), tuple8.splitAfterElement2());
+    assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple7.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1))), tuple8.splitAfterElement1());
+
+    assertEquals(Tuple2.of(Tuple8.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x', List.of(1)), Tuple1.of(Set.of(1))), tuple9.splitAfterElement8());
+    assertEquals(Tuple2.of(Tuple7.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x'), Tuple2.of(List.of(1), Set.of(1))), tuple9.splitAfterElement7());
+    assertEquals(Tuple2.of(Tuple6.of("Hi", 2, 3.1, true, JANUARY, UTC), Tuple3.of('x', List.of(1), Set.of(1))), tuple9.splitAfterElement6());
+    assertEquals(Tuple2.of(Tuple5.of("Hi", 2, 3.1, true, JANUARY), Tuple4.of(UTC, 'x', List.of(1), Set.of(1))), tuple9.splitAfterElement5());
+    assertEquals(Tuple2.of(Tuple4.of("Hi", 2, 3.1, true), Tuple5.of(JANUARY, UTC, 'x', List.of(1), Set.of(1))), tuple9.splitAfterElement4());
+    assertEquals(Tuple2.of(Tuple3.of("Hi", 2, 3.1), Tuple6.of(true, JANUARY, UTC, 'x', List.of(1), Set.of(1))), tuple9.splitAfterElement3());
+    assertEquals(Tuple2.of(Tuple2.of("Hi", 2), Tuple7.of(3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1))), tuple9.splitAfterElement2());
+    assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple8.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1))), tuple9.splitAfterElement1());
+
+    assertEquals(Tuple2.of(Tuple9.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1)), Tuple1.of(Map.of("One", 1))), tuple10.splitAfterElement9());
+    assertEquals(Tuple2.of(Tuple8.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x', List.of(1)), Tuple2.of(Set.of(1), Map.of("One", 1))), tuple10.splitAfterElement8());
+    assertEquals(Tuple2.of(Tuple7.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x'), Tuple3.of(List.of(1), Set.of(1), Map.of("One", 1))), tuple10.splitAfterElement7());
+    assertEquals(Tuple2.of(Tuple6.of("Hi", 2, 3.1, true, JANUARY, UTC), Tuple4.of('x', List.of(1), Set.of(1), Map.of("One", 1))), tuple10.splitAfterElement6());
+    assertEquals(Tuple2.of(Tuple5.of("Hi", 2, 3.1, true, JANUARY), Tuple5.of(UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1))), tuple10.splitAfterElement5());
+    assertEquals(Tuple2.of(Tuple4.of("Hi", 2, 3.1, true), Tuple6.of(JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1))), tuple10.splitAfterElement4());
+    assertEquals(Tuple2.of(Tuple3.of("Hi", 2, 3.1), Tuple7.of(true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1))), tuple10.splitAfterElement3());
+    assertEquals(Tuple2.of(Tuple2.of("Hi", 2), Tuple8.of(3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1))), tuple10.splitAfterElement2());
+    assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple9.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1))), tuple10.splitAfterElement1());
+  }
 }

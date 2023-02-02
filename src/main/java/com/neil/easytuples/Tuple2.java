@@ -2,6 +2,7 @@ package com.neil.easytuples;
 
 import com.neil.easytuples.annotations.TupleGeneration;
 
+import java.util.Map.Entry;
 import java.util.Objects;
 
 @TupleGeneration(tupleArity = 2)
@@ -12,6 +13,10 @@ public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
 
   public static <ST1, ST2> Tuple2<ST1, ST2> of(ST1 t1, ST2 t2) {
     return new Tuple2<>(t1, t2);
+  }
+
+  public static <K, V> Tuple2<K, V> from(Entry<K, V> entry) {
+    return Tuple2.of(entry.getKey(), entry.getValue());
   }
 
   public <T> Tuple3<T, T1, T2> prepend(T t) {

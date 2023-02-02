@@ -129,6 +129,8 @@ public class TupleProcessor extends AbstractProcessor {
 
             writeToListMethod(out, arity);
 
+            writeSplitMethods(out, arity);
+
             writeWithElementMethods(out, arity);
 
             writeMapElementMethods(out, arity);
@@ -266,6 +268,30 @@ public class TupleProcessor extends AbstractProcessor {
             out.print(String.format("    return Tuple%d.of(", arity));
             out.print(String.join(", ", newParams));
             out.println(");");
+            out.println("  }");
+            out.println();
+        }
+    }
+
+    private void writeSplitMethods(PrintWriter out, int arity) {
+        final List<String> currentTypeParams = typeParamsTo(arity);
+        final List<String> currentParams = paramsTo(arity);
+
+        for (int splitAfterPos = 1; splitAfterPos < arity; splitAfterPos++) {
+            final List<String> leftTypeParams = currentTypeParams.subList(0, splitAfterPos);
+            final List<String> rightTypeParams = currentTypeParams.subList(splitAfterPos, currentTypeParams.size());
+
+            final List<String> leftParams = currentParams.subList(0, splitAfterPos);
+            final List<String> rightParams = currentParams.subList(splitAfterPos, currentTypeParams.size());
+
+            out.println(String.format("  public final Tuple2<Tuple%d<%s>, Tuple%d<%s>> splitAfterElement%d() {",
+                                    leftTypeParams.size(), String.join(", ", leftTypeParams),
+                                    rightTypeParams.size(), String.join(", ", rightTypeParams),
+                                    splitAfterPos));
+            out.println("    return Tuple2.of(");
+            out.println(String.format("      Tuple%d.of(%s),", splitAfterPos, String.join(", ", leftParams)));
+            out.println(String.format("      Tuple%d.of(%s)", arity - splitAfterPos, String.join(", ", rightParams)));
+            out.println("    );");
             out.println("  }");
             out.println();
         }
