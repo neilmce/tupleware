@@ -19,6 +19,10 @@ public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
     return Tuple2.of(entry.getKey(), entry.getValue());
   }
 
+  public Tuple2<T2, T1> swap() {
+    return reverse();
+  }
+
   public <T> Tuple3<T, T1, T2> prepend(T t) {
     return Tuple3.of(t, t1, t2);
   }
