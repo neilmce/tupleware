@@ -2,6 +2,7 @@ package com.neil.typedtuples;
 
 import com.neil.typedtuples.annotations.TupleGeneration;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 @TupleGeneration(tupleArity = 6)
@@ -11,6 +12,28 @@ public final class Tuple6<T1, T2, T3, T4, T5, T6> extends Tuple6Impl<T1, T2, T3,
   }
 
   public static <S1, S2, S3, S4, S5, S6> Tuple6<S1, S2, S3, S4, S5, S6> of(S1 s1, S2 s2, S3 s3, S4 s4, S5 s5, S6 s6) {
+    return new Tuple6<>(s1, s2, s3, s4, s5, s6);
+  }
+
+  public static <S1, S2, S3, S4, S5, S6>
+  Tuple6<S1, S2, S3, S4, S5, S6> ofNonNull(S1 s1, S2 s2, S3 s3, S4 s4, S5 s5, S6 s6) {
+    var args = new ArrayList<>();
+    args.add(s1);
+    args.add(s2);
+    args.add(s3);
+    args.add(s4);
+    args.add(s5);
+    args.add(s6);
+    var nullElemPositions = new ArrayList<Integer>();
+    for (int i = 1; i <= 6; i++) {
+      if (args.get(i - 1) == null) {
+        nullElemPositions.add(i);
+      }
+    }
+    if (!nullElemPositions.isEmpty()) {
+      throw new NullPointerException(String.format("Illegal null elements at positions %s", nullElemPositions));
+    }
+
     return new Tuple6<>(s1, s2, s3, s4, s5, s6);
   }
 

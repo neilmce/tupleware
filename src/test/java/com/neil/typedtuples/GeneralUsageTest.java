@@ -12,8 +12,10 @@ import java.util.Set;
 import static java.time.Month.APRIL;
 import static java.time.Month.JANUARY;
 import static java.time.ZoneOffset.UTC;
+import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GeneralUsageTest {
@@ -49,6 +51,48 @@ class GeneralUsageTest {
     for (int expectedArity = 0; expectedArity <= 10; expectedArity++) {
       assertEquals(expectedArity, tupleIterator.next().getArity());
     }
+  }
+
+  @Test void nullArgs() {
+    var exception10 = assertThrows(NullPointerException.class,
+                                 () -> Tuple10.ofNonNull(null, null, null, 4, null, 6, 7, null, 9, 10));
+    assertEquals("Illegal null elements at positions [1, 2, 3, 5, 8]", exception10.getMessage());
+
+    var exception9 = assertThrows(NullPointerException.class,
+                                 () -> Tuple9.ofNonNull(null, null, null, 4, null, 6, 7, null, 9));
+    assertEquals("Illegal null elements at positions [1, 2, 3, 5, 8]", exception9.getMessage());
+
+    var exception8 = assertThrows(NullPointerException.class,
+                                 () -> Tuple8.ofNonNull(null, null, null, 4, null, 6, 7, null));
+    assertEquals("Illegal null elements at positions [1, 2, 3, 5, 8]", exception8.getMessage());
+
+    var exception7 = assertThrows(NullPointerException.class,
+                                 () -> Tuple7.ofNonNull(null, null, null, 4, null, 6, 7));
+    assertEquals("Illegal null elements at positions [1, 2, 3, 5]", exception7.getMessage());
+
+    var exception6 = assertThrows(NullPointerException.class,
+                                 () -> Tuple6.ofNonNull(null, null, null, 4, null, 6));
+    assertEquals("Illegal null elements at positions [1, 2, 3, 5]", exception6.getMessage());
+
+    var exception5 = assertThrows(NullPointerException.class,
+                                 () -> Tuple5.ofNonNull(null, null, null, 4, null));
+    assertEquals("Illegal null elements at positions [1, 2, 3, 5]", exception5.getMessage());
+
+    var exception4 = assertThrows(NullPointerException.class,
+                                 () -> Tuple4.ofNonNull(null, null, null, 4));
+    assertEquals("Illegal null elements at positions [1, 2, 3]", exception4.getMessage());
+
+    var exception3 = assertThrows(NullPointerException.class,
+                                 () -> Tuple3.ofNonNull(null, null, null));
+    assertEquals("Illegal null elements at positions [1, 2, 3]", exception3.getMessage());
+
+    var exception2 = assertThrows(NullPointerException.class,
+                                 () -> Tuple2.ofNonNull(null, null));
+    assertEquals("Illegal null elements at positions [1, 2]", exception2.getMessage());
+
+    var exception1 = assertThrows(NullPointerException.class,
+                                 () -> Tuple1.ofNonNull(null));
+    assertEquals("Illegal null element at position 1", exception1.getMessage());
   }
 
   @Test
@@ -336,6 +380,9 @@ class GeneralUsageTest {
     Tuple2<String, Integer> t2 = Tuple2.from(map.entrySet().iterator().next());
 
     assertEquals(Tuple2.of("Hello", 42), t2);
+
+    // map to list of tuples.
+    List<Tuple2<String, Integer>> entryTuples = map.entrySet().stream().map(Tuple2::from).collect(toList());
   }
 
   @Test void splitTuple() {

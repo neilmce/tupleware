@@ -2,6 +2,7 @@ package com.neil.typedtuples;
 
 import com.neil.typedtuples.annotations.TupleGeneration;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 @TupleGeneration(tupleArity = 1)
@@ -12,6 +13,15 @@ public final class Tuple1<T1> extends Tuple1Impl<T1> implements Tuple {
 
   public static <S1> Tuple1<S1> of(S1 s1) {
     return new Tuple1<>(s1);
+  }
+
+  public static <S1> Tuple1<S1> ofNonNull(S1 s1) {
+    if (s1 == null) {
+      throw new NullPointerException("Illegal null element at position 1");
+    }
+    else {
+      return new Tuple1<>(s1);
+    }
   }
 
   public <T> Tuple2<T, T1> prepend(T t) {

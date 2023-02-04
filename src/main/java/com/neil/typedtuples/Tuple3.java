@@ -2,6 +2,7 @@ package com.neil.typedtuples;
 
 import com.neil.typedtuples.annotations.TupleGeneration;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 @TupleGeneration(tupleArity = 3)
@@ -12,6 +13,24 @@ public final class Tuple3<T1, T2, T3> extends Tuple3Impl<T1, T2, T3> implements 
   }
 
   public static <S1, S2, S3> Tuple3<S1, S2, S3> of(S1 s1, S2 s2, S3 s3) {
+    return new Tuple3<>(s1, s2, s3);
+  }
+
+  public static <S1, S2, S3> Tuple3<S1, S2, S3> ofNonNull(S1 s1, S2 s2, S3 s3) {
+    var args = new ArrayList<>();
+    args.add(s1);
+    args.add(s2);
+    args.add(s3);
+    var nullElemPositions = new ArrayList<Integer>();
+    for (int i = 1; i <= 3; i++) {
+      if (args.get(i - 1) == null) {
+        nullElemPositions.add(i);
+      }
+    }
+    if (!nullElemPositions.isEmpty()) {
+      throw new NullPointerException(String.format("Illegal null elements at positions %s", nullElemPositions));
+    }
+
     return new Tuple3<>(s1, s2, s3);
   }
 
