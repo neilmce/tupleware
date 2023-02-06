@@ -5,6 +5,8 @@ import com.neil.typedtuples.annotations.TupleGeneration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @TupleGeneration(tupleArity = 10)
 public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
@@ -46,6 +48,33 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
     }
 
     return new Tuple10<>(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10);
+  }
+
+  public static <S1, S2, S3, S4, S5, S6, S7, S8, S9, S10> List<Tuple10<S1, S2, S3, S4, S5, S6, S7, S8, S9, S10>> zip(List<S1> l1, List<S2> l2, List<S3> l3, List<S4> l4, List<S5> l5, List<S6> l6, List<S7> l7, List<S8> l8, List<S9> l9, List<S10> l10) {
+    // TODO null check the lists.
+    int shortestListSize = Stream.of(l1, l2, l3, l4, l5, l6, l7, l8, l9, l10)
+                                 .map(List::size)
+                                 .min(Integer::compareTo).orElse(0);
+
+    List<Tuple10<S1, S2, S3, S4, S5, S6, S7, S8, S9, S10>> result = new ArrayList<>();
+    for (int i = 0; i < shortestListSize; i++) {
+      result.add(Tuple10.of(l1.get(i), l2.get(i), l3.get(i), l4.get(i), l5.get(i), l6.get(i), l7.get(i), l8.get(i), l9.get(i), l10.get(i)));
+    }
+    return result;
+  }
+
+  public static <S1, S2, S3, S4, S5, S6, S7, S8, S9, S10> Tuple10<List<S1>, List<S2>, List<S3>, List<S4>, List<S5>, List<S6>, List<S7>, List<S8>, List<S9>, List<S10>> unzip(List<Tuple10<S1, S2, S3, S4, S5, S6, S7, S8, S9, S10>> listOfTuples) {
+    var l1 = listOfTuples.stream().map(Tuple10::elem1).collect(Collectors.toList());
+    var l2 = listOfTuples.stream().map(Tuple10::elem2).collect(Collectors.toList());
+    var l3 = listOfTuples.stream().map(Tuple10::elem3).collect(Collectors.toList());
+    var l4 = listOfTuples.stream().map(Tuple10::elem4).collect(Collectors.toList());
+    var l5 = listOfTuples.stream().map(Tuple10::elem5).collect(Collectors.toList());
+    var l6 = listOfTuples.stream().map(Tuple10::elem6).collect(Collectors.toList());
+    var l7 = listOfTuples.stream().map(Tuple10::elem7).collect(Collectors.toList());
+    var l8 = listOfTuples.stream().map(Tuple10::elem8).collect(Collectors.toList());
+    var l9 = listOfTuples.stream().map(Tuple10::elem9).collect(Collectors.toList());
+    var l10 = listOfTuples.stream().map(Tuple10::elem10).collect(Collectors.toList());
+    return Tuple10.of(l1, l2, l3, l4, l5, l6, l7, l8, l9, l10);
   }
 
   @Override

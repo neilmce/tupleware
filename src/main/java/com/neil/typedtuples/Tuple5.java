@@ -3,7 +3,10 @@ package com.neil.typedtuples;
 import com.neil.typedtuples.annotations.TupleGeneration;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @TupleGeneration(tupleArity = 5)
 public final class Tuple5<T1, T2, T3, T4, T5> extends Tuple5Impl<T1, T2, T3, T4, T5> implements Tuple {
@@ -33,6 +36,28 @@ public final class Tuple5<T1, T2, T3, T4, T5> extends Tuple5Impl<T1, T2, T3, T4,
     }
 
     return new Tuple5<>(s1, s2, s3, s4, s5);
+  }
+
+  public static <S1, S2, S3, S4, S5> List<Tuple5<S1, S2, S3, S4, S5>> zip(List<S1> l1, List<S2> l2, List<S3> l3, List<S4> l4, List<S5> l5) {
+    // TODO null check the lists.
+    int shortestListSize = Stream.of(l1, l2, l3, l4, l5)
+                                 .map(List::size)
+                                 .min(Integer::compareTo).orElse(0);
+
+    List<Tuple5<S1, S2, S3, S4, S5>> result = new ArrayList<>();
+    for (int i = 0; i < shortestListSize; i++) {
+      result.add(Tuple5.of(l1.get(i), l2.get(i), l3.get(i), l4.get(i), l5.get(i)));
+    }
+    return result;
+  }
+
+  public static <S1, S2, S3, S4, S5> Tuple5<List<S1>, List<S2>, List<S3>, List<S4>, List<S5>> unzip(List<Tuple5<S1, S2, S3, S4, S5>> listOfTuples) {
+    var l1 = listOfTuples.stream().map(Tuple5::elem1).collect(Collectors.toList());
+    var l2 = listOfTuples.stream().map(Tuple5::elem2).collect(Collectors.toList());
+    var l3 = listOfTuples.stream().map(Tuple5::elem3).collect(Collectors.toList());
+    var l4 = listOfTuples.stream().map(Tuple5::elem4).collect(Collectors.toList());
+    var l5 = listOfTuples.stream().map(Tuple5::elem5).collect(Collectors.toList());
+    return Tuple5.of(l1, l2, l3, l4, l5);
   }
 
   public <T> Tuple6<T, T1, T2, T3, T4, T5> prepend(T t) {

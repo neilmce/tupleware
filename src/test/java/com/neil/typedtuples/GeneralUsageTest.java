@@ -2,6 +2,7 @@ package com.neil.typedtuples;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.Iterator;
@@ -9,8 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.TUESDAY;
+import static java.time.DayOfWeek.WEDNESDAY;
 import static java.time.Month.APRIL;
+import static java.time.Month.FEBRUARY;
 import static java.time.Month.JANUARY;
+import static java.time.Month.MARCH;
 import static java.time.ZoneOffset.UTC;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,6 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GeneralUsageTest {
+  private enum TestEnum {
+    LEFT, MIDDLE, RIGHT
+  }
+
   private final Tuple0 tuple0 = Tuple0.of();
   private final Tuple1<String> tuple1 = Tuple1.of("Hi");
   private final Tuple2<String, Integer> tuple2 = Tuple2.of("Hi", 2);

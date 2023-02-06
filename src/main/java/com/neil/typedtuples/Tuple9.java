@@ -3,7 +3,10 @@ package com.neil.typedtuples;
 import com.neil.typedtuples.annotations.TupleGeneration;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @TupleGeneration(tupleArity = 9)
 public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9> extends Tuple9Impl<T1, T2, T3, T4, T5, T6, T7, T8, T9>
@@ -45,6 +48,32 @@ public final class Tuple9<T1, T2, T3, T4, T5, T6, T7, T8, T9> extends Tuple9Impl
     }
 
     return new Tuple9<>(s1, s2, s3, s4, s5, s6, s7, s8, s9);
+  }
+
+  public static <S1, S2, S3, S4, S5, S6, S7, S8, S9> List<Tuple9<S1, S2, S3, S4, S5, S6, S7, S8, S9>> zip(List<S1> l1, List<S2> l2, List<S3> l3, List<S4> l4, List<S5> l5, List<S6> l6, List<S7> l7, List<S8> l8, List<S9> l9) {
+    // TODO null check the lists.
+    int shortestListSize = Stream.of(l1, l2, l3, l4, l5, l6, l7, l8, l9)
+                                 .map(List::size)
+                                 .min(Integer::compareTo).orElse(0);
+
+    List<Tuple9<S1, S2, S3, S4, S5, S6, S7, S8, S9>> result = new ArrayList<>();
+    for (int i = 0; i < shortestListSize; i++) {
+      result.add(Tuple9.of(l1.get(i), l2.get(i), l3.get(i), l4.get(i), l5.get(i), l6.get(i), l7.get(i), l8.get(i), l9.get(i)));
+    }
+    return result;
+  }
+
+  public static <S1, S2, S3, S4, S5, S6, S7, S8, S9> Tuple9<List<S1>, List<S2>, List<S3>, List<S4>, List<S5>, List<S6>, List<S7>, List<S8>, List<S9>> unzip(List<Tuple9<S1, S2, S3, S4, S5, S6, S7, S8, S9>> listOfTuples) {
+    var l1 = listOfTuples.stream().map(Tuple9::elem1).collect(Collectors.toList());
+    var l2 = listOfTuples.stream().map(Tuple9::elem2).collect(Collectors.toList());
+    var l3 = listOfTuples.stream().map(Tuple9::elem3).collect(Collectors.toList());
+    var l4 = listOfTuples.stream().map(Tuple9::elem4).collect(Collectors.toList());
+    var l5 = listOfTuples.stream().map(Tuple9::elem5).collect(Collectors.toList());
+    var l6 = listOfTuples.stream().map(Tuple9::elem6).collect(Collectors.toList());
+    var l7 = listOfTuples.stream().map(Tuple9::elem7).collect(Collectors.toList());
+    var l8 = listOfTuples.stream().map(Tuple9::elem8).collect(Collectors.toList());
+    var l9 = listOfTuples.stream().map(Tuple9::elem9).collect(Collectors.toList());
+    return Tuple9.of(l1, l2, l3, l4, l5, l6, l7, l8, l9);
   }
 
   public <T> Tuple10<T, T1, T2, T3, T4, T5, T6, T7, T8, T9> prepend(T t) {
