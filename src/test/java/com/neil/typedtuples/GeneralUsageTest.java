@@ -19,10 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GeneralUsageTest {
-  private enum TestEnum {
-    LEFT, MIDDLE, RIGHT
-  }
-
   private final Tuple0 tuple0 = Tuple0.of();
   private final Tuple1<String> tuple1 = Tuple1.of("Hi");
   private final Tuple2<String, Integer> tuple2 = Tuple2.of("Hi", 2);
