@@ -136,6 +136,8 @@ public class TupleProcessor extends AbstractProcessor {
 
       if (arity > 0) {
         writeDropElemMethods(out, arity);
+
+        writeTakeNMethods(out, arity);
       }
 
       writeWithElementMethods(out, arity);
@@ -251,6 +253,27 @@ public class TupleProcessor extends AbstractProcessor {
 
       out.print(String.format("    return Tuple%d.of(", arity - 1));
       out.print(String.join(", ", paramsMinusDropped));
+      out.println(");");
+      out.println("  }");
+      out.println();
+    }
+  }
+
+
+  private void writeTakeNMethods(PrintWriter out, int arity) {
+    final List<String> typeParams = typeParamsTo(arity);
+    final List<String> params = paramsTo(arity);
+
+    for (int elemsToTake = 1; elemsToTake < arity; elemsToTake++) {
+      final List<String> typeParamsTaken = typeParams.subList(0, elemsToTake);
+      final List<String> paramsTaken = params.subList(0, elemsToTake);
+
+      final String typeParamsString = typeParamsTaken.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsTaken));
+
+      out.println(String.format("  public final Tuple%d%s take%d() {", elemsToTake, typeParamsString, elemsToTake));
+
+      out.print(String.format("    return Tuple%d.of(", elemsToTake));
+      out.print(String.join(", ", paramsTaken));
       out.println(");");
       out.println("  }");
       out.println();

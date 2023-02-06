@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class GeneralUsageTest {
+class BasicStateTest {
   /**
    * Set of sample Tuple objects that cover all arities.
    */
