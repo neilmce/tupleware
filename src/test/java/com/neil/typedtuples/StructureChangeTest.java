@@ -196,7 +196,7 @@ class StructureChangeTest {
     assertEquals(Tuple9.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.dropElem1());
   }
 
-  @Test void takeElements() {
+  @Test void takeNElements() {
     assertEquals(Tuple1.of("Hi"), tuple2.take1());
 
     assertEquals(Tuple2.of("Hi", 2), tuple3.take2());
@@ -250,5 +250,61 @@ class StructureChangeTest {
     assertEquals(Tuple3.of("Hi", 2, 3.1), tuple10.take3());
     assertEquals(Tuple2.of("Hi", 2), tuple10.take2());
     assertEquals(Tuple1.of("Hi"), tuple10.take1());
+  }
+
+  @Test void dropNElements() {
+    assertEquals(Tuple1.of(2), tuple2.drop1());
+
+    assertEquals(Tuple2.of(2, 3.1), tuple3.drop1());
+    assertEquals(Tuple1.of(3.1), tuple3.drop2());
+
+    assertEquals(Tuple3.of(2, 3.1, true), tuple4.drop1());
+    assertEquals(Tuple2.of(3.1, true), tuple4.drop2());
+    assertEquals(Tuple1.of(true), tuple4.drop3());
+
+    assertEquals(Tuple4.of(2, 3.1, true, JANUARY), tuple5.drop1());
+    assertEquals(Tuple3.of(3.1, true, JANUARY), tuple5.drop2());
+    assertEquals(Tuple2.of(true, JANUARY), tuple5.drop3());
+    assertEquals(Tuple1.of(JANUARY), tuple5.drop4());
+
+    assertEquals(Tuple5.of(2, 3.1, true, JANUARY, UTC), tuple6.drop1());
+    assertEquals(Tuple4.of(3.1, true, JANUARY, UTC), tuple6.drop2());
+    assertEquals(Tuple3.of(true, JANUARY, UTC), tuple6.drop3());
+    assertEquals(Tuple2.of(JANUARY, UTC), tuple6.drop4());
+    assertEquals(Tuple1.of(UTC), tuple6.drop5());
+
+    assertEquals(Tuple6.of(2, 3.1, true, JANUARY, UTC, 'x'), tuple7.drop1());
+    assertEquals(Tuple5.of(3.1, true, JANUARY, UTC, 'x'), tuple7.drop2());
+    assertEquals(Tuple4.of(true, JANUARY, UTC, 'x'), tuple7.drop3());
+    assertEquals(Tuple3.of(JANUARY, UTC, 'x'), tuple7.drop4());
+    assertEquals(Tuple2.of(UTC, 'x'), tuple7.drop5());
+    assertEquals(Tuple1.of('x'), tuple7.drop6());
+
+    assertEquals(Tuple7.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1)), tuple8.drop1());
+    assertEquals(Tuple6.of(3.1, true, JANUARY, UTC, 'x', List.of(1)), tuple8.drop2());
+    assertEquals(Tuple5.of(true, JANUARY, UTC, 'x', List.of(1)), tuple8.drop3());
+    assertEquals(Tuple4.of(JANUARY, UTC, 'x', List.of(1)), tuple8.drop4());
+    assertEquals(Tuple3.of(UTC, 'x', List.of(1)), tuple8.drop5());
+    assertEquals(Tuple2.of('x', List.of(1)), tuple8.drop6());
+    assertEquals(Tuple1.of(List.of(1)), tuple8.drop7());
+
+    assertEquals(Tuple8.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1)), tuple9.drop1());
+    assertEquals(Tuple7.of(3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1)), tuple9.drop2());
+    assertEquals(Tuple6.of(true, JANUARY, UTC, 'x', List.of(1), Set.of(1)), tuple9.drop3());
+    assertEquals(Tuple5.of(JANUARY, UTC, 'x', List.of(1), Set.of(1)), tuple9.drop4());
+    assertEquals(Tuple4.of(UTC, 'x', List.of(1), Set.of(1)), tuple9.drop5());
+    assertEquals(Tuple3.of('x', List.of(1), Set.of(1)), tuple9.drop6());
+    assertEquals(Tuple2.of(List.of(1), Set.of(1)), tuple9.drop7());
+    assertEquals(Tuple1.of(Set.of(1)), tuple9.drop8());
+
+    assertEquals(Tuple9.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.drop1());
+    assertEquals(Tuple8.of(3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.drop2());
+    assertEquals(Tuple7.of(true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.drop3());
+    assertEquals(Tuple6.of(JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.drop4());
+    assertEquals(Tuple5.of(UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.drop5());
+    assertEquals(Tuple4.of('x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.drop6());
+    assertEquals(Tuple3.of(List.of(1), Set.of(1), Map.of("One", 1)), tuple10.drop7());
+    assertEquals(Tuple2.of(Set.of(1), Map.of("One", 1)), tuple10.drop8());
+    assertEquals(Tuple1.of(Map.of("One", 1)), tuple10.drop9());
   }
 }
