@@ -20,7 +20,6 @@ import static com.neil.typedtuples.TestData.tuple8;
 import static com.neil.typedtuples.TestData.tuple9;
 import static java.time.Month.JANUARY;
 import static java.time.ZoneOffset.UTC;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;

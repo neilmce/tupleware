@@ -6,7 +6,6 @@ import com.neil.typedtuples.util.TtObjects;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -59,10 +58,10 @@ public final class Tuple4<T1, T2, T3, T4> extends GeneratedTuple4<T1, T2, T3, T4
   public static <S1, S2, S3, S4> Tuple4<List<S1>, List<S2>, List<S3>, List<S4>> unzip(List<Tuple4<S1, S2, S3, S4>> listOfTuples) {
     Objects.requireNonNull(listOfTuples, "Illegal null List argument");
 
-    var l1 = listOfTuples.stream().map(Tuple4::elem1).collect(Collectors.toList());
-    var l2 = listOfTuples.stream().map(Tuple4::elem2).collect(Collectors.toList());
-    var l3 = listOfTuples.stream().map(Tuple4::elem3).collect(Collectors.toList());
-    var l4 = listOfTuples.stream().map(Tuple4::elem4).collect(Collectors.toList());
+    var l1 = listOfTuples.stream().map(Tuple4::elem1).toList();
+    var l2 = listOfTuples.stream().map(Tuple4::elem2).toList();
+    var l3 = listOfTuples.stream().map(Tuple4::elem3).toList();
+    var l4 = listOfTuples.stream().map(Tuple4::elem4).toList();
     return Tuple4.of(l1, l2, l3, l4);
   }
 
