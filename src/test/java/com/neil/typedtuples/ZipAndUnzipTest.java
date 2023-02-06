@@ -45,6 +45,9 @@ class ZipAndUnzipTest {
     );
 
     assertEquals(expected, Tuple2.zip(l1, l2));
+
+    // And with the long list on the other side:
+    assertEquals(expected, Tuple2.zip(List.of("One", "Two", "Three", "Four"), List.of(1, 2, 3)));
   }
 
   @Test void unzip2ShouldWork() {
