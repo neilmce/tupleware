@@ -9,6 +9,15 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * A tuple with 5 elements.
+ *
+ * @param <T1> the type of the 1st element.
+ * @param <T2> the type of the 2nd element.
+ * @param <T3> the type of the 3rd element.
+ * @param <T4> the type of the 4th element.
+ * @param <T5> the type of the 5th element.
+ */
 @TupleGeneration(tupleArity = 5)
 public final class Tuple5<T1, T2, T3, T4, T5> extends Tuple5Impl<T1, T2, T3, T4, T5> implements Tuple {
   private Tuple5(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5) {

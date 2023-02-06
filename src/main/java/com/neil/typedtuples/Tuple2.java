@@ -9,6 +9,12 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * A tuple with 2 elements. A pair.
+ *
+ * @param <T1> the type of the 1st element.
+ * @param <T2> the type of the 2nd element.
+ */
 @TupleGeneration(tupleArity = 2)
 public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
   private Tuple2(T1 t1, T2 t2) {

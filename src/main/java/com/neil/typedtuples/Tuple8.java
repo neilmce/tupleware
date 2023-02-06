@@ -9,6 +9,18 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * A tuple with 8 elements.
+ *
+ * @param <T1> the type of the 1st element.
+ * @param <T2> the type of the 2nd element.
+ * @param <T3> the type of the 3rd element.
+ * @param <T4> the type of the 4th element.
+ * @param <T5> the type of the 5th element.
+ * @param <T6> the type of the 6th element.
+ * @param <T7> the type of the 7th element.
+ * @param <T8> the type of the 8th element.
+ */
 @TupleGeneration(tupleArity = 8)
 public final class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> extends Tuple8Impl<T1, T2, T3, T4, T5, T6, T7, T8> implements Tuple {
 

@@ -2,7 +2,6 @@ package com.neil.typedtuples;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.DayOfWeek;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.Iterator;
@@ -10,13 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static java.time.DayOfWeek.MONDAY;
-import static java.time.DayOfWeek.TUESDAY;
-import static java.time.DayOfWeek.WEDNESDAY;
 import static java.time.Month.APRIL;
-import static java.time.Month.FEBRUARY;
 import static java.time.Month.JANUARY;
-import static java.time.Month.MARCH;
 import static java.time.ZoneOffset.UTC;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;

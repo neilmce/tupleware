@@ -9,6 +9,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * A tuple with 3 elements. A triple.
+ *
+ * @param <T1> the type of the 1st element.
+ * @param <T2> the type of the 2nd element.
+ * @param <T3> the type of the 3rd element.
+ */
 @TupleGeneration(tupleArity = 3)
 public final class Tuple3<T1, T2, T3> extends Tuple3Impl<T1, T2, T3> implements Tuple {
 

@@ -2,6 +2,7 @@ package com.neil.typedtuples;
 
 import java.util.List;
 
+/** This class represents the empty tuple. */
 public final class Tuple0 implements Tuple {
   private static final Tuple0 INSTANCE = new Tuple0();
 
@@ -17,6 +18,11 @@ public final class Tuple0 implements Tuple {
     return prepend(t);
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return false. An empty tuple cannot contain any values, null or otherwise.
+   */
   public boolean containsAnyNulls() {
     return false;
   }
