@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @param <T2> the type of the 2nd element.
  */
 @TupleGeneration(tupleArity = 2)
-public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
+public final class Tuple2<T1, T2> extends GeneratedTuple2<T1, T2> implements Tuple {
   private Tuple2(T1 t1, T2 t2) {
     super(t1, t2);
   }

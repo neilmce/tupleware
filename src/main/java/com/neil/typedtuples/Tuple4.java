@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  * @param <T4> the type of the 4th element.
  */
 @TupleGeneration(tupleArity = 4)
-public final class Tuple4<T1, T2, T3, T4> extends Tuple4Impl<T1, T2, T3, T4> implements Tuple {
+public final class Tuple4<T1, T2, T3, T4> extends GeneratedTuple4<T1, T2, T3, T4> implements Tuple {
   private Tuple4(T1 t1, T2 t2, T3 t3, T4 t4) {
     super(t1, t2, t3, t4);
   }

@@ -17,7 +17,7 @@ import java.util.stream.Stream;
  * @param <T3> the type of the 3rd element.
  */
 @TupleGeneration(tupleArity = 3)
-public final class Tuple3<T1, T2, T3> extends Tuple3Impl<T1, T2, T3> implements Tuple {
+public final class Tuple3<T1, T2, T3> extends GeneratedTuple3<T1, T2, T3> implements Tuple {
 
   private Tuple3(T1 t1, T2 t2, T3 t3) {
     super(t1, t2, t3);

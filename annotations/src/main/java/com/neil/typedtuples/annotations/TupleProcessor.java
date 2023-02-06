@@ -89,7 +89,7 @@ public class TupleProcessor extends AbstractProcessor {
   }
 
   private void writeTupleImplFile(String packageName, int arity) throws IOException {
-    final String implClassName = String.format("Tuple%dImpl", arity);
+    final String implClassName = String.format("GeneratedTuple%d", arity);
     final String fqImplClassName = packageName == null ? implClassName : packageName + "." + implClassName;
 
     JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(fqImplClassName);

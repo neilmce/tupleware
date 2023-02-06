@@ -10,7 +10,7 @@ import java.util.Objects;
  * @param <T1> the type of the element.
  */
 @TupleGeneration(tupleArity = 1)
-public final class Tuple1<T1> extends Tuple1Impl<T1> implements Tuple {
+public final class Tuple1<T1> extends GeneratedTuple1<T1> implements Tuple {
   private Tuple1(T1 t1) {
     super(t1);
   }

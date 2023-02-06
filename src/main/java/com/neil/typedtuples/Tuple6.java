@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  * @param <T6> the type of the 6th element.
  */
 @TupleGeneration(tupleArity = 6)
-public final class Tuple6<T1, T2, T3, T4, T5, T6> extends Tuple6Impl<T1, T2, T3, T4, T5, T6> implements Tuple {
+public final class Tuple6<T1, T2, T3, T4, T5, T6> extends GeneratedTuple6<T1, T2, T3, T4, T5, T6> implements Tuple {
   private Tuple6(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6) {
     super(t1, t2, t3, t4, t5, t6);
   }
