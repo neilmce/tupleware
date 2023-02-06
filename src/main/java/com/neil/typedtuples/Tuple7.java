@@ -79,7 +79,9 @@ public final class Tuple7<T1, T2, T3, T4, T5, T6, T7> extends Tuple7Impl<T1, T2,
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Tuple7<?, ?, ?, ?, ?, ?, ?> tuple7 = (Tuple7<?, ?, ?, ?, ?, ?, ?>) o;
-    return Objects.equals(t1, tuple7.t1) && Objects.equals(t2, tuple7.t2) && Objects.equals(t3, tuple7.t3) && Objects.equals(t4, tuple7.t4) && Objects.equals(t5, tuple7.t5) && Objects.equals(t6, tuple7.t6) && Objects.equals(t7, tuple7.t7);
+    return Objects.deepEquals(t1, tuple7.t1) && Objects.deepEquals(t2, tuple7.t2) && Objects.deepEquals(t3, tuple7.t3) &&
+        Objects.deepEquals(t4, tuple7.t4) && Objects.deepEquals(t5, tuple7.t5) && Objects.deepEquals(t6, tuple7.t6) &&
+        Objects.deepEquals(t7, tuple7.t7);
   }
 
   @Override

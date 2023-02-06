@@ -82,7 +82,10 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Tuple10<?, ?, ?, ?, ?, ?, ?, ?, ?, ?> tuple10 = (Tuple10<?, ?, ?, ?, ?, ?, ?, ?, ?, ?>) o;
-    return Objects.equals(t1, tuple10.t1) && Objects.equals(t2, tuple10.t2) && Objects.equals(t3, tuple10.t3) && Objects.equals(t4, tuple10.t4) && Objects.equals(t5, tuple10.t5) && Objects.equals(t6, tuple10.t6) && Objects.equals(t7, tuple10.t7) && Objects.equals(t8, tuple10.t8) && Objects.equals(t9, tuple10.t9) && Objects.equals(t10, tuple10.t10);
+    return Objects.deepEquals(t1, tuple10.t1) && Objects.deepEquals(t2, tuple10.t2) && Objects.deepEquals(t3, tuple10.t3) &&
+        Objects.deepEquals(t4, tuple10.t4) && Objects.deepEquals(t5, tuple10.t5) && Objects.deepEquals(t6, tuple10.t6) &&
+        Objects.deepEquals(t7, tuple10.t7) && Objects.deepEquals(t8, tuple10.t8) && Objects.deepEquals(t9, tuple10.t9) &&
+        Objects.deepEquals(t10, tuple10.t10);
   }
 
   @Override

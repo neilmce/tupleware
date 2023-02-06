@@ -70,7 +70,7 @@ public final class Tuple3<T1, T2, T3> extends Tuple3Impl<T1, T2, T3> implements 
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Tuple3<?, ?, ?> tuple3 = (Tuple3<?, ?, ?>) o;
-    return Objects.equals(t1, tuple3.t1) && Objects.equals(t2, tuple3.t2) && Objects.equals(t3, tuple3.t3);
+    return Objects.deepEquals(t1, tuple3.t1) && Objects.deepEquals(t2, tuple3.t2) && Objects.deepEquals(t3, tuple3.t3);
   }
 
   @Override

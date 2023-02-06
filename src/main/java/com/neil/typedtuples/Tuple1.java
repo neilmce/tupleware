@@ -37,7 +37,7 @@ public final class Tuple1<T1> extends Tuple1Impl<T1> implements Tuple {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Tuple1<?> tuple1 = (Tuple1<?>) o;
-    return Objects.equals(t1, tuple1.t1);
+    return Objects.deepEquals(t1, tuple1.t1);
   }
 
   @Override

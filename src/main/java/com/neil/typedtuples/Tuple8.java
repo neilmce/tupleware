@@ -84,7 +84,9 @@ public final class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> extends Tuple8Impl<T1,
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Tuple8<?, ?, ?, ?, ?, ?, ?, ?> tuple8 = (Tuple8<?, ?, ?, ?, ?, ?, ?, ?>) o;
-    return Objects.equals(t1, tuple8.t1) && Objects.equals(t2, tuple8.t2) && Objects.equals(t3, tuple8.t3) && Objects.equals(t4, tuple8.t4) && Objects.equals(t5, tuple8.t5) && Objects.equals(t6, tuple8.t6) && Objects.equals(t7, tuple8.t7) && Objects.equals(t8, tuple8.t8);
+    return Objects.deepEquals(t1, tuple8.t1) && Objects.deepEquals(t2, tuple8.t2) && Objects.deepEquals(t3, tuple8.t3) &&
+        Objects.deepEquals(t4, tuple8.t4) && Objects.deepEquals(t5, tuple8.t5) && Objects.deepEquals(t6, tuple8.t6) &&
+        Objects.deepEquals(t7, tuple8.t7) && Objects.deepEquals(t8, tuple8.t8);
   }
 
   @Override

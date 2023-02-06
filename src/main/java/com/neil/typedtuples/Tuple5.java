@@ -73,7 +73,8 @@ public final class Tuple5<T1, T2, T3, T4, T5> extends Tuple5Impl<T1, T2, T3, T4,
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Tuple5<?, ?, ?, ?, ?> tuple5 = (Tuple5<?, ?, ?, ?, ?>) o;
-    return Objects.equals(t1, tuple5.t1) && Objects.equals(t2, tuple5.t2) && Objects.equals(t3, tuple5.t3) && Objects.equals(t4, tuple5.t4) && Objects.equals(t5, tuple5.t5);
+    return Objects.deepEquals(t1, tuple5.t1) && Objects.deepEquals(t2, tuple5.t2) && Objects.deepEquals(t3, tuple5.t3) &&
+        Objects.deepEquals(t4, tuple5.t4) && Objects.deepEquals(t5, tuple5.t5);
   }
 
   @Override

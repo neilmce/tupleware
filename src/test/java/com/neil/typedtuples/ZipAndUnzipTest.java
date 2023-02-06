@@ -12,6 +12,7 @@ import static java.time.DayOfWeek.WEDNESDAY;
 import static java.time.Month.FEBRUARY;
 import static java.time.Month.JANUARY;
 import static java.time.Month.MARCH;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ZipAndUnzipTest {
@@ -335,6 +336,11 @@ class ZipAndUnzipTest {
     assertEquals(List.of(-1L, 0L, 1L), ans.elem7());
     assertEquals(List.of(TestEnum.LEFT, TestEnum.MIDDLE, TestEnum.RIGHT), ans.elem8());
     assertEquals(List.of(1F, 2F, 3F), ans.elem9());
-    assertEquals(List.of(new int[]{1}, new int[]{2}, new int[]{3}), ans.elem10());
+    // Arrays are weird.
+    var expected = List.of(new int[]{1}, new int[]{2}, new int[]{3});
+    assertEquals(expected.size(), ans.elem10().size());
+    for (int i = 0; i < expected.size(); i++) {
+      assertArrayEquals(expected.get(i), ans.elem10().get(i));
+    }
   }
 }

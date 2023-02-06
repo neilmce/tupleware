@@ -71,7 +71,8 @@ public final class Tuple4<T1, T2, T3, T4> extends Tuple4Impl<T1, T2, T3, T4> imp
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Tuple4<?, ?, ?, ?> tuple4 = (Tuple4<?, ?, ?, ?>) o;
-    return Objects.equals(t1, tuple4.t1) && Objects.equals(t2, tuple4.t2) && Objects.equals(t3, tuple4.t3) && Objects.equals(t4, tuple4.t4);
+    return Objects.deepEquals(t1, tuple4.t1) && Objects.deepEquals(t2, tuple4.t2) &&
+        Objects.deepEquals(t3, tuple4.t3) && Objects.deepEquals(t4, tuple4.t4);
   }
 
   @Override

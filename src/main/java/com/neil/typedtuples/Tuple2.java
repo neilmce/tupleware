@@ -73,7 +73,7 @@ public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Tuple2<?, ?> tuple2 = (Tuple2<?, ?>) o;
-    return Objects.equals(t1, tuple2.t1) && Objects.equals(t2, tuple2.t2);
+    return Objects.deepEquals(t1, tuple2.t1) && Objects.deepEquals(t2, tuple2.t2);
   }
 
   @Override
