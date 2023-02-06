@@ -30,6 +30,8 @@ public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
   }
 
   public static <S1, S2> List<Tuple2<S1, S2>> zip(List<S1> l1, List<S2> l2) {
+    TtObjects.requireNonNull("Illegal null Lists.", l1, l2);
+
     int shortestListSize = Math.min(l1.size(), l2.size());
 
     List<Tuple2<S1, S2>> result = new ArrayList<>();

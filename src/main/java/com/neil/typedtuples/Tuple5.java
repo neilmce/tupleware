@@ -26,7 +26,8 @@ public final class Tuple5<T1, T2, T3, T4, T5> extends Tuple5Impl<T1, T2, T3, T4,
   }
 
   public static <S1, S2, S3, S4, S5> List<Tuple5<S1, S2, S3, S4, S5>> zip(List<S1> l1, List<S2> l2, List<S3> l3, List<S4> l4, List<S5> l5) {
-    // TODO null check the lists.
+    TtObjects.requireNonNull("Illegal null Lists.", l1, l2, l3, l4, l5);
+
     int shortestListSize = Stream.of(l1, l2, l3, l4, l5)
                                  .map(List::size)
                                  .min(Integer::compareTo).orElse(0);

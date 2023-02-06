@@ -26,7 +26,8 @@ public final class Tuple4<T1, T2, T3, T4> extends Tuple4Impl<T1, T2, T3, T4> imp
   }
 
   public static <S1, S2, S3, S4> List<Tuple4<S1, S2, S3, S4>> zip(List<S1> l1, List<S2> l2, List<S3> l3, List<S4> l4) {
-    // TODO null check the lists.
+    TtObjects.requireNonNull("Illegal null Lists.", l1, l2, l3, l4);
+
     int shortestListSize = Stream.of(l1, l2, l3, l4)
                                  .map(List::size)
                                  .min(Integer::compareTo).orElse(0);

@@ -31,7 +31,7 @@ public final class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> extends Tuple8Impl<T1,
   }
 
   public static <S1, S2, S3, S4, S5, S6, S7, S8> List<Tuple8<S1, S2, S3, S4, S5, S6, S7, S8>> zip(List<S1> l1, List<S2> l2, List<S3> l3, List<S4> l4, List<S5> l5, List<S6> l6, List<S7> l7, List<S8> l8) {
-    TtObjects.requireNonNull("Cannot zip null Lists.", l1, l2, l3, l4, l5, l6, l7, l8);
+    TtObjects.requireNonNull("Illegal null Lists.", l1, l2, l3, l4, l5, l6, l7, l8);
 
     int shortestListSize = Stream.of(l1, l2, l3, l4, l5, l6, l7, l8)
                                  .map(List::size)
