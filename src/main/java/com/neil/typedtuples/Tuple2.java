@@ -1,6 +1,7 @@
 package com.neil.typedtuples;
 
 import com.neil.typedtuples.annotations.TupleGeneration;
+import com.neil.typedtuples.util.TtObjects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,18 +20,7 @@ public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
   }
 
   public static <S1, S2> Tuple2<S1, S2> ofNonNull(S1 s1, S2 s2) {
-    var args = new ArrayList<>();
-    args.add(s1);
-    args.add(s2);
-    var nullElemPositions = new ArrayList<Integer>();
-    for (int i = 1; i <= 2; i++) {
-      if (args.get(i - 1) == null) {
-        nullElemPositions.add(i);
-      }
-    }
-    if (!nullElemPositions.isEmpty()) {
-      throw new NullPointerException(String.format("Illegal null elements at positions %s", nullElemPositions));
-    }
+    TtObjects.requireNonNull("Illegal null elements.", s1, s2);
 
     return new Tuple2<>(s1, s2);
   }
@@ -40,7 +30,6 @@ public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
   }
 
   public static <S1, S2> List<Tuple2<S1, S2>> zip(List<S1> l1, List<S2> l2) {
-    // TODO null check the lists.
     int shortestListSize = Math.min(l1.size(), l2.size());
 
     List<Tuple2<S1, S2>> result = new ArrayList<>();
@@ -51,6 +40,8 @@ public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
   }
 
   public static <S1, S2> Tuple2<List<S1>, List<S2>> unzip(List<Tuple2<S1, S2>> listOfTuples) {
+    Objects.requireNonNull(listOfTuples, "Illegal null List argument");
+
     var left = listOfTuples.stream().map(Tuple2::elem1).collect(Collectors.toList());
     var right = listOfTuples.stream().map(Tuple2::elem2).collect(Collectors.toList());
     return Tuple2.of(left, right);

@@ -14,6 +14,7 @@ import static java.time.Month.JANUARY;
 import static java.time.Month.MARCH;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ZipAndUnzipTest {
   private enum TestEnum {
@@ -342,5 +343,11 @@ class ZipAndUnzipTest {
     for (int i = 0; i < expected.size(); i++) {
       assertArrayEquals(expected.get(i), ans.elem10().get(i));
     }
+  }
+
+  @Test
+  void unzippingNullListOfTuplesShouldFailGracefully() {
+    NullPointerException exception = assertThrows(NullPointerException.class, () -> Tuple2.unzip(null));
+    assertEquals("Illegal null List argument", exception.getMessage());
   }
 }

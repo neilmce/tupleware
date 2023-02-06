@@ -66,39 +66,39 @@ class GeneralUsageTest {
   @Test void nullArgs() {
     var exception10 = assertThrows(NullPointerException.class,
                                  () -> Tuple10.ofNonNull(null, null, null, 4, null, 6, 7, null, 9, 10));
-    assertEquals("Illegal null elements at positions [1, 2, 3, 5, 8]", exception10.getMessage());
+    assertEquals("Illegal null elements. (Nulls at positions [1, 2, 3, 5, 8])", exception10.getMessage());
 
     var exception9 = assertThrows(NullPointerException.class,
                                  () -> Tuple9.ofNonNull(null, null, null, 4, null, 6, 7, null, 9));
-    assertEquals("Illegal null elements at positions [1, 2, 3, 5, 8]", exception9.getMessage());
+    assertEquals("Illegal null elements. (Nulls at positions [1, 2, 3, 5, 8])", exception9.getMessage());
 
     var exception8 = assertThrows(NullPointerException.class,
                                  () -> Tuple8.ofNonNull(null, null, null, 4, null, 6, 7, null));
-    assertEquals("Illegal null elements at positions [1, 2, 3, 5, 8]", exception8.getMessage());
+    assertEquals("Illegal null elements. (Nulls at positions [1, 2, 3, 5, 8])", exception8.getMessage());
 
     var exception7 = assertThrows(NullPointerException.class,
                                  () -> Tuple7.ofNonNull(null, null, null, 4, null, 6, 7));
-    assertEquals("Illegal null elements at positions [1, 2, 3, 5]", exception7.getMessage());
+    assertEquals("Illegal null elements. (Nulls at positions [1, 2, 3, 5])", exception7.getMessage());
 
     var exception6 = assertThrows(NullPointerException.class,
                                  () -> Tuple6.ofNonNull(null, null, null, 4, null, 6));
-    assertEquals("Illegal null elements at positions [1, 2, 3, 5]", exception6.getMessage());
+    assertEquals("Illegal null elements. (Nulls at positions [1, 2, 3, 5])", exception6.getMessage());
 
     var exception5 = assertThrows(NullPointerException.class,
                                  () -> Tuple5.ofNonNull(null, null, null, 4, null));
-    assertEquals("Illegal null elements at positions [1, 2, 3, 5]", exception5.getMessage());
+    assertEquals("Illegal null elements. (Nulls at positions [1, 2, 3, 5])", exception5.getMessage());
 
     var exception4 = assertThrows(NullPointerException.class,
                                  () -> Tuple4.ofNonNull(null, null, null, 4));
-    assertEquals("Illegal null elements at positions [1, 2, 3]", exception4.getMessage());
+    assertEquals("Illegal null elements. (Nulls at positions [1, 2, 3])", exception4.getMessage());
 
     var exception3 = assertThrows(NullPointerException.class,
                                  () -> Tuple3.ofNonNull(null, null, null));
-    assertEquals("Illegal null elements at positions [1, 2, 3]", exception3.getMessage());
+    assertEquals("Illegal null elements. (Nulls at positions [1, 2, 3])", exception3.getMessage());
 
     var exception2 = assertThrows(NullPointerException.class,
                                  () -> Tuple2.ofNonNull(null, null));
-    assertEquals("Illegal null elements at positions [1, 2]", exception2.getMessage());
+    assertEquals("Illegal null elements. (Nulls at positions [1, 2])", exception2.getMessage());
 
     var exception1 = assertThrows(NullPointerException.class,
                                  () -> Tuple1.ofNonNull(null));

@@ -1,6 +1,7 @@
 package com.neil.typedtuples;
 
 import com.neil.typedtuples.annotations.TupleGeneration;
+import com.neil.typedtuples.util.TtObjects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,20 +20,7 @@ public final class Tuple4<T1, T2, T3, T4> extends Tuple4Impl<T1, T2, T3, T4> imp
   }
 
   public static <S1, S2, S3, S4> Tuple4<S1, S2, S3, S4> ofNonNull(S1 s1, S2 s2, S3 s3, S4 s4) {
-    var args = new ArrayList<>();
-    args.add(s1);
-    args.add(s2);
-    args.add(s3);
-    args.add(s4);
-    var nullElemPositions = new ArrayList<Integer>();
-    for (int i = 1; i <= 4; i++) {
-      if (args.get(i - 1) == null) {
-        nullElemPositions.add(i);
-      }
-    }
-    if (!nullElemPositions.isEmpty()) {
-      throw new NullPointerException(String.format("Illegal null elements at positions %s", nullElemPositions));
-    }
+    TtObjects.requireNonNull("Illegal null elements.", s1, s2, s3, s4);
 
     return new Tuple4<>(s1, s2, s3, s4);
   }
@@ -51,6 +39,8 @@ public final class Tuple4<T1, T2, T3, T4> extends Tuple4Impl<T1, T2, T3, T4> imp
   }
 
   public static <S1, S2, S3, S4> Tuple4<List<S1>, List<S2>, List<S3>, List<S4>> unzip(List<Tuple4<S1, S2, S3, S4>> listOfTuples) {
+    Objects.requireNonNull(listOfTuples, "Illegal null List argument");
+
     var l1 = listOfTuples.stream().map(Tuple4::elem1).collect(Collectors.toList());
     var l2 = listOfTuples.stream().map(Tuple4::elem2).collect(Collectors.toList());
     var l3 = listOfTuples.stream().map(Tuple4::elem3).collect(Collectors.toList());

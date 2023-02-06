@@ -1,6 +1,7 @@
 package com.neil.typedtuples;
 
 import com.neil.typedtuples.annotations.TupleGeneration;
+import com.neil.typedtuples.util.TtObjects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,30 +25,14 @@ public final class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> extends Tuple8Impl<T1,
 
   public static <S1, S2, S3, S4, S5, S6, S7, S8>
     Tuple8<S1, S2, S3, S4, S5, S6, S7, S8> ofNonNull(S1 s1, S2 s2, S3 s3, S4 s4, S5 s5, S6 s6, S7 s7, S8 s8) {
-    var args = new ArrayList<>();
-    args.add(s1);
-    args.add(s2);
-    args.add(s3);
-    args.add(s4);
-    args.add(s5);
-    args.add(s6);
-    args.add(s7);
-    args.add(s8);
-    var nullElemPositions = new ArrayList<Integer>();
-    for (int i = 1; i <= 8; i++) {
-      if (args.get(i - 1) == null) {
-        nullElemPositions.add(i);
-      }
-    }
-    if (!nullElemPositions.isEmpty()) {
-      throw new NullPointerException(String.format("Illegal null elements at positions %s", nullElemPositions));
-    }
+    TtObjects.requireNonNull("Illegal null elements.", s1, s2, s3, s4, s5, s6, s7, s8);
 
     return new Tuple8<>(s1, s2, s3, s4, s5, s6, s7, s8);
   }
 
   public static <S1, S2, S3, S4, S5, S6, S7, S8> List<Tuple8<S1, S2, S3, S4, S5, S6, S7, S8>> zip(List<S1> l1, List<S2> l2, List<S3> l3, List<S4> l4, List<S5> l5, List<S6> l6, List<S7> l7, List<S8> l8) {
-    // TODO null check the lists.
+    TtObjects.requireNonNull("Cannot zip null Lists.", l1, l2, l3, l4, l5, l6, l7, l8);
+
     int shortestListSize = Stream.of(l1, l2, l3, l4, l5, l6, l7, l8)
                                  .map(List::size)
                                  .min(Integer::compareTo).orElse(0);
@@ -60,6 +45,8 @@ public final class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> extends Tuple8Impl<T1,
   }
 
   public static <S1, S2, S3, S4, S5, S6, S7, S8> Tuple8<List<S1>, List<S2>, List<S3>, List<S4>, List<S5>, List<S6>, List<S7>, List<S8>> unzip(List<Tuple8<S1, S2, S3, S4, S5, S6, S7, S8>> listOfTuples) {
+    Objects.requireNonNull(listOfTuples, "Illegal null List argument");
+
     var l1 = listOfTuples.stream().map(Tuple8::elem1).collect(Collectors.toList());
     var l2 = listOfTuples.stream().map(Tuple8::elem2).collect(Collectors.toList());
     var l3 = listOfTuples.stream().map(Tuple8::elem3).collect(Collectors.toList());
