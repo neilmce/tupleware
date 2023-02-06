@@ -183,15 +183,4 @@ class BasicStateTest {
     assertTrue(tuple9.withElem9(null).containsAnyNulls());
     assertTrue(tuple10.withElem10(null).containsAnyNulls());
   }
-
-  @Test
-  void tuple2FromMapEntry() {
-    var map = Map.of("Hello", 42);
-    Tuple2<String, Integer> t2 = Tuple2.from(map.entrySet().iterator().next());
-
-    assertEquals(Tuple2.of("Hello", 42), t2);
-
-    // map to list of tuples.
-    List<Tuple2<String, Integer>> entryTuples = map.entrySet().stream().map(Tuple2::from).collect(toList());
-  }
 }

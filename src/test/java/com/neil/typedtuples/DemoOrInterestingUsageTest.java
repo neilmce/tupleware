@@ -26,11 +26,13 @@ class DemoOrInterestingUsageTest {
                                 .append(List.of("Guinness", "Milk"));
 
     var brothersName = joesBrother.take4().dropElem1();
+    var brothersDiet = joesBrother.drop5();
 
-    // TODO dropN, takeRightN, dropRightN, slice??
+    // TODO takeRightN, dropRightN
 
     System.out.println(joesRecord);
     System.out.println(joesBrother);
     System.out.println(brothersName);
+    System.out.println(brothersDiet.reverse());
   }
 }
