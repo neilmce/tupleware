@@ -29,7 +29,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 @SupportedAnnotationTypes("com.neil.typedtuples.annotations.TupleGeneration")
-@SupportedSourceVersion(SourceVersion.RELEASE_11)
+@SupportedSourceVersion(SourceVersion.RELEASE_17)
 @AutoService(Processor.class)
 public class TupleProcessor extends AbstractProcessor {
 
