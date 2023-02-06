@@ -21,10 +21,19 @@ public final class Tuple2<T1, T2> extends Tuple2Impl<T1, T2> implements Tuple {
     super(t1, t2);
   }
 
+  /**
+   * Constructs a tuple with the provided values as elements. The values can be null.
+   * @return a new tuple instance.
+   */
   public static <ST1, ST2> Tuple2<ST1, ST2> of(ST1 t1, ST2 t2) {
     return new Tuple2<>(t1, t2);
   }
 
+  /**
+   * Constructs a tuple with the provided values as elements. The values cannot be null.
+   * @return a new tuple instance.
+   * @throws NullPointerException if any of the provided values are null.
+   */
   public static <S1, S2> Tuple2<S1, S2> ofNonNull(S1 s1, S2 s2) {
     TtObjects.requireNonNull("Illegal null elements.", s1, s2);
 

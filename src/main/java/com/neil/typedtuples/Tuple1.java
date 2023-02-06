@@ -15,10 +15,19 @@ public final class Tuple1<T1> extends Tuple1Impl<T1> implements Tuple {
     super(t1);
   }
 
+  /**
+   * Constructs a tuple with the provided value as the sole element. The value can be null.
+   * @return a new tuple instance.
+   */
   public static <S1> Tuple1<S1> of(S1 s1) {
     return new Tuple1<>(s1);
   }
 
+  /**
+   * Constructs a tuple with the provided value as the sole element. The value cannot be null.
+   * @return a new tuple instance.
+   * @throws NullPointerException if the provided value is null.
+   */
   public static <S1> Tuple1<S1> ofNonNull(S1 s1) {
     if (s1 == null) {
       throw new NullPointerException("Illegal null element at position 1");

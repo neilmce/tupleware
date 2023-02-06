@@ -23,10 +23,19 @@ public final class Tuple3<T1, T2, T3> extends Tuple3Impl<T1, T2, T3> implements 
     super(t1, t2, t3);
   }
 
+  /**
+   * Constructs a tuple with the provided values as elements. The values can be null.
+   * @return a new tuple instance.
+   */
   public static <S1, S2, S3> Tuple3<S1, S2, S3> of(S1 s1, S2 s2, S3 s3) {
     return new Tuple3<>(s1, s2, s3);
   }
 
+  /**
+   * Constructs a tuple with the provided values as elements. The values cannot be null.
+   * @return a new tuple instance.
+   * @throws NullPointerException if any of the provided values are null.
+   */
   public static <S1, S2, S3> Tuple3<S1, S2, S3> ofNonNull(S1 s1, S2 s2, S3 s3) {
     TtObjects.requireNonNull("Illegal null elements.", s1, s2, s3);
 

@@ -23,10 +23,19 @@ public final class Tuple4<T1, T2, T3, T4> extends Tuple4Impl<T1, T2, T3, T4> imp
     super(t1, t2, t3, t4);
   }
 
+  /**
+   * Constructs a tuple with the provided values as elements. The values can be null.
+   * @return a new tuple instance.
+   */
   public static <S1, S2, S3, S4> Tuple4<S1, S2, S3, S4> of(S1 s1, S2 s2, S3 s3, S4 s4) {
     return new Tuple4<>(s1, s2, s3, s4);
   }
 
+  /**
+   * Constructs a tuple with the provided values as elements. The values cannot be null.
+   * @return a new tuple instance.
+   * @throws NullPointerException if any of the provided values are null.
+   */
   public static <S1, S2, S3, S4> Tuple4<S1, S2, S3, S4> ofNonNull(S1 s1, S2 s2, S3 s3, S4 s4) {
     TtObjects.requireNonNull("Illegal null elements.", s1, s2, s3, s4);
 

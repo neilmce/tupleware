@@ -28,6 +28,10 @@ public final class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> extends Tuple8Impl<T1,
     super(t1, t2, t3, t4, t5, t6, t7, t8);
   }
 
+  /**
+   * Constructs a tuple with the provided values as elements. The values can be null.
+   * @return a new tuple instance.
+   */
   public static <S1, S2, S3, S4, S5, S6, S7, S8> Tuple8<S1, S2, S3, S4, S5, S6, S7, S8> of(S1 s1, S2 s2,
                                                                                            S3 s3, S4 s4,
                                                                                            S5 s5, S6 s6,
@@ -35,6 +39,11 @@ public final class Tuple8<T1, T2, T3, T4, T5, T6, T7, T8> extends Tuple8Impl<T1,
     return new Tuple8<>(s1, s2, s3, s4, s5, s6, s7, s8);
   }
 
+  /**
+   * Constructs a tuple with the provided values as elements. The values cannot be null.
+   * @return a new tuple instance.
+   * @throws NullPointerException if any of the provided values are null.
+   */
   public static <S1, S2, S3, S4, S5, S6, S7, S8>
     Tuple8<S1, S2, S3, S4, S5, S6, S7, S8> ofNonNull(S1 s1, S2 s2, S3 s3, S4 s4, S5 s5, S6 s6, S7 s7, S8 s8) {
     TtObjects.requireNonNull("Illegal null elements.", s1, s2, s3, s4, s5, s6, s7, s8);

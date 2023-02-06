@@ -6,6 +6,9 @@ import java.util.List;
 public final class Tuple0 implements Tuple {
   private static final Tuple0 INSTANCE = new Tuple0();
 
+  /**
+   * @return an instance of the empty tuple.
+   */
   public static Tuple0 of() {
     return INSTANCE;
   }
