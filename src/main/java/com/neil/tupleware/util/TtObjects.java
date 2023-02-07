@@ -16,15 +16,20 @@ package com.neil.tupleware.util;
 
 import java.util.ArrayList;
 
+/** Utility class. */
 public class TtObjects {
-  public static void requireNonNull(String message, Object... args) {
-    if (args == null) {
-      throw new NullPointerException("Illegal null args");
+  /**
+   * Each of the provided objects must be non-null, or else an NPE with the provided message be thrown.
+   * @throws NullPointerException if any of the provided objects are null.
+   */
+  public static void requireNonNull(String message, Object... objects) {
+    if (objects == null) {
+      throw new NullPointerException("Illegal null objects");
     }
     else {
       var nullElemPositions = new ArrayList<Integer>();
-      for (int i = 1; i <= args.length; i++) {
-        if (args[i - 1] == null) {
+      for (int i = 1; i <= objects.length; i++) {
+        if (objects[i - 1] == null) {
           nullElemPositions.add(i);
         }
       }
