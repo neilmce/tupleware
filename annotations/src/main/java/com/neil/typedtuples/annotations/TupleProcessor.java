@@ -1,3 +1,17 @@
+// Copyright 2023 Neil Mc Erlean.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package com.neil.typedtuples.annotations;
 
 import com.google.auto.service.AutoService;
@@ -99,6 +113,20 @@ public class TupleProcessor extends AbstractProcessor {
     JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(fqImplClassName);
 
     try (PrintWriter out = new PrintWriter(builderFile.openWriter())) {
+      out.println("// Copyright 2023 Neil Mc Erlean.\n" +
+                      "//\n" +
+                      "// Licensed under the Apache License, Version 2.0 (the \"License\");\n" +
+                      "// you may not use this file except in compliance with the License.\n" +
+                      "// You may obtain a copy of the License at\n" +
+                      "//\n" +
+                      "// http://www.apache.org/licenses/LICENSE-2.0\n" +
+                      "//\n" +
+                      "// Unless required by applicable law or agreed to in writing, software\n" +
+                      "// distributed under the License is distributed on an \"AS IS\" BASIS,\n" +
+                      "// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n" +
+                      "// See the License for the specific language governing permissions and\n" +
+                      "// limitations under the License.\n");
+
       if (packageName != null) {
         out.print("package ");
         out.print(packageName);
@@ -167,6 +195,8 @@ public class TupleProcessor extends AbstractProcessor {
     for (int i = 1; i <= arity; i++) {
       out.println(String.format("  protected final T%d t%d;", i, i));
     }
+    out.println();
+
     // Constructor
     out.print(String.format("  protected %s(", implClassName));
     // Constructor params
@@ -182,6 +212,7 @@ public class TupleProcessor extends AbstractProcessor {
       out.println(String.format("    this.t%d = t%d;", i, i));
     }
     out.println("  }");
+    out.println();
   }
 
   private void writeElementGetters(PrintWriter out, int arity) {
