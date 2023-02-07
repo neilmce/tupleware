@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * A tuple with 2 elements. A pair.
@@ -58,8 +59,8 @@ public final class Tuple2<T1, T2> extends GeneratedTuple2<T1, T2> implements Tup
   public static <S1, S2> Tuple2<List<S1>, List<S2>> unzip(List<Tuple2<S1, S2>> listOfTuples) {
     Objects.requireNonNull(listOfTuples, "Illegal null List argument");
 
-    var left = listOfTuples.stream().map(Tuple2::elem1).toList();
-    var right = listOfTuples.stream().map(Tuple2::elem2).toList();
+    var left = listOfTuples.stream().map(Tuple2::elem1).collect(Collectors.toList());
+    var right = listOfTuples.stream().map(Tuple2::elem2).collect(Collectors.toList());
     return Tuple2.of(left, right);
   }
 

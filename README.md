@@ -35,7 +35,7 @@ TODO How does it play with Java 17 pattern matching? Should I move to Java 17 & 
 
 Requirements & limitations.
 --
-* The library requires Java 17 or higher.
+* The library requires Java 11 or higher.
 * The library supports Tuples with up to 10 elements. 10 is an arbitrary limit. It could be increased in a future version
   of this library if there is a compelling reason to do so.
 

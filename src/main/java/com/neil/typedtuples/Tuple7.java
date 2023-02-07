@@ -6,6 +6,7 @@ import com.neil.typedtuples.util.TtObjects;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -63,13 +64,13 @@ public final class Tuple7<T1, T2, T3, T4, T5, T6, T7> extends GeneratedTuple7<T1
   public static <S1, S2, S3, S4, S5, S6, S7> Tuple7<List<S1>, List<S2>, List<S3>, List<S4>, List<S5>, List<S6>, List<S7>> unzip(List<Tuple7<S1, S2, S3, S4, S5, S6, S7>> listOfTuples) {
     Objects.requireNonNull(listOfTuples, "Illegal null List argument");
 
-    var l1 = listOfTuples.stream().map(Tuple7::elem1).toList();
-    var l2 = listOfTuples.stream().map(Tuple7::elem2).toList();
-    var l3 = listOfTuples.stream().map(Tuple7::elem3).toList();
-    var l4 = listOfTuples.stream().map(Tuple7::elem4).toList();
-    var l5 = listOfTuples.stream().map(Tuple7::elem5).toList();
-    var l6 = listOfTuples.stream().map(Tuple7::elem6).toList();
-    var l7 = listOfTuples.stream().map(Tuple7::elem7).toList();
+    var l1 = listOfTuples.stream().map(Tuple7::elem1).collect(Collectors.toList());
+    var l2 = listOfTuples.stream().map(Tuple7::elem2).collect(Collectors.toList());
+    var l3 = listOfTuples.stream().map(Tuple7::elem3).collect(Collectors.toList());
+    var l4 = listOfTuples.stream().map(Tuple7::elem4).collect(Collectors.toList());
+    var l5 = listOfTuples.stream().map(Tuple7::elem5).collect(Collectors.toList());
+    var l6 = listOfTuples.stream().map(Tuple7::elem6).collect(Collectors.toList());
+    var l7 = listOfTuples.stream().map(Tuple7::elem7).collect(Collectors.toList());
     return Tuple7.of(l1, l2, l3, l4, l5, l6, l7);
   }
 

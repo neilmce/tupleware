@@ -29,9 +29,11 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 @SupportedAnnotationTypes("com.neil.typedtuples.annotations.TupleGeneration")
-@SupportedSourceVersion(SourceVersion.RELEASE_17)
+@SupportedSourceVersion(SourceVersion.RELEASE_11)
 @AutoService(Processor.class)
 public class TupleProcessor extends AbstractProcessor {
+
+  private static final int MAX_ARITY = 10;
 
   private void note(String msg) {
     processingEnv.getMessager().printMessage(Kind.NOTE, msg);
@@ -44,7 +46,9 @@ public class TupleProcessor extends AbstractProcessor {
   @Override
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
     Set<? extends Element> elems = roundEnv.getElementsAnnotatedWith(TupleGeneration.class);
-    note(String.format("Processing %d @TupleGeneration elements: %s", elems.size(), elems));
+    if (!elems.isEmpty()) {
+      note(String.format("Processing %d @TupleGeneration elements: %s", elems.size(), elems));
+    }
 
     // You can only annotate _classes_ with TupleGeneration (not interfaces etc).
     Map<ElementKind, List<Element>> elementsByKind = elems.stream()
@@ -72,7 +76,7 @@ public class TupleProcessor extends AbstractProcessor {
           packageName = null;
         }
 
-        if (arity < 0 || arity > 10) {
+        if (arity < 0 || arity > MAX_ARITY) {
           error("Illegal arity on @TupleGeneration: " + arity);
         }
         try {

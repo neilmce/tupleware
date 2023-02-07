@@ -28,7 +28,7 @@ class DemoOrInterestingUsageTest {
     var brothersName = joesBrother.take4().dropElem1();
     var brothersDiet = joesBrother.drop5();
 
-    // TODO takeRightN, dropRightN
+    // TODO takeRightN, dropRightN, concat
 
     System.out.println(joesRecord);
     System.out.println(joesBrother);

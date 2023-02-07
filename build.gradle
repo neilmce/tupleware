@@ -6,8 +6,8 @@ plugins {
 group 'com.neil'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 17
-targetCompatibility = 17
+sourceCompatibility = 11
+targetCompatibility = 11
 
 repositories {
     mavenCentral()

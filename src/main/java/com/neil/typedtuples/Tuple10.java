@@ -6,6 +6,7 @@ import com.neil.typedtuples.util.TtObjects;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -71,16 +72,16 @@ public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
   public static <S1, S2, S3, S4, S5, S6, S7, S8, S9, S10> Tuple10<List<S1>, List<S2>, List<S3>, List<S4>, List<S5>, List<S6>, List<S7>, List<S8>, List<S9>, List<S10>> unzip(List<Tuple10<S1, S2, S3, S4, S5, S6, S7, S8, S9, S10>> listOfTuples) {
     Objects.requireNonNull(listOfTuples, "Illegal null List argument");
 
-    var l1 = listOfTuples.stream().map(Tuple10::elem1).toList();
-    var l2 = listOfTuples.stream().map(Tuple10::elem2).toList();
-    var l3 = listOfTuples.stream().map(Tuple10::elem3).toList();
-    var l4 = listOfTuples.stream().map(Tuple10::elem4).toList();
-    var l5 = listOfTuples.stream().map(Tuple10::elem5).toList();
-    var l6 = listOfTuples.stream().map(Tuple10::elem6).toList();
-    var l7 = listOfTuples.stream().map(Tuple10::elem7).toList();
-    var l8 = listOfTuples.stream().map(Tuple10::elem8).toList();
-    var l9 = listOfTuples.stream().map(Tuple10::elem9).toList();
-    var l10 = listOfTuples.stream().map(Tuple10::elem10).toList();
+    var l1 = listOfTuples.stream().map(Tuple10::elem1).collect(Collectors.toList());
+    var l2 = listOfTuples.stream().map(Tuple10::elem2).collect(Collectors.toList());
+    var l3 = listOfTuples.stream().map(Tuple10::elem3).collect(Collectors.toList());
+    var l4 = listOfTuples.stream().map(Tuple10::elem4).collect(Collectors.toList());
+    var l5 = listOfTuples.stream().map(Tuple10::elem5).collect(Collectors.toList());
+    var l6 = listOfTuples.stream().map(Tuple10::elem6).collect(Collectors.toList());
+    var l7 = listOfTuples.stream().map(Tuple10::elem7).collect(Collectors.toList());
+    var l8 = listOfTuples.stream().map(Tuple10::elem8).collect(Collectors.toList());
+    var l9 = listOfTuples.stream().map(Tuple10::elem9).collect(Collectors.toList());
+    var l10 = listOfTuples.stream().map(Tuple10::elem10).collect(Collectors.toList());
     return Tuple10.of(l1, l2, l3, l4, l5, l6, l7, l8, l9, l10);
   }
 
