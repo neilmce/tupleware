@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.neil.typedtuples.util;
+package com.neil.tupleware.util;
 
 import java.util.ArrayList;
 

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.neil.typedtuples.annotations;
+package com.neil.tupleware.annotations;
 
 import com.google.auto.service.AutoService;
 
@@ -42,7 +42,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
-@SupportedAnnotationTypes("com.neil.typedtuples.annotations.TupleGeneration")
+@SupportedAnnotationTypes("com.neil.tupleware.annotations.TupleGeneration")
 @SupportedSourceVersion(SourceVersion.RELEASE_11)
 @AutoService(Processor.class)
 public class TupleProcessor extends AbstractProcessor {

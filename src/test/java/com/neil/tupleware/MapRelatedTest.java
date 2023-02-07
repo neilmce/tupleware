@@ -12,16 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.neil.typedtuples.annotations;
+package com.neil.tupleware;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.junit.jupiter.api.Test;
 
-import static java.lang.annotation.ElementType.TYPE;
+import java.util.Map;
 
-@Target(TYPE)
-@Retention(RetentionPolicy.SOURCE)
-public @interface TupleGeneration {
-    int tupleArity();
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class MapRelatedTest {
+
+  @Test
+  void tuple2FromMapEntry() {
+    var map = Map.of("Hello", 42);
+    Tuple2<String, Integer> t2 = Tuple2.from(map.entrySet().iterator().next());
+
+    assertEquals(Tuple2.of("Hello", 42), t2);
+  }
 }

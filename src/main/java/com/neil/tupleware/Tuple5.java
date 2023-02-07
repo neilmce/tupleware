@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.neil.typedtuples;
+package com.neil.tupleware;
 
-import com.neil.typedtuples.annotations.TupleGeneration;
-import com.neil.typedtuples.util.TtObjects;
+import com.neil.tupleware.annotations.TupleGeneration;
+import com.neil.tupleware.util.TtObjects;
 
 import java.util.ArrayList;
 import java.util.List;

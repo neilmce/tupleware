@@ -1,6 +1,6 @@
-module typedtuples.annotations {
+module tupleware.annotations {
   requires com.google.auto.service;
   requires java.compiler;
 
-  exports com.neil.typedtuples.annotations;
+  exports com.neil.tupleware.annotations;
 }

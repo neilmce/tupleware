@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.neil.typedtuples;
+package com.neil.tupleware;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,17 +21,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.neil.typedtuples.TestData.tuple0;
-import static com.neil.typedtuples.TestData.tuple1;
-import static com.neil.typedtuples.TestData.tuple10;
-import static com.neil.typedtuples.TestData.tuple2;
-import static com.neil.typedtuples.TestData.tuple3;
-import static com.neil.typedtuples.TestData.tuple4;
-import static com.neil.typedtuples.TestData.tuple5;
-import static com.neil.typedtuples.TestData.tuple6;
-import static com.neil.typedtuples.TestData.tuple7;
-import static com.neil.typedtuples.TestData.tuple8;
-import static com.neil.typedtuples.TestData.tuple9;
+import static com.neil.tupleware.TestData.tuple0;
+import static com.neil.tupleware.TestData.tuple1;
+import static com.neil.tupleware.TestData.tuple10;
+import static com.neil.tupleware.TestData.tuple2;
+import static com.neil.tupleware.TestData.tuple3;
+import static com.neil.tupleware.TestData.tuple4;
+import static com.neil.tupleware.TestData.tuple5;
+import static com.neil.tupleware.TestData.tuple6;
+import static com.neil.tupleware.TestData.tuple7;
+import static com.neil.tupleware.TestData.tuple8;
+import static com.neil.tupleware.TestData.tuple9;
 import static java.time.Month.JANUARY;
 import static java.time.ZoneOffset.UTC;
 import static org.junit.jupiter.api.Assertions.assertEquals;

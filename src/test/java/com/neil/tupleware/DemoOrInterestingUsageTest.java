@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.neil.typedtuples;
+package com.neil.tupleware;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-import static com.neil.typedtuples.DemoOrInterestingUsageTest.Titles.MR;
+import static com.neil.tupleware.DemoOrInterestingUsageTest.Titles.MR;
 
 class DemoOrInterestingUsageTest {
   enum Titles {

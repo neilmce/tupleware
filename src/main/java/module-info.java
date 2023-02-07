@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module typedtuples {
-  requires static typedtuples.annotations;
+module tupleware {
+  requires static tupleware.annotations;
 
-  exports com.neil.typedtuples;
+  exports com.neil.tupleware;
 }

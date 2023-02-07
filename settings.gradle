@@ -1,3 +1,3 @@
-rootProject.name = 'typedtuples'
+rootProject.name = 'tupleware'
 include 'annotations'
 
