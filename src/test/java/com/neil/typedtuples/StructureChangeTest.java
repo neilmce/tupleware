@@ -252,6 +252,62 @@ class StructureChangeTest {
     assertEquals(Tuple1.of("Hi"), tuple10.take1());
   }
 
+  @Test void takeRightNElements() {
+    assertEquals(Tuple1.of(2), tuple2.takeRight1());
+
+    assertEquals(Tuple2.of(2, 3.1), tuple3.takeRight2());
+    assertEquals(Tuple1.of(3.1), tuple3.takeRight1());
+
+    assertEquals(Tuple3.of(2, 3.1, true), tuple4.takeRight3());
+    assertEquals(Tuple2.of(3.1, true), tuple4.takeRight2());
+    assertEquals(Tuple1.of(true), tuple4.takeRight1());
+
+    assertEquals(Tuple4.of(2, 3.1, true, JANUARY), tuple5.takeRight4());
+    assertEquals(Tuple3.of(3.1, true, JANUARY), tuple5.takeRight3());
+    assertEquals(Tuple2.of(true, JANUARY), tuple5.takeRight2());
+    assertEquals(Tuple1.of(JANUARY), tuple5.takeRight1());
+
+    assertEquals(Tuple5.of(2, 3.1, true, JANUARY, UTC), tuple6.takeRight5());
+    assertEquals(Tuple4.of(3.1, true, JANUARY, UTC), tuple6.takeRight4());
+    assertEquals(Tuple3.of(true, JANUARY, UTC), tuple6.takeRight3());
+    assertEquals(Tuple2.of(JANUARY, UTC), tuple6.takeRight2());
+    assertEquals(Tuple1.of(UTC), tuple6.takeRight1());
+
+    assertEquals(Tuple6.of(2, 3.1, true, JANUARY, UTC, 'x'), tuple7.takeRight6());
+    assertEquals(Tuple5.of(3.1, true, JANUARY, UTC, 'x'), tuple7.takeRight5());
+    assertEquals(Tuple4.of(true, JANUARY, UTC, 'x'), tuple7.takeRight4());
+    assertEquals(Tuple3.of(JANUARY, UTC, 'x'), tuple7.takeRight3());
+    assertEquals(Tuple2.of(UTC, 'x'), tuple7.takeRight2());
+    assertEquals(Tuple1.of('x'), tuple7.takeRight1());
+
+    assertEquals(Tuple7.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1)), tuple8.takeRight7());
+    assertEquals(Tuple6.of(3.1, true, JANUARY, UTC, 'x', List.of(1)), tuple8.takeRight6());
+    assertEquals(Tuple5.of(true, JANUARY, UTC, 'x', List.of(1)), tuple8.takeRight5());
+    assertEquals(Tuple4.of(JANUARY, UTC, 'x', List.of(1)), tuple8.takeRight4());
+    assertEquals(Tuple3.of(UTC, 'x', List.of(1)), tuple8.takeRight3());
+    assertEquals(Tuple2.of('x', List.of(1)), tuple8.takeRight2());
+    assertEquals(Tuple1.of(List.of(1)), tuple8.takeRight1());
+
+    assertEquals(Tuple8.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1)), tuple9.takeRight8());
+    assertEquals(Tuple7.of(3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1)), tuple9.takeRight7());
+    assertEquals(Tuple6.of(true, JANUARY, UTC, 'x', List.of(1), Set.of(1)), tuple9.takeRight6());
+    assertEquals(Tuple5.of(JANUARY, UTC, 'x', List.of(1), Set.of(1)), tuple9.takeRight5());
+    assertEquals(Tuple4.of(UTC, 'x', List.of(1), Set.of(1)), tuple9.takeRight4());
+    assertEquals(Tuple3.of('x', List.of(1), Set.of(1)), tuple9.takeRight3());
+    assertEquals(Tuple2.of(List.of(1), Set.of(1)), tuple9.takeRight2());
+    assertEquals(Tuple1.of(Set.of(1)), tuple9.takeRight1());
+
+    assertEquals(Tuple9.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.takeRight9());
+    assertEquals(Tuple8.of(3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.takeRight8());
+    assertEquals(Tuple7.of(true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.takeRight7());
+    assertEquals(Tuple6.of(JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.takeRight6());
+    assertEquals(Tuple5.of(UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.takeRight5());
+    assertEquals(Tuple4.of('x', List.of(1), Set.of(1), Map.of("One", 1)), tuple10.takeRight4());
+    assertEquals(Tuple3.of(List.of(1), Set.of(1), Map.of("One", 1)), tuple10.takeRight3());
+    assertEquals(Tuple2.of(Set.of(1), Map.of("One", 1)), tuple10.takeRight2());
+    assertEquals(Tuple1.of(Map.of("One", 1)), tuple10.takeRight1());
+  }
+
   @Test void dropNElements() {
     assertEquals(Tuple1.of(2), tuple2.drop1());
 
