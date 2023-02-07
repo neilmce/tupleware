@@ -32,6 +32,8 @@ class DemoOrInterestingUsageTest {
     System.out.println(joesBrother);
     System.out.println(brothersName);
     System.out.println(brothersDiet.reverse());
-    System.out.println(joesRecord.drop1().take3().concat(brothersName));
+    System.out.println(joesRecord.drop1()
+                                 .take3()
+                                 .concat(brothersName));
   }
 }

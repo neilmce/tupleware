@@ -41,6 +41,13 @@ class BasicStateTest {
     }
   }
 
+  @Test void toStringShouldStartAndEndWithParentheses() {
+    sampleTuples.forEach(t -> {
+      assertTrue(t.toString().startsWith("("));
+      assertTrue(t.toString().endsWith(")"));
+    });
+  }
+
   @Test void nullArgs() {
     var exception10 = assertThrows(NullPointerException.class,
                                  () -> Tuple10.ofNonNull(null, null, null, 4, null, 6, 7, null, 9, 10));
