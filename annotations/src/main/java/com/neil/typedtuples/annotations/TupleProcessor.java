@@ -146,6 +146,8 @@ public class TupleProcessor extends AbstractProcessor {
         writeTakeRightNMethods(out, arity);
 
         writeDropNMethods(out, arity);
+
+        writeDropRightNMethods(out, arity);
       }
 
       writeWithElementMethods(out, arity);
@@ -311,15 +313,35 @@ public class TupleProcessor extends AbstractProcessor {
     final List<String> typeParams = typeParamsTo(arity);
     final List<String> params = paramsTo(arity);
 
-    for (int elemsRemaining = 1; elemsRemaining < arity; elemsRemaining++) {
-      final List<String> typeParamsRemaining = typeParams.subList(typeParams.size() - elemsRemaining, typeParams.size());
-      final List<String> paramsRemaining = params.subList(params.size() - elemsRemaining, params.size());
+    for (int elemsToDrop = 1; elemsToDrop < arity; elemsToDrop++) {
+      final List<String> typeParamsRemaining = typeParams.subList(typeParams.size() - elemsToDrop, typeParams.size());
+      final List<String> paramsRemaining = params.subList(params.size() - elemsToDrop, params.size());
 
       final String typeParamsString = typeParamsRemaining.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsRemaining));
 
-      out.println(String.format("  public final Tuple%d%s drop%d() {", elemsRemaining, typeParamsString, arity - elemsRemaining));
+      out.println(String.format("  public final Tuple%d%s drop%d() {", elemsToDrop, typeParamsString, arity - elemsToDrop));
 
-      out.print(String.format("    return Tuple%d.of(", elemsRemaining));
+      out.print(String.format("    return Tuple%d.of(", elemsToDrop));
+      out.print(String.join(", ", paramsRemaining));
+      out.println(");");
+      out.println("  }");
+      out.println();
+    }
+  }
+
+  private void writeDropRightNMethods(PrintWriter out, int arity) {
+    final List<String> typeParams = typeParamsTo(arity);
+    final List<String> params = paramsTo(arity);
+
+    for (int elemsToDrop = 1; elemsToDrop < arity; elemsToDrop++) {
+      final List<String> typeParamsRemaining = typeParams.subList(0, typeParams.size() - elemsToDrop);
+      final List<String> paramsRemaining = params.subList(0, params.size() - elemsToDrop);
+
+      final String typeParamsString = typeParamsRemaining.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsRemaining));
+
+      out.println(String.format("  public final Tuple%d%s dropRight%d() {", arity - elemsToDrop, typeParamsString, elemsToDrop));
+
+      out.print(String.format("    return Tuple%d.of(", arity - elemsToDrop));
       out.print(String.join(", ", paramsRemaining));
       out.println(");");
       out.println("  }");
