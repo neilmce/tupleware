@@ -218,6 +218,7 @@ public class TupleProcessor extends AbstractProcessor {
   private void writeElementGetters(PrintWriter out, int arity) {
     for (int i = 1; i <= arity; i++) {
       out.println(String.format("  public final T%d elem%d() { return this.t%d; }", i, i, i));
+      out.println();
     }
   }
 
@@ -232,6 +233,7 @@ public class TupleProcessor extends AbstractProcessor {
     }
     out.println(";");
     out.println("  }");
+    out.println();
   }
 
   private void writeToListMethod(PrintWriter out, int arity) {
@@ -245,10 +247,12 @@ public class TupleProcessor extends AbstractProcessor {
     }
     out.println(");");
     out.println("  }");
+    out.println();
   }
 
   private void writeGetArityMethod(PrintWriter out, int arity) {
     out.println(String.format("  @Override public final int getArity() { return %d; }", arity));
+    out.println();
   }
 
   private void writeToStringMethod(PrintWriter out, int arity) {
@@ -469,7 +473,7 @@ public class TupleProcessor extends AbstractProcessor {
                                 String.join(", ", extraTypeParams),
                                 concatTypeParams.size(), String.join(", ", concatTypeParams),
                                 extraTypeParams.size(), String.join(", ", extraTypeParams)));
-      out.print(String.format("    return Tuple%d.of(%s);", currentTypeParams.size() + extraTypeParams.size(), String.join(", ", concatParams)));
+      out.println(String.format("    return Tuple%d.of(%s);", currentTypeParams.size() + extraTypeParams.size(), String.join(", ", concatParams)));
       out.println("  }");
       out.println();
     }
