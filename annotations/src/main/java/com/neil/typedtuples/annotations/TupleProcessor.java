@@ -138,6 +138,8 @@ public class TupleProcessor extends AbstractProcessor {
 
       writeSplitMethods(out, arity);
 
+      writeConcatMethods(out, arity);
+
       if (arity > 0) {
         writeDropElemMethods(out, arity);
 
@@ -414,6 +416,29 @@ public class TupleProcessor extends AbstractProcessor {
       out.println(String.format("      Tuple%d.of(%s),", splitAfterPos, String.join(", ", leftParams)));
       out.println(String.format("      Tuple%d.of(%s)", arity - splitAfterPos, String.join(", ", rightParams)));
       out.println("    );");
+      out.println("  }");
+      out.println();
+    }
+  }
+
+  private void writeConcatMethods(PrintWriter out, int arity) {
+    final List<String> currentTypeParams = typeParamsTo(arity);
+    final List<String> currentParams = paramsTo(arity);
+
+    for (int concatSize = 1; concatSize + arity <= 10; concatSize++) {
+      final List<String> extraTypeParams = IntStream.range(1, concatSize + 1).mapToObj(i -> String.format("S%d", i)).collect(toList());
+      final List<String> extraParams = IntStream.range(1, concatSize + 1).mapToObj(i -> String.format("otherTuple.elem%d()", i)).collect(toList());
+
+      final List<String> concatTypeParams = new ArrayList<>(currentTypeParams);
+      concatTypeParams.addAll(extraTypeParams);
+      final List<String> concatParams = new ArrayList<>(currentParams);
+      concatParams.addAll(extraParams);
+
+      out.println(String.format("  public final <%s> Tuple%d<%s> concat(Tuple%d<%s> otherTuple) {",
+                                String.join(", ", extraTypeParams),
+                                concatTypeParams.size(), String.join(", ", concatTypeParams),
+                                extraTypeParams.size(), String.join(", ", extraTypeParams)));
+      out.print(String.format("    return Tuple%d.of(%s);", currentTypeParams.size() + extraTypeParams.size(), String.join(", ", concatParams)));
       out.println("  }");
       out.println();
     }

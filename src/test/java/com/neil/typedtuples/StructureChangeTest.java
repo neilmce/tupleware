@@ -129,6 +129,62 @@ class StructureChangeTest {
     assertEquals(Tuple2.of(Tuple1.of("Hi"), Tuple9.of(2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1), Map.of("One", 1))), tuple10.splitAfterElement1());
   }
 
+  @Test void concatTuples() {
+    assertEquals(Tuple10.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1), "Hi"), tuple9.concat(tuple1));
+
+    assertEquals(Tuple9.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x', List.of(1), "Hi"), tuple8.concat(tuple1));
+    assertEquals(Tuple10.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x', List.of(1), "Hi", 2), tuple8.concat(tuple2));
+
+    assertEquals(Tuple8.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x', "Hi"), tuple7.concat(tuple1));
+    assertEquals(Tuple9.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x', "Hi", 2), tuple7.concat(tuple2));
+    assertEquals(Tuple10.of("Hi", 2, 3.1, true, JANUARY, UTC, 'x', "Hi", 2, 3.1), tuple7.concat(tuple3));
+
+    assertEquals(Tuple7.of("Hi", 2, 3.1, true, JANUARY, UTC, "Hi"), tuple6.concat(tuple1));
+    assertEquals(Tuple8.of("Hi", 2, 3.1, true, JANUARY, UTC, "Hi", 2), tuple6.concat(tuple2));
+    assertEquals(Tuple9.of("Hi", 2, 3.1, true, JANUARY, UTC, "Hi", 2, 3.1), tuple6.concat(tuple3));
+    assertEquals(Tuple10.of("Hi", 2, 3.1, true, JANUARY, UTC, "Hi", 2, 3.1, true), tuple6.concat(tuple4));
+
+    assertEquals(Tuple6.of("Hi", 2, 3.1, true, JANUARY, "Hi"), tuple5.concat(tuple1));
+    assertEquals(Tuple7.of("Hi", 2, 3.1, true, JANUARY, "Hi", 2), tuple5.concat(tuple2));
+    assertEquals(Tuple8.of("Hi", 2, 3.1, true, JANUARY, "Hi", 2, 3.1), tuple5.concat(tuple3));
+    assertEquals(Tuple9.of("Hi", 2, 3.1, true, JANUARY, "Hi", 2, 3.1, true), tuple5.concat(tuple4));
+    assertEquals(Tuple10.of("Hi", 2, 3.1, true, JANUARY, "Hi", 2, 3.1, true, JANUARY), tuple5.concat(tuple5));
+
+    assertEquals(Tuple5.of("Hi", 2, 3.1, true, "Hi"), tuple4.concat(tuple1));
+    assertEquals(Tuple6.of("Hi", 2, 3.1, true, "Hi", 2), tuple4.concat(tuple2));
+    assertEquals(Tuple7.of("Hi", 2, 3.1, true, "Hi", 2, 3.1), tuple4.concat(tuple3));
+    assertEquals(Tuple8.of("Hi", 2, 3.1, true, "Hi", 2, 3.1, true), tuple4.concat(tuple4));
+    assertEquals(Tuple9.of("Hi", 2, 3.1, true, "Hi", 2, 3.1, true, JANUARY), tuple4.concat(tuple5));
+    assertEquals(Tuple10.of("Hi", 2, 3.1, true, "Hi", 2, 3.1, true, JANUARY, UTC), tuple4.concat(tuple6));
+
+    assertEquals(Tuple4.of("Hi", 2, 3.1, "Hi"), tuple3.concat(tuple1));
+    assertEquals(Tuple5.of("Hi", 2, 3.1, "Hi", 2), tuple3.concat(tuple2));
+    assertEquals(Tuple6.of("Hi", 2, 3.1, "Hi", 2, 3.1), tuple3.concat(tuple3));
+    assertEquals(Tuple7.of("Hi", 2, 3.1, "Hi", 2, 3.1, true), tuple3.concat(tuple4));
+    assertEquals(Tuple8.of("Hi", 2, 3.1, "Hi", 2, 3.1, true, JANUARY), tuple3.concat(tuple5));
+    assertEquals(Tuple9.of("Hi", 2, 3.1, "Hi", 2, 3.1, true, JANUARY, UTC), tuple3.concat(tuple6));
+    assertEquals(Tuple10.of("Hi", 2, 3.1, "Hi", 2, 3.1, true, JANUARY, UTC, 'x'), tuple3.concat(tuple7));
+
+    assertEquals(Tuple3.of("Hi", 2, "Hi"), tuple2.concat(tuple1));
+    assertEquals(Tuple4.of("Hi", 2, "Hi", 2), tuple2.concat(tuple2));
+    assertEquals(Tuple5.of("Hi", 2, "Hi", 2, 3.1), tuple2.concat(tuple3));
+    assertEquals(Tuple6.of("Hi", 2, "Hi", 2, 3.1, true), tuple2.concat(tuple4));
+    assertEquals(Tuple7.of("Hi", 2, "Hi", 2, 3.1, true, JANUARY), tuple2.concat(tuple5));
+    assertEquals(Tuple8.of("Hi", 2, "Hi", 2, 3.1, true, JANUARY, UTC), tuple2.concat(tuple6));
+    assertEquals(Tuple9.of("Hi", 2, "Hi", 2, 3.1, true, JANUARY, UTC, 'x'), tuple2.concat(tuple7));
+    assertEquals(Tuple10.of("Hi", 2, "Hi", 2, 3.1, true, JANUARY, UTC, 'x', List.of(1)), tuple2.concat(tuple8));
+
+    assertEquals(Tuple2.of("Hi", "Hi"), tuple1.concat(tuple1));
+    assertEquals(Tuple3.of("Hi", "Hi", 2), tuple1.concat(tuple2));
+    assertEquals(Tuple4.of("Hi", "Hi", 2, 3.1), tuple1.concat(tuple3));
+    assertEquals(Tuple5.of("Hi", "Hi", 2, 3.1, true), tuple1.concat(tuple4));
+    assertEquals(Tuple6.of("Hi", "Hi", 2, 3.1, true, JANUARY), tuple1.concat(tuple5));
+    assertEquals(Tuple7.of("Hi", "Hi", 2, 3.1, true, JANUARY, UTC), tuple1.concat(tuple6));
+    assertEquals(Tuple8.of("Hi", "Hi", 2, 3.1, true, JANUARY, UTC, 'x'), tuple1.concat(tuple7));
+    assertEquals(Tuple9.of("Hi", "Hi", 2, 3.1, true, JANUARY, UTC, 'x', List.of(1)), tuple1.concat(tuple8));
+    assertEquals(Tuple10.of("Hi", "Hi", 2, 3.1, true, JANUARY, UTC, 'x', List.of(1), Set.of(1)), tuple1.concat(tuple9));
+  }
+
   @Test void dropElements() {
     assertEquals(Tuple0.of(), tuple1.dropElem1());
 
