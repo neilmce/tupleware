@@ -47,7 +47,8 @@ import static java.util.stream.Collectors.toList;
 @AutoService(Processor.class)
 public class TupleProcessor extends AbstractProcessor {
 
-  private static final int MAXTUPLE_SIZE = 10;
+  /** An arbitrary limit to stop the type signatures getting out of hand. */
+  private static final int MAX_TUPLE_SIZE = 10;
 
   private void note(String msg) {
     processingEnv.getMessager().printMessage(Kind.NOTE, msg);
@@ -90,7 +91,7 @@ public class TupleProcessor extends AbstractProcessor {
           packageName = null;
         }
 
-        if (tupleSize < 0 || tupleSize > MAXTUPLE_SIZE) {
+        if (tupleSize < 0 || tupleSize > MAX_TUPLE_SIZE) {
           error("Illegal size on @TupleGeneration: " + tupleSize);
         }
         try {
