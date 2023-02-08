@@ -17,6 +17,8 @@ package com.neil.tupleware;
 import org.junit.jupiter.api.Test;
 
 import java.time.ZoneOffset;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import static com.neil.tupleware.TestData.tuple1;
@@ -100,6 +102,38 @@ class ElementChangeTest {
     assertEquals("[1]", tuple10.mapElem8(Object::toString).elem8());
     assertEquals(1, tuple10.mapElem9(Set::size).elem9());
     assertEquals(2, tuple10.mapElem10(map -> map.get("One") + 1).elem10());
+  }
+
+  @Test void foo() {
+    var data = Tuple4.of("Joe", "Jo", 20, 33);
+
+    var expected = Tuple6.of("Joe", "Jo", 20, 33, "JoeJo", 53);
+
+    assertEquals(expected, data.append(data.elem1() + data.elem2())
+                               .append(data.elem3() + data.elem4()));
+  }
+
+  @Test void bar() {
+    var data = Tuple4.of("Joe", "Jo", 20, 33);
+
+    var expected = Tuple4.of("Joe", "Jo", 20, 53);
+
+    assertEquals(expected, data.withElem4(data.elem3() + data.elem4()));
+  }
+
+  @Test void baz() {
+    var data = List.of(
+        Tuple3.of("Foo", 11, 42.0),
+        Tuple3.of("Bar", 12, 101.0),
+        Tuple3.of("Baz", 13, -6.0),
+        Tuple3.of("Qux", 14, 0.0)
+    );
+
+    var aggs = Tuple3.unzip(data)
+                     .mapElem2(ints -> Collections.min(ints))
+                     .mapElem3(doubs -> Collections.max(doubs));
+
+    assertEquals(Tuple3.of(List.of("Foo", "Bar", "Baz", "Qux"), 11, 101.0), aggs);
   }
 
   @Test

@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  * @param <T1> the type of the 1st element.
  * @param <T2> the type of the 2nd element.
  */
-@TupleGeneration(tupleArity = 2)
+@TupleGeneration(tupleSize = 2)
 public final class Tuple2<T1, T2> extends GeneratedTuple2<T1, T2> implements Tuple {
   private Tuple2(T1 t1, T2 t2) {
     super(t1, t2);

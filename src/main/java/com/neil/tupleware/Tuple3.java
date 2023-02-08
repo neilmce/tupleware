@@ -30,7 +30,7 @@ import java.util.stream.Stream;
  * @param <T2> the type of the 2nd element.
  * @param <T3> the type of the 3rd element.
  */
-@TupleGeneration(tupleArity = 3)
+@TupleGeneration(tupleSize = 3)
 public final class Tuple3<T1, T2, T3> extends GeneratedTuple3<T1, T2, T3> implements Tuple {
 
   private Tuple3(T1 t1, T2 t2, T3 t3) {

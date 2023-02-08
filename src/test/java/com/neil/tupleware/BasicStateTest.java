@@ -51,7 +51,7 @@ class BasicStateTest {
   void aritiesShouldBeCorrect() {
     Iterator<Tuple> tupleIterator = sampleTuples.iterator();
     for (int expectedArity = 0; expectedArity <= 10; expectedArity++) {
-      assertEquals(expectedArity, tupleIterator.next().getArity());
+      assertEquals(expectedArity, tupleIterator.next().size());
     }
   }
 

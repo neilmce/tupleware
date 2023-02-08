@@ -47,7 +47,7 @@ import static java.util.stream.Collectors.toList;
 @AutoService(Processor.class)
 public class TupleProcessor extends AbstractProcessor {
 
-  private static final int MAX_ARITY = 10;
+  private static final int MAXTUPLE_SIZE = 10;
 
   private void note(String msg) {
     processingEnv.getMessager().printMessage(Kind.NOTE, msg);
@@ -78,7 +78,7 @@ public class TupleProcessor extends AbstractProcessor {
 
       taggedClassElements.forEach(classElem -> {
         TupleGeneration anno = classElem.getAnnotation(TupleGeneration.class);
-        int arity = anno.tupleArity();
+        int tupleSize = anno.tupleSize();
 
         final String packageName;
         String className = classElem.getQualifiedName().toString();
@@ -90,11 +90,11 @@ public class TupleProcessor extends AbstractProcessor {
           packageName = null;
         }
 
-        if (arity < 0 || arity > MAX_ARITY) {
-          error("Illegal arity on @TupleGeneration: " + arity);
+        if (tupleSize < 0 || tupleSize > MAXTUPLE_SIZE) {
+          error("Illegal size on @TupleGeneration: " + tupleSize);
         }
         try {
-          writeTupleImplFile(packageName, arity);
+          writeTupleImplFile(packageName, tupleSize);
         } catch (IOException e) {
           error("IOException while writing builder file");
 
@@ -106,8 +106,8 @@ public class TupleProcessor extends AbstractProcessor {
     return true;
   }
 
-  private void writeTupleImplFile(String packageName, int arity) throws IOException {
-    final String implClassName = String.format("GeneratedTuple%d", arity);
+  private void writeTupleImplFile(String packageName, int size) throws IOException {
+    final String implClassName = String.format("GeneratedTuple%d", size);
     final String fqImplClassName = packageName == null ? implClassName : packageName + "." + implClassName;
 
     JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(fqImplClassName);
@@ -144,55 +144,55 @@ public class TupleProcessor extends AbstractProcessor {
       out.print(String.format("public class %s", implClassName));
       // Generic types
       out.print(" <");
-      for (int i = 1; i <= arity; i++) {
+      for (int i = 1; i <= size; i++) {
         out.print(String.format("T%d", i));
-        if (i < arity) {
+        if (i < size) {
           out.print(", ");
         }
       }
       out.println("> implements Tuple {");
 
-      writeFieldsAndConstructor(out, implClassName, arity);
+      writeFieldsAndConstructor(out, implClassName, size);
 
-      writeGetArityMethod(out, arity);
+      writeGetSizeMethod(out, size);
 
-      writeElementGetters(out, arity);
+      writeElementGetters(out, size);
 
-      writeContainsAnyNullsMethod(out, arity);
+      writeContainsAnyNullsMethod(out, size);
 
-      writeToListMethod(out, arity);
+      writeToListMethod(out, size);
 
-      writeReverseMethod(out, arity);
+      writeReverseMethod(out, size);
 
-      writeSplitMethods(out, arity);
+      writeSplitMethods(out, size);
 
-      writeConcatMethods(out, arity);
+      writeConcatMethods(out, size);
 
-      if (arity > 0) {
-        writeDropElemMethods(out, arity);
+      if (size > 0) {
+        writeDropElemMethods(out, size);
 
-        writeTakeNMethods(out, arity);
+        writeTakeNMethods(out, size);
 
-        writeTakeRightNMethods(out, arity);
+        writeTakeRightNMethods(out, size);
 
-        writeDropNMethods(out, arity);
+        writeDropNMethods(out, size);
 
-        writeDropRightNMethods(out, arity);
+        writeDropRightNMethods(out, size);
       }
 
-      writeWithElementMethods(out, arity);
+      writeWithElementMethods(out, size);
 
-      writeMapElementMethods(out, arity);
+      writeMapElementMethods(out, size);
 
-      writeToStringMethod(out, arity);
+      writeToStringMethod(out, size);
 
       out.println("}");
     }
   }
 
-  private void writeFieldsAndConstructor(PrintWriter out, String implClassName, int arity) {
+  private void writeFieldsAndConstructor(PrintWriter out, String implClassName, int size) {
     // Fields
-    for (int i = 1; i <= arity; i++) {
+    for (int i = 1; i <= size; i++) {
       out.println(String.format("  protected final T%d t%d;", i, i));
     }
     out.println();
@@ -200,34 +200,34 @@ public class TupleProcessor extends AbstractProcessor {
     // Constructor
     out.print(String.format("  protected %s(", implClassName));
     // Constructor params
-    for (int i = 1; i <= arity; i++) {
+    for (int i = 1; i <= size; i++) {
       out.print(String.format("T%d t%d", i, i));
-      if (i < arity) {
+      if (i < size) {
         out.print(", ");
       }
     }
     out.println(") {");
     // Field assignments
-    for (int i = 1; i <= arity; i++) {
+    for (int i = 1; i <= size; i++) {
       out.println(String.format("    this.t%d = t%d;", i, i));
     }
     out.println("  }");
     out.println();
   }
 
-  private void writeElementGetters(PrintWriter out, int arity) {
-    for (int i = 1; i <= arity; i++) {
+  private void writeElementGetters(PrintWriter out, int size) {
+    for (int i = 1; i <= size; i++) {
       out.println(String.format("  public final T%d elem%d() { return this.t%d; }", i, i, i));
       out.println();
     }
   }
 
-  private void writeContainsAnyNullsMethod(PrintWriter out, int arity) {
+  private void writeContainsAnyNullsMethod(PrintWriter out, int size) {
     out.println("  @Override public final boolean containsAnyNulls() {");
     out.print("      return ");
-    for (int i = 1; i <= arity; i++) {
+    for (int i = 1; i <= size; i++) {
       out.print(String.format("t%d == null", i));
-      if (i < arity) {
+      if (i < size) {
         out.print(" || ");
       }
     }
@@ -236,12 +236,12 @@ public class TupleProcessor extends AbstractProcessor {
     out.println();
   }
 
-  private void writeToListMethod(PrintWriter out, int arity) {
+  private void writeToListMethod(PrintWriter out, int size) {
     out.println("  @Override public final List<Object> toList() {");
     out.print("      return List.of(");
-    for (int i = 1; i <= arity; i++) {
+    for (int i = 1; i <= size; i++) {
       out.print(String.format("t%d", i));
-      if (i < arity) {
+      if (i < size) {
         out.print(", ");
       }
     }
@@ -250,24 +250,24 @@ public class TupleProcessor extends AbstractProcessor {
     out.println();
   }
 
-  private void writeGetArityMethod(PrintWriter out, int arity) {
-    out.println(String.format("  @Override public final int getArity() { return %d; }", arity));
+  private void writeGetSizeMethod(PrintWriter out, int size) {
+    out.println(String.format("  @Override public final int size() { return %d; }", size));
     out.println();
   }
 
-  private void writeToStringMethod(PrintWriter out, int arity) {
+  private void writeToStringMethod(PrintWriter out, int size) {
     out.println("  @Override public final String toString() {");
     out.print("      return String.format(\"(");
-    for (int i = 1; i <= arity; i++) {
+    for (int i = 1; i <= size; i++) {
       out.print("%s");
-      if (i < arity) {
+      if (i < size) {
         out.print(", ");
       }
     }
     out.print(")\", ");
-    for (int i = 1; i <= arity; i++) {
+    for (int i = 1; i <= size; i++) {
       out.print(String.format("t%d", i));
-      if (i < arity) {
+      if (i < size) {
         out.print(", ");
       }
     }
@@ -283,11 +283,11 @@ public class TupleProcessor extends AbstractProcessor {
     return IntStream.range(1, limit + 1).mapToObj(i -> String.format("t%d", i)).collect(toList());
   }
 
-  private void writeDropElemMethods(PrintWriter out, int arity) {
-    final List<String> typeParams = typeParamsTo(arity);
-    final List<String> params = paramsTo(arity);
+  private void writeDropElemMethods(PrintWriter out, int size) {
+    final List<String> typeParams = typeParamsTo(size);
+    final List<String> params = paramsTo(size);
 
-    for (int elemToDrop = 1; elemToDrop <= arity; elemToDrop++) {
+    for (int elemToDrop = 1; elemToDrop <= size; elemToDrop++) {
       final List<String> typeParamsMinusDropped = new ArrayList<>(typeParams);
       final List<String> paramsMinusDropped = new ArrayList<>(params);
 
@@ -296,9 +296,9 @@ public class TupleProcessor extends AbstractProcessor {
 
       final String typeParamsString = typeParamsMinusDropped.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsMinusDropped));
 
-      out.println(String.format("  public final Tuple%d%s dropElem%d() {", arity - 1, typeParamsString, elemToDrop));
+      out.println(String.format("  public final Tuple%d%s dropElem%d() {", size - 1, typeParamsString, elemToDrop));
 
-      out.print(String.format("    return Tuple%d.of(", arity - 1));
+      out.print(String.format("    return Tuple%d.of(", size - 1));
       out.print(String.join(", ", paramsMinusDropped));
       out.println(");");
       out.println("  }");
@@ -306,11 +306,11 @@ public class TupleProcessor extends AbstractProcessor {
     }
   }
 
-  private void writeTakeNMethods(PrintWriter out, int arity) {
-    final List<String> typeParams = typeParamsTo(arity);
-    final List<String> params = paramsTo(arity);
+  private void writeTakeNMethods(PrintWriter out, int size) {
+    final List<String> typeParams = typeParamsTo(size);
+    final List<String> params = paramsTo(size);
 
-    for (int elemsToTake = 1; elemsToTake < arity; elemsToTake++) {
+    for (int elemsToTake = 1; elemsToTake < size; elemsToTake++) {
       final List<String> typeParamsTaken = typeParams.subList(0, elemsToTake);
       final List<String> paramsTaken = params.subList(0, elemsToTake);
 
@@ -326,11 +326,11 @@ public class TupleProcessor extends AbstractProcessor {
     }
   }
 
-  private void writeTakeRightNMethods(PrintWriter out, int arity) {
-    final List<String> typeParams = typeParamsTo(arity);
-    final List<String> params = paramsTo(arity);
+  private void writeTakeRightNMethods(PrintWriter out, int size) {
+    final List<String> typeParams = typeParamsTo(size);
+    final List<String> params = paramsTo(size);
 
-    for (int elemsToTake = 1; elemsToTake < arity; elemsToTake++) {
+    for (int elemsToTake = 1; elemsToTake < size; elemsToTake++) {
       final List<String> typeParamsTaken = typeParams.subList(typeParams.size() - elemsToTake, typeParams.size());
       final List<String> paramsTaken = params.subList(params.size() - elemsToTake, params.size());
 
@@ -346,17 +346,17 @@ public class TupleProcessor extends AbstractProcessor {
     }
   }
 
-  private void writeDropNMethods(PrintWriter out, int arity) {
-    final List<String> typeParams = typeParamsTo(arity);
-    final List<String> params = paramsTo(arity);
+  private void writeDropNMethods(PrintWriter out, int size) {
+    final List<String> typeParams = typeParamsTo(size);
+    final List<String> params = paramsTo(size);
 
-    for (int elemsToDrop = 1; elemsToDrop < arity; elemsToDrop++) {
+    for (int elemsToDrop = 1; elemsToDrop < size; elemsToDrop++) {
       final List<String> typeParamsRemaining = typeParams.subList(typeParams.size() - elemsToDrop, typeParams.size());
       final List<String> paramsRemaining = params.subList(params.size() - elemsToDrop, params.size());
 
       final String typeParamsString = typeParamsRemaining.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsRemaining));
 
-      out.println(String.format("  public final Tuple%d%s drop%d() {", elemsToDrop, typeParamsString, arity - elemsToDrop));
+      out.println(String.format("  public final Tuple%d%s drop%d() {", elemsToDrop, typeParamsString, size - elemsToDrop));
 
       out.print(String.format("    return Tuple%d.of(", elemsToDrop));
       out.print(String.join(", ", paramsRemaining));
@@ -366,19 +366,19 @@ public class TupleProcessor extends AbstractProcessor {
     }
   }
 
-  private void writeDropRightNMethods(PrintWriter out, int arity) {
-    final List<String> typeParams = typeParamsTo(arity);
-    final List<String> params = paramsTo(arity);
+  private void writeDropRightNMethods(PrintWriter out, int size) {
+    final List<String> typeParams = typeParamsTo(size);
+    final List<String> params = paramsTo(size);
 
-    for (int elemsToDrop = 1; elemsToDrop < arity; elemsToDrop++) {
+    for (int elemsToDrop = 1; elemsToDrop < size; elemsToDrop++) {
       final List<String> typeParamsRemaining = typeParams.subList(0, typeParams.size() - elemsToDrop);
       final List<String> paramsRemaining = params.subList(0, params.size() - elemsToDrop);
 
       final String typeParamsString = typeParamsRemaining.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsRemaining));
 
-      out.println(String.format("  public final Tuple%d%s dropRight%d() {", arity - elemsToDrop, typeParamsString, elemsToDrop));
+      out.println(String.format("  public final Tuple%d%s dropRight%d() {", size - elemsToDrop, typeParamsString, elemsToDrop));
 
-      out.print(String.format("    return Tuple%d.of(", arity - elemsToDrop));
+      out.print(String.format("    return Tuple%d.of(", size - elemsToDrop));
       out.print(String.join(", ", paramsRemaining));
       out.println(");");
       out.println("  }");
@@ -386,22 +386,22 @@ public class TupleProcessor extends AbstractProcessor {
     }
   }
 
-  private void writeWithElementMethods(PrintWriter out, int arity) {
-    final List<String> currentTypeParams = typeParamsTo(arity);
-    final List<String> currentParams = paramsTo(arity);
+  private void writeWithElementMethods(PrintWriter out, int size) {
+    final List<String> currentTypeParams = typeParamsTo(size);
+    final List<String> currentParams = paramsTo(size);
 
-    for (int elemToReplace = 1; elemToReplace <= arity; elemToReplace++) {
+    for (int elemToReplace = 1; elemToReplace <= size; elemToReplace++) {
       final List<String> newTypeParams = new ArrayList<>(currentTypeParams);
       newTypeParams.set(elemToReplace - 1, "R");
 
       final List<String> newParams = new ArrayList<>(currentParams);
       newParams.set(elemToReplace - 1, "newValue");
 
-      out.print(String.format("  public final <R> Tuple%d<", arity));
+      out.print(String.format("  public final <R> Tuple%d<", size));
       out.print(String.join(", ", newTypeParams));
       out.println(String.format("> withElem%d(R newValue) {", elemToReplace));
 
-      out.print(String.format("    return Tuple%d.of(", arity));
+      out.print(String.format("    return Tuple%d.of(", size));
       out.print(String.join(", ", newParams));
       out.println(");");
       out.println("  }");
@@ -409,22 +409,22 @@ public class TupleProcessor extends AbstractProcessor {
     }
   }
 
-  private void writeMapElementMethods(PrintWriter out, int arity) {
-    final List<String> currentTypeParams = typeParamsTo(arity);
-    final List<String> currentParams = paramsTo(arity);
+  private void writeMapElementMethods(PrintWriter out, int size) {
+    final List<String> currentTypeParams = typeParamsTo(size);
+    final List<String> currentParams = paramsTo(size);
 
-    for (int elemToReplace = 1; elemToReplace <= arity; elemToReplace++) {
+    for (int elemToReplace = 1; elemToReplace <= size; elemToReplace++) {
       final List<String> newTypeParams = new ArrayList<>(currentTypeParams);
       newTypeParams.set(elemToReplace - 1, "R");
 
       final List<String> newParams = new ArrayList<>(currentParams);
       newParams.set(elemToReplace - 1, String.format("function.apply(t%d)", elemToReplace));
 
-      out.print(String.format("  public final <R> Tuple%d<", arity));
+      out.print(String.format("  public final <R> Tuple%d<", size));
       out.print(String.join(", ", newTypeParams));
       out.println(String.format("> mapElem%d(Function<T%d, R> function) {", elemToReplace, elemToReplace));
 
-      out.print(String.format("    return Tuple%d.of(", arity));
+      out.print(String.format("    return Tuple%d.of(", size));
       out.print(String.join(", ", newParams));
       out.println(");");
       out.println("  }");
@@ -432,11 +432,11 @@ public class TupleProcessor extends AbstractProcessor {
     }
   }
 
-  private void writeSplitMethods(PrintWriter out, int arity) {
-    final List<String> currentTypeParams = typeParamsTo(arity);
-    final List<String> currentParams = paramsTo(arity);
+  private void writeSplitMethods(PrintWriter out, int size) {
+    final List<String> currentTypeParams = typeParamsTo(size);
+    final List<String> currentParams = paramsTo(size);
 
-    for (int splitAfterPos = 1; splitAfterPos < arity; splitAfterPos++) {
+    for (int splitAfterPos = 1; splitAfterPos < size; splitAfterPos++) {
       final List<String> leftTypeParams = currentTypeParams.subList(0, splitAfterPos);
       final List<String> rightTypeParams = currentTypeParams.subList(splitAfterPos, currentTypeParams.size());
 
@@ -449,18 +449,18 @@ public class TupleProcessor extends AbstractProcessor {
                                 splitAfterPos));
       out.println("    return Tuple2.of(");
       out.println(String.format("      Tuple%d.of(%s),", splitAfterPos, String.join(", ", leftParams)));
-      out.println(String.format("      Tuple%d.of(%s)", arity - splitAfterPos, String.join(", ", rightParams)));
+      out.println(String.format("      Tuple%d.of(%s)", size - splitAfterPos, String.join(", ", rightParams)));
       out.println("    );");
       out.println("  }");
       out.println();
     }
   }
 
-  private void writeConcatMethods(PrintWriter out, int arity) {
-    final List<String> currentTypeParams = typeParamsTo(arity);
-    final List<String> currentParams = paramsTo(arity);
+  private void writeConcatMethods(PrintWriter out, int size) {
+    final List<String> currentTypeParams = typeParamsTo(size);
+    final List<String> currentParams = paramsTo(size);
 
-    for (int concatSize = 1; concatSize + arity <= 10; concatSize++) {
+    for (int concatSize = 1; concatSize + size <= 10; concatSize++) {
       final List<String> extraTypeParams = IntStream.range(1, concatSize + 1).mapToObj(i -> String.format("S%d", i)).collect(toList());
       final List<String> extraParams = IntStream.range(1, concatSize + 1).mapToObj(i -> String.format("otherTuple.elem%d()", i)).collect(toList());
 
@@ -479,9 +479,9 @@ public class TupleProcessor extends AbstractProcessor {
     }
   }
 
-  private void writeReverseMethod(PrintWriter out, int arity) {
-    final List<String> currentTypeParams = typeParamsTo(arity);
-    final List<String> currentParams = paramsTo(arity);
+  private void writeReverseMethod(PrintWriter out, int size) {
+    final List<String> currentTypeParams = typeParamsTo(size);
+    final List<String> currentParams = paramsTo(size);
 
     final List<String> newTypeParams = new ArrayList<>(currentTypeParams);
     final List<String> newParams = new ArrayList<>(currentParams);
@@ -489,8 +489,8 @@ public class TupleProcessor extends AbstractProcessor {
     Collections.reverse(newParams);
 
     out.println(String.format("  public final Tuple%d<%s> reverse() {",
-                              arity, String.join(", ", newTypeParams)));
-    out.println(String.format("    return Tuple%d.of(%s);", arity, String.join(", ", newParams)));
+                              size, String.join(", ", newTypeParams)));
+    out.println(String.format("    return Tuple%d.of(%s);", size, String.join(", ", newParams)));
     out.println("  }");
     out.println();
   }

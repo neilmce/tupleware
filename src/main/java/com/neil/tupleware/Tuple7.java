@@ -34,7 +34,7 @@ import java.util.stream.Stream;
  * @param <T6> the type of the 6th element.
  * @param <T7> the type of the 7th element.
  */
-@TupleGeneration(tupleArity = 7)
+@TupleGeneration(tupleSize = 7)
 public final class Tuple7<T1, T2, T3, T4, T5, T6, T7> extends GeneratedTuple7<T1, T2, T3, T4, T5, T6, T7> implements Tuple {
 
   private Tuple7(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7) {

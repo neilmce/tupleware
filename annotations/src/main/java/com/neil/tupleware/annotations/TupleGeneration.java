@@ -23,5 +23,5 @@ import static java.lang.annotation.ElementType.TYPE;
 @Target(TYPE)
 @Retention(RetentionPolicy.SOURCE)
 public @interface TupleGeneration {
-    int tupleArity();
+    int tupleSize();
 }

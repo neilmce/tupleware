@@ -37,7 +37,7 @@ import java.util.stream.Stream;
  * @param <T9> the type of the 9th element.
  * @param <T10> the type of the 10th element.
  */
-@TupleGeneration(tupleArity = 10)
+@TupleGeneration(tupleSize = 10)
 public final class Tuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
     extends GeneratedTuple10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>
     implements Tuple {

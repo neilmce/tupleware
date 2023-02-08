@@ -18,13 +18,13 @@ import java.util.List;
 
 /**
  * This interface defines a Tuple type. A tuple is an immutable sequence of element values.
- * The number of fields in a particular tuple is available from {@link #getArity()}.
+ * The number of fields in a particular tuple is available from {@link #size()}.
  */
 public interface Tuple {
   /**
    * @return the number of elements in this tuple.
    */
-  int getArity();
+  int size();
 
   /**
    * Converts the sequence of elements in this tuple into a List of Objects.

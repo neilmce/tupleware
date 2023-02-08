@@ -56,7 +56,7 @@ public final class Tuple0 implements Tuple {
 
   @Override
   public int hashCode() {
-    return getArity();
+    return size();
   }
 
   @Override
@@ -65,7 +65,7 @@ public final class Tuple0 implements Tuple {
   }
 
   @Override
-  public int getArity() {
+  public int size() {
     return 0;
   }
 }
