@@ -34,6 +34,7 @@ Design goals
 * Type safety. We want to support users who believe in strongly typed designs.
 * Catch as many errors as possible in the compilation phase rather than at runtime.
 * No external dependencies. We want the library to be as small as possible and easy to integrate.
+* Tuple element indices are 1-based, not 0-based.
 
 Requirements & limitations.
 ===
@@ -135,10 +136,11 @@ var combined = names.concat(favourites); // This is a Tuple4.
 
 Reducing the 'shape' of a tuple
 --
+TODO
 
 Zipping and unzipping tuples
 --
-
+TODO
 
 Tuples vs Java records
 ===
@@ -148,16 +150,17 @@ should we use records?
 record Product(String name, int quantity, double price) {}
 ```
 
-Records are 'named tuples', which means that each tuple element is a named field. So records are real Java classes
-in the software design sense. They represent something fixed in our application type system.
-Tuples on the other hand are not named like this. Their elements _are_ strongly typed (like records' fields), but
-the elements are referred to by their index. So tuples are a container you use to pass some data around but instances
-are not likely to be long-lived in your application.
+Records are 'named tuples', which means that the record itself and each element within it is a named field.
+So records are real Java classes in the software design sense. They represent something fixed in your application type
+system.
+
+Tuples on the other hand are not named like this. A `Tuple2` is a generic 'pair' type & a `Tuple3` is a generic
+'triple' type. Their elements _are_ strongly typed (like records' fields), but
+the elements can only be referred to by their index. So tuples are a container you use to pass some data around but
+instances are not likely to be long-lived in your application.
 
 When we are dealing with types where the element names are known and fixed, Java records are better. For example,
 small data classes representing domain objects are probably best modelled as records.
 
 But when you have a small (10 elements or fewer) group of data objects that you want to pass from one method to
 another, a tuple may be just what you need.
-
-They're also useful when you need to do some very simple data transformations, as we'll see below.
