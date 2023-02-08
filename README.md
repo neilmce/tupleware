@@ -23,7 +23,7 @@ var coneWithReducedPrice = cone.withElem3(1.50);
 ```
 * Change the 'shape' of tuples:
 ```java
-var coneWithToppings = cone.append(List.of("Toffee Sauce", "Wafer"));
+var coneWithToppings = cone.append(List.of("Toffee Sauce", "Wafer")); // This is a Tuple4 instance.
 ```
 and more.
 
@@ -32,6 +32,7 @@ Design goals
 * Immutability. The tuples provided by this library are immutable. (Of course, the library cannot guarantee that
   what you keep in your tuples is immutable. That's up to you.)
 * Type safety. We want to support users who believe in strongly typed designs.
+* Catch as many errors as possible in the compilation phase rather than at runtime.
 * No external dependencies. We want the library to be as small as possible and easy to integrate.
 
 Requirements & limitations.
