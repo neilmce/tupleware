@@ -12,8 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module tupleware {
-  requires static tupleware.annotations;
+package io.github.neilmce.tupleware;
 
-  exports io.github.neilmce.tupleware;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class MapRelatedTest {
+
+  @Test
+  void tuple2FromMapEntry() {
+    var map = Map.of("Hello", 42);
+    Tuple2<String, Integer> t2 = Tuple2.from(map.entrySet().iterator().next());
+
+    assertEquals(Tuple2.of("Hello", 42), t2);
+  }
 }

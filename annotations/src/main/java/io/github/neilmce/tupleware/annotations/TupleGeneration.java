@@ -12,8 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module tupleware {
-  requires static tupleware.annotations;
+package io.github.neilmce.tupleware.annotations;
 
-  exports io.github.neilmce.tupleware;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.TYPE;
+
+@Target(TYPE)
+@Retention(RetentionPolicy.SOURCE)
+public @interface TupleGeneration {
+    int tupleSize();
 }
