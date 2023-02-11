@@ -147,7 +147,48 @@ var data2 = data.dropElem2()
 // == Tuple2.of(1, JANUARY).
 ```
 
+TODO take, drop [Right]
+
+TODO note on deep equals.
+
+TODO pictures.
+
 ## Zipping and unzipping tuples
+```mermaid
+flowchart LR
+  subgraph in
+  direction LR
+    subgraph listA
+      direction TB
+      1
+      2
+      3
+      5
+    end
+    subgraph listB
+      direction TB
+      a
+      b
+      c
+      e
+    end
+  end
+  1 -.- a
+  2 -.- b
+  3 -.- c
+  5 -.- e
+  subgraph out
+    subgraph listZipped
+      direction LR
+      1a["(1, a)"]
+      2b["(2, b)"]
+      3c["(3, c)"]
+      5e["(5, e)"]
+    end
+  end
+  in ---> out
+```
+
 It is a common operation to have two lists `List<A>` and `List<B>` and to want to 'zip' them up into a
 `List<Tuple2<A, B>>`.  Likewise it can be useful to do the exact opposite: 'unzip' a `List<Tuple2<A, B>>` into 2 lists
 `List<A>` and `List<B>`.
