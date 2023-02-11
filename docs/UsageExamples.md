@@ -5,6 +5,9 @@ For Tuples of size 0 to 10, you can construct a tuple using an `of` method as fo
 ```java
 Tuple2<String, Integer> productAndQuantity = Tuple2.of("Coffee", 1);
 ```
+There are also `ofNonNull` methods which will throw a `NullPointerException` if any of the provided
+elements are null.
+
 This code is perfectly readable for tuples with less than about 4 elements, but for larger tuples it can
 become quite verbose and in such cases we recommend using Java's local variable type inference if possible.
 There is no loss of type safety when using type inference.
@@ -33,6 +36,20 @@ List<String> toppings = productData.elem4();
 
 > **Note:** there is no method like `elem(int index)`, as that would mean the loss of
   type safety. How would the compiler know what type the result of `elem(3)` had?
+
+## Checking for null elements
+All tuples have a method `containsAnyNulls()` which will return `true` if any element is `null`.
+```java
+var listWithNull = new ArrayList<String>();
+listWithNull.add("Cream");
+listWithNull.add(null);
+
+Tuple4.of("Apple pie", 1, 2.99, listWithNull).containsAnyNulls() // == false. The elements are all non-null.
+
+String name = null;
+Tuple4.of(name, 1, 2.99, List.of("Milk")).containsAnyNulls() // == true. The first element is null.
+```
+> **Note:** Java's `List.of()` methods do not accept `null` arguments.
 
 ## Changing an element value
 Tupleware tuples are immutable and so you cannot give a particular element a new value. Neither can you add or remove
@@ -81,7 +98,8 @@ Tuples can be split into two smaller tuples like so (we leave the full types in 
 ```java
 var personalInfo = Tuple4.of("Mary", "Beery", List.of("Cakes", "Pastries"), Set.of("Coffee", "Tea"));
 
-Tuple2<Tuple2<String, String>, Tuple2<List<String>, Set<String>>> namesAndFavourites = personalInfo.splitAfterElement2();
+Tuple2<Tuple2<String, String>, Tuple2<List<String>, Set<String>>> namesAndFavourites =
+                                                                  personalInfo.splitAfterElement2();
 // == Tuple2.of(
 //      Tuple2.of("Mary", "Beery"),
 //      Tuple2.of(List.of("Cakes", "Pastries"), Set.of("Coffee", "Tea"))
@@ -110,8 +128,25 @@ var combined = names.concat(favourites);
 // == Tuple4.of("Mary", "Beery", List.of("Cakes", "Pastries"), Set.of("Coffee", "Tea"))
 ```
 
-## Reducing the 'shape' of a tuple
-TODO
+## Removing elements from tuples
+> Remember: tuples are immutable, so this will create a new tuple that is smaller.
+
+An element can be removed from a tuple as follows:
+```java
+var order = Tuple3.of("Coffee", 2, 1.99);
+var orderWithoutQuantity = order.dropElem2();
+// == Tuple2.of("Coffee", 1.99)
+```
+
+Just be careful when chaining a set of `dropElem` methods that you are removing the elements you think you are.
+```java
+var data = Tuple4.of(1, MONDAY, JANUARY, 1.0);
+
+var data2 = data.dropElem2()
+                .dropElem2();
+// == Tuple2.of(1, 1.0).
+```
+
 
 ## Zipping and unzipping tuples
 TODO
