@@ -3,7 +3,7 @@ plugins {
     id 'idea'
 }
 
-group 'com.neil'
+group 'io.github.neilmce'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
