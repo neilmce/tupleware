@@ -34,10 +34,10 @@ List<String> toppings = productData.elem4();
 > **Note:** there is no method like `elem(int index)`, as that would mean the loss of
   type safety. How would the compiler know what type the result of `elem(3)` had?
 
+## Changing an element value
 Tupleware tuples are immutable and so you cannot give a particular element a new value. Neither can you add or remove
 elements from a tuple. However, both of these changes can be achieved by creating new tuple instances from old ones:
 
-## Changing an element value
 Creating a new tuple with new, fixed values for particular elements:
 ```java
 var fixedPriceReduction = Tuple3.of("Ice cream cone", 1, 1.99)
