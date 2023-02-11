@@ -142,6 +142,23 @@ public class TupleProcessor extends AbstractProcessor {
       out.println(String.format("// This code was generated on %s by %s", LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)), this.getClass().getName()));
       out.println("// You should not edit it.");
 
+      out.println("/**");
+      out.println(String.format(" * This class represents a tuple of {@link #size() %d} elements.", size));
+      out.println(" * It provides families of methods as follows (all tuples are immutable, so any changed values are made by copying and returning a new instance):");
+      out.println(" * <ul>");
+      out.println(String.format(" *   <li>%d {@code elemN()} methods which return the value of the nth element.</li>", size));
+      out.println(String.format(" *   <li>%d {@code dropElemN()} methods which drop the nth element in this tuple.</li>", size));
+      out.println(String.format(" *   <li>%d {@code dropN()} methods which drop the first n elements in this tuple.</li>", size));
+      out.println(String.format(" *   <li>%d {@code dropRightN()} methods which drop the last n elements in this tuple.</li>", size));
+      out.println(String.format(" *   <li>%d {@code takeN()} methods which take the first n elements in this tuple dropping the rest.</li>", size));
+      out.println(String.format(" *   <li>%d {@code takeRightN()} methods which take the last n elements in this tuple dropping the rest.</li>", size));
+      out.println(String.format(" *   <li>%d {@code withElemN()} methods which change the nth element to a new value.</li>", size));
+      out.println(String.format(" *   <li>%d {@code mapElemN()} methods which change the nth element to a new value given by a function.</li>", size));
+      out.println(String.format(" *   <li>%d {@code splitAfterElementN()} methods which split the tuple in 2 after the nth element.</li>", size));
+      out.println(String.format(" *   <li>%d {@code concat()} methods which concatenate this tuple with another to give one bigger tuple.</li>", size));
+      out.println(" * </ul>");
+      out.println(" * Note: tuple elements are indexed from 1, not from 0. So the first elem is element 1.");
+      out.println(" */");
       out.print(String.format("public class %s", implClassName));
       // Generic types
       out.print(" <");
@@ -252,6 +269,7 @@ public class TupleProcessor extends AbstractProcessor {
   }
 
   private void writeGetSizeMethod(PrintWriter out, int size) {
+    out.println("  /** @return the number of elements in this tuple. */");
     out.println(String.format("  @Override public final int size() { return %d; }", size));
     out.println();
   }
@@ -297,6 +315,10 @@ public class TupleProcessor extends AbstractProcessor {
 
       final String typeParamsString = typeParamsMinusDropped.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsMinusDropped));
 
+      out.println(String.format("   /** Creates a new tuple instance without the element at position %d.", elemToDrop));
+      out.println("    * Remember that the position index is one-based, so the first element is elem1.");
+      out.println(String.format("    * @return a new tuple instance from which the tuple element at position %d has been removed.", elemToDrop));
+      out.println("    */");
       out.println(String.format("  public final Tuple%d%s dropElem%d() {", size - 1, typeParamsString, elemToDrop));
 
       out.print(String.format("    return Tuple%d.of(", size - 1));
@@ -317,6 +339,9 @@ public class TupleProcessor extends AbstractProcessor {
 
       final String typeParamsString = typeParamsTaken.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsTaken));
 
+      out.println(String.format("   /** Creates a new tuple instance consisting of the first %d elements of this tuple.", elemsToTake));
+      out.println(String.format("    * @return a new tuple instance containing the first %d elements of this tuple.", elemsToTake));
+      out.println("    */");
       out.println(String.format("  public final Tuple%d%s take%d() {", elemsToTake, typeParamsString, elemsToTake));
 
       out.print(String.format("    return Tuple%d.of(", elemsToTake));
@@ -337,6 +362,9 @@ public class TupleProcessor extends AbstractProcessor {
 
       final String typeParamsString = typeParamsTaken.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsTaken));
 
+      out.println(String.format("   /** Creates a new tuple instance consisting of the last %d elements of this tuple.", elemsToTake));
+      out.println(String.format("    * @return a new tuple instance containing the last %d elements of this tuple.", elemsToTake));
+      out.println("    */");
       out.println(String.format("  public final Tuple%d%s takeRight%d() {", elemsToTake, typeParamsString, elemsToTake));
 
       out.print(String.format("    return Tuple%d.of(", elemsToTake));
@@ -357,6 +385,9 @@ public class TupleProcessor extends AbstractProcessor {
 
       final String typeParamsString = typeParamsRemaining.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsRemaining));
 
+      out.println(String.format("   /** Creates a new tuple instance without the first %d elements of this tuple.", size - elemsToDrop));
+      out.println(String.format("    * @return a new tuple instance without the first %d elements of this tuple.", size - elemsToDrop));
+      out.println("    */");
       out.println(String.format("  public final Tuple%d%s drop%d() {", elemsToDrop, typeParamsString, size - elemsToDrop));
 
       out.print(String.format("    return Tuple%d.of(", elemsToDrop));
@@ -377,6 +408,9 @@ public class TupleProcessor extends AbstractProcessor {
 
       final String typeParamsString = typeParamsRemaining.isEmpty() ? "" : String.format("<%s>", String.join(", ", typeParamsRemaining));
 
+      out.println(String.format("   /** Creates a new tuple instance without the last %d elements of this tuple.", elemsToDrop));
+      out.println(String.format("    * @return a new tuple instance without the last %d elements of this tuple.", elemsToDrop));
+      out.println("    */");
       out.println(String.format("  public final Tuple%d%s dropRight%d() {", size - elemsToDrop, typeParamsString, elemsToDrop));
 
       out.print(String.format("    return Tuple%d.of(", size - elemsToDrop));
