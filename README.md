@@ -32,6 +32,11 @@ var coneWithToppings = cone.append(List.of("Toffee Sauce", "Wafer"));
 ```
 and lots more besides. See the [Usage Examples](docs/UsageExamples.md).
 
+How to use the library
+===
+> This library is reaching the end of early development. There will be instructions on how to add it
+> as a dependency in Maven/Gradle soon.
+
 Requirements & limitations.
 ===
 * The library requires Java 11 or higher.
