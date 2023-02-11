@@ -30,7 +30,7 @@ var coneWithReducedPrice = cone.withElem3(1.50);
 var coneWithToppings = cone.append(List.of("Toffee Sauce", "Wafer"));
 // == Tuple4.of("Ice cream cone", 1, 1.99, List.of("Toffee Sauce", "Wafer"))
 ```
-and lots more besides. See the [User Manual](docs/UserManual.md) for extensive examples.
+and lots more besides. See the [Usage Examples](docs/UsageExamples.md).
 
 Requirements & limitations.
 ===
