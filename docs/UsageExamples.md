@@ -143,8 +143,8 @@ Just be careful when chaining a set of `dropElem` methods that you are removing 
 var data = Tuple4.of(1, MONDAY, JANUARY, 1.0);
 
 var data2 = data.dropElem2()
-                .dropElem2();
-// == Tuple2.of(1, 1.0).
+                .dropElem3();
+// == Tuple2.of(1, JANUARY).
 ```
 
 
