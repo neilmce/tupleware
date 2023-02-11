@@ -147,6 +147,47 @@ var data2 = data.dropElem2()
 // == Tuple2.of(1, JANUARY).
 ```
 
-
 ## Zipping and unzipping tuples
-TODO
+It is a common operation to have two lists `List<A>` and `List<B>` and to want to 'zip' them up into a
+`List<Tuple2<A, B>>`.  Likewise it can be useful to do the exact opposite: 'unzip' a `List<Tuple2<A, B>>` into 2 lists
+`List<A>` and `List<B>`.
+
+> If you're not familiar with the zip operation, think of a zip on a jacket. You have 2 'lists' of teeth on either side
+> of the zip, and after zipping it up you have one list of pairs. Sort of.
+
+This is quite easy with Tupleware:
+```java
+var listA = List.of(1, 2, 3, 5);
+var listB = List.of('a', 'b', 'c', 'e');
+
+var zip = Tuple2.zip(listA, listB);
+// == List (
+//      Tuple2.of(1, 'a'),
+//      Tuple2.of(2, 'b'),
+//      Tuple2.of(3, 'c'),
+//      Tuple2.of(5, 'e')
+//    )
+```
+
+> **Note:** if the lists are mismatched (not the same length), the zip will stop when no more pairs can be created. No
+> exceptions will be thrown.
+
+```java
+var listA = List.of(1, 2);
+var listB = List.of('a', 'b', 'c');
+
+var zip = Tuple2.zip(listA, listB);
+// == List (
+//      Tuple2.of(1, 'a'),
+//      Tuple2.of(2, 'b')
+//    )
+```
+
+Unzipping is just the opposite procedure:
+```java
+var zipped = List.of(Tuple2.of(1, 'a'), Tuple2.of(26, 'z'));
+Tuple2<Integer, Character> unzipped = Tuple2.unzip(zipped);
+```
+
+For tuples with more than 2 elements, zipping and unzipping work exactly the same way. However the jacket zip
+analogy doesn't really work for more than 2 elements.
