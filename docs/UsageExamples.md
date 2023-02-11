@@ -151,8 +151,6 @@ TODO take, drop [Right]
 
 TODO note on deep equals.
 
-TODO pictures.
-
 ## Zipping and unzipping tuples
 ```mermaid
 flowchart LR
@@ -186,7 +184,7 @@ flowchart LR
       5e["(5, e)"]
     end
   end
-  in ---> out
+  in --zip---> out
 ```
 
 It is a common operation to have two lists `List<A>` and `List<B>` and to want to 'zip' them up into a
