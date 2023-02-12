@@ -1,4 +1,4 @@
-# Tupleware Usage Examples Manual
+# Tupleware Usage Examples
 
 ## Creating tuples
 For Tuples of size 0 to 10, you can construct a tuple using an `of` method as follows:
