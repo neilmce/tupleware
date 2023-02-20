@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'idea'
+    id 'java-library'
 }
 
 group 'com.neil'
@@ -23,4 +24,21 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+sourceSets {
+    main {
+        java.srcDirs += 'build/generated/sources/annotationProcessor/java/main'
+    }
+}
+
+java {
+    withSourcesJar()
+}
+
+tasks.named('jar') {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                   'Implementation-Version': project.version)
+    }
 }
