@@ -235,6 +235,7 @@ public class TupleProcessor extends AbstractProcessor {
 
   private void writeElementGetters(PrintWriter out, int size) {
     for (int i = 1; i <= size; i++) {
+      out.println(String.format("  /** Gets the element at index %d. Remember: tuples are indexed from zero. */", i));
       out.println(String.format("  public final T%d elem%d() { return this.t%d; }", i, i, i));
       out.println();
     }
@@ -523,6 +524,7 @@ public class TupleProcessor extends AbstractProcessor {
     Collections.reverse(newTypeParams);
     Collections.reverse(newParams);
 
+    out.println(String.format("  /** Returns a new Tuple%d with the elements in reverse order. */", size));
     out.println(String.format("  public final Tuple%d<%s> reverse() {",
                               size, String.join(", ", newTypeParams)));
     out.println(String.format("    return Tuple%d.of(%s);", size, String.join(", ", newParams)));
