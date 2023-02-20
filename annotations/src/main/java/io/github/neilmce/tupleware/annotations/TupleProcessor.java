@@ -433,6 +433,10 @@ public class TupleProcessor extends AbstractProcessor {
       final List<String> newParams = new ArrayList<>(currentParams);
       newParams.set(elemToReplace - 1, "newValue");
 
+      out.println(String.format("  /** Replaces the element at index %d with the provided value.", elemToReplace));
+      out.println("   * @param newValue the new element value.");
+      out.println(String.format("   * @return a new Tuple%d instance whose element at index %d will have the new value.", size, elemToReplace));
+      out.println("   */");
       out.print(String.format("  public final <R> Tuple%d<", size));
       out.print(String.join(", ", newTypeParams));
       out.println(String.format("> withElem%d(R newValue) {", elemToReplace));
@@ -456,6 +460,10 @@ public class TupleProcessor extends AbstractProcessor {
       final List<String> newParams = new ArrayList<>(currentParams);
       newParams.set(elemToReplace - 1, String.format("function.apply(t%d)", elemToReplace));
 
+      out.println(String.format("  /** Replaces the element at index %d with the result of the provided function.", elemToReplace));
+      out.println("   * @param function a function which provides the new element value, based on the current value.");
+      out.println(String.format("   * @return a new Tuple%d instance whose element at index %d will have the new value.", size, elemToReplace));
+      out.println("   */");
       out.print(String.format("  public final <R> Tuple%d<", size));
       out.print(String.join(", ", newTypeParams));
       out.println(String.format("> mapElem%d(Function<T%d, R> function) {", elemToReplace, elemToReplace));
@@ -505,6 +513,10 @@ public class TupleProcessor extends AbstractProcessor {
       final List<String> concatParams = new ArrayList<>(currentParams);
       concatParams.addAll(extraParams);
 
+      out.println("  /** Concatenates this tuple with the provided tuple.");
+      out.println("   * @param otherTuple the tuple whose elements should be appended to this tuple.");
+      out.println(String.format("   * @return a new Tuple%d instance containing all the elements of this tuple,", concatTypeParams.size()));
+      out.println("   *         followed by all the elements of the other tuple. */");
       out.println(String.format("  public final <%s> Tuple%d<%s> concat(Tuple%d<%s> otherTuple) {",
                                 String.join(", ", extraTypeParams),
                                 concatTypeParams.size(), String.join(", ", concatTypeParams),
