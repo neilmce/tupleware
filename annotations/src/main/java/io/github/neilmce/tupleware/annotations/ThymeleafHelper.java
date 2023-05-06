@@ -16,37 +16,44 @@ public class ThymeleafHelper {
     }
   }
 
-  /** Returns String like "&lt;token&gt;1, &lt;token&gt;2, &lt;token&gt;3".
+  /** Creates a String of repeated elements into which the number will be substituted.
+   * For example, given a format String of "elem%d()" and a range of 1 to 3, we would get
+   * "elem1(), elem2(), elem3()".
    *
    * @param fromIncl from number
    * @param toIncl to number
-   * @param formatString format String, must include "%s" followed by "%d".
-   * @param token the String token to insert.
+   * @param formatString format String, must include one "%d".
    */
-  public String rangeOneToken(int fromIncl, int toIncl, String formatString, String token) {
+  public String generateRepeatingTokenWithIndex(int fromIncl, int toIncl, String formatString) {
     requireFromNotAfterTo(fromIncl, toIncl);
 
     return IntStream.range(fromIncl, toIncl + 1)
-                    .mapToObj(i -> String.format(formatString, token, i))
+                    .mapToObj(i -> String.format(formatString, i))
                     .collect(joining(", "));
   }
 
-  /** Returns String like TODO. */
-  public String rangeTwoTokens(int fromIncl, int toIncl, String formatString, String token1, String token2) {
+  /** Creates a String of generic type names like "T1, T2, T3".
+   *
+   * @param fromIncl starting position e.g. 1.
+   * @param toIncl ending position e.g. 3.
+   * @param c Type prefix e.g. 'T'.
+   * @return a String of Type names like "T1, T2, T3".
+   */
+  public String generateGenericTypeNames(int fromIncl, int toIncl, char c) {
     requireFromNotAfterTo(fromIncl, toIncl);
 
     return IntStream.range(fromIncl, toIncl + 1)
-                    .mapToObj(i -> String.format(formatString, token1, token2))
+                    .mapToObj(i -> String.format("%s%d", Character.toString(c), i))
                     .collect(joining(", "));
   }
 
-  /** Returns String like "T1, T2, T3". */
-  public String charNumberPairs(int fromIncl, int toIncl, char c) {
-    return rangeOneToken(fromIncl, toIncl, "%s%d", Character.toString(c));
-  }
-
-  /** Returns String like "T1 t1, T2 t2, T3 t3". */
-  public String getTypeParams(int fromIncl, int toIncl) {
+  /** Creates a String of generic type parameters like "T1 t1, T2 t2, T3 t3".
+   *
+   * @param fromIncl starting position e.g. 1.
+   * @param toIncl ending position e.g. 3.
+   * @return a String of Type names like "T1 t1, T2 t2, T3 t3".
+   */
+  public String generateGenericTypeParams(int fromIncl, int toIncl) {
     requireFromNotAfterTo(fromIncl, toIncl);
 
     return IntStream.range(fromIncl, toIncl + 1)
@@ -54,14 +61,19 @@ public class ThymeleafHelper {
                     .collect(joining(", "));
   }
 
-  /** Returns String like TODO. */
-  public String sampleArgs(int fromIncl, int toIncl) {
+  /** Creates a String of sample argument values like "\"Hi\", 2, 3.1".
+   *
+   * @param fromIncl starting position e.g. 1.
+   * @param toIncl ending position e.g. 3.
+   * @return a String of sample argument values like "\"Hi\", 2, 3.1"
+   */
+  public String generateSampleArgs(int fromIncl, int toIncl) {
     requireFromNotAfterTo(fromIncl, toIncl);
 
     return String.join(", ", sampleElements.subList(fromIncl - 1, toIncl));
   }
 
-  public String sampleArgsReplacing(int fromIncl, int toIncl, int replaceIndex, String replaceWith) {
+  public String generateSampleArgsReplacing(int fromIncl, int toIncl, int replaceIndex, String replaceWith) {
     return IntStream.range(fromIncl, toIncl + 1)
                     .mapToObj(i -> {
                       if (i == replaceIndex) {
@@ -74,7 +86,7 @@ public class ThymeleafHelper {
                     .collect(joining(", "));
   }
 
-  public String sampleArgsDropping(int fromIncl, int toIncl, int dropIndex) {
+  public String generateSampleArgsDropping(int fromIncl, int toIncl, int dropIndex) {
     if (fromIncl == toIncl) {
       return "";
     }
@@ -135,6 +147,7 @@ public class ThymeleafHelper {
                     .collect(joining(", "));
   }
 
+  // FIXME Fix name.
   public String paramsReplacingPuke(int fromIncl, int toIncl, int replaceIndex, String replaceWith) {
     return IntStream.range(fromIncl, toIncl + 1)
                     .mapToObj(i -> {
