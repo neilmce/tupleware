@@ -1,0 +1,274 @@
+// Copyright [(${#calendars.format(#calendars.createNow(), 'yyyy')})] Neil Mc Erlean.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package [(${packageName})];
+
+import java.util.List;
+import java.util.function.Function;
+
+// This code was generated on [(${#calendars.format(#calendars.createNow(), 'dd MMM yyyy HH:mm')})] by io.github.neilmce.tupleware.annotations.TupleProcessor
+// You should not edit it.
+
+/**
+ * This class represents a tuple of {@link #size() [(${tupleSize})]} [(${tupleSize == 1}? 'element' : 'elements')].
+ * Like all Tupleware tuples, it provides families of methods as follows (all tuples are immutable, so any changed
+ * values are made by copying and returning a new instance):
+ * <ul>
+ *   <li>{@code elemN()} methods which return the value of the nth element.</li>
+ *   <li>{@code dropElemN()} methods which drop the nth element in this tuple.</li>
+ *   <li>{@code dropN()} methods which drop the first n elements in this tuple.</li>
+ *   <li>{@code dropRightN()} methods which drop the last n elements in this tuple.</li>
+ *   <li>{@code takeN()} methods which take the first n elements in this tuple dropping the rest.</li>
+ *   <li>{@code takeRightN()} methods which take the last n elements in this tuple dropping the rest.</li>
+ *   <li>{@code withElemN()} methods which change the nth element to a new value.</li>
+ *   <li>{@code mapElemN()} methods which change the nth element to a new value given by a function.</li>
+ *   <li>{@code splitAfterElementN()} methods which split the tuple in 2 after the nth element.</li>
+ *   <li>{@code concat()} methods which concatenate this tuple with another to give one bigger tuple.</li>
+ * </ul>
+ * Note: tuple elements are indexed from 1, not from 0. So the first elem is element 1.
+ */
+public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 'T')})]> implements Tuple {
+  [# th:each="i : ${#numbers.sequence( 1, tupleSize, 1)}"]protected final T[(${i})] t[(${i})];
+  [/]
+
+  protected GeneratedTuple[(${tupleSize})]([(${helper.generateGenericTypeParams(1, tupleSize)})]) {
+  [# th:each="i : ${#numbers.sequence( 1, tupleSize, 1)}"]
+    this.t[(${i})] = t[(${i})];
+  [/]
+  }
+
+  /** @return the number of elements in this tuple. */
+  @Override public final int size() { return [(${tupleSize})]; }
+
+  [# th:each="i : ${#numbers.sequence( 1, tupleSize, 1)}"]
+  /** Gets the element at index [(${i})]. Remember: tuples are indexed from one. */
+  public final T[(${i})] elem[(${i})]() {
+    return this.t[(${i})];
+  }
+
+  [/]
+
+  @Override public final boolean containsAnyNulls() {
+    return [# th:each="i,iterStat : ${#numbers.sequence( 1, tupleSize, 1)}"]t[(${i})] == null[(${iterStat.last}? ';' : ' || ')][/]
+  }
+
+  @Override public final List<Object> toList() {
+    return List.of([(${helper.generateGenericTypeNames(1, tupleSize, 't')})]);
+  }
+
+  /** Returns a new Tuple[(${tupleSize})] with the elements in reverse order. */
+  public final Tuple[(${tupleSize})]<[# th:each="i,iterStat : ${#numbers.sequence(tupleSize, 1, -1)}"]T[(${i})][(${iterStat.last == false} ? ', ')][/]> reverse() {
+    return Tuple[(${tupleSize})].of([# th:each="i,iterStat : ${#numbers.sequence( tupleSize, 1, -1)}"]t[(${i})][(${iterStat.last == false} ? ', ')][/]);
+  }
+
+  [# th:each="i : ${#numbers.sequence( 1, tupleSize - 1, 1)}"]
+  /**
+   * Splits this tuple into two parts. The split is performed after element [(${i})].
+   * For example
+   * <pre>
+   * {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).splitAfterElement[(${i})]()}
+   * </pre>
+   * would give
+   * <pre>
+   * {@code Tuple2.of(
+   *   Tuple[(${i})].of([(${helper.generateSampleArgs(1, i)})]),
+   *   Tuple[(${tupleSize - i})].of([(${helper.generateSampleArgs(i + 1, tupleSize)})])
+   * )}
+   * </pre>
+   *
+   * Remember: tuples are indexed from one.
+   *
+   * @return a Tuple2 containing the two parts as tuples themselves.
+   */
+  public final Tuple2<Tuple[(${i})]<[(${helper.generateGenericTypeNames(1, i, 'T')})]>, Tuple[(${tupleSize - i})]<[(${helper.generateGenericTypeNames(i + 1, tupleSize, 'T')})]>> splitAfterElement[(${i})]() {
+    return Tuple2.of(
+      Tuple[(${i})].of([(${helper.generateGenericTypeNames(1, i, 't')})]),
+      Tuple[(${tupleSize - i})].of([(${helper.generateGenericTypeNames(i + 1, tupleSize, 't')})])
+    );
+  }
+
+  [/]
+
+  [# th:each="i : ${#numbers.sequence(1, 10 - tupleSize, 1)}"]
+  /** Concatenates this tuple with the provided tuple.
+   * For example
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).concat(Tuple[(${i})].of([(${helper.generateSampleArgs(tupleSize + 1, tupleSize + i)})]))}
+   *   </pre>
+   * would give
+   * <pre>
+   *   {@code Tuple[(${tupleSize + i})].of([(${helper.generateSampleArgs(1, tupleSize + i)})])}
+   * </pre>
+   *
+   * Remember: tuples are indexed from one.
+   *
+   * @param otherTuple the tuple whose elements should be appended to this tuple.
+   * @return a new Tuple[(${tupleSize + i})] instance containing all the elements of this tuple,
+   *         followed by all the elements of the other tuple.
+   */
+  public final <[(${helper.generateGenericTypeNames(1, i, 'S')})]> Tuple[(${tupleSize + i})]<[(${helper.generateGenericTypeNames(1, tupleSize, 'T')})], [(${helper.generateGenericTypeNames(1, i, 'S')})]> concat(Tuple[(${i})]<[(${helper.generateGenericTypeNames(1, i, 'S')})]> otherTuple) {
+    return Tuple[(${tupleSize + i})].of([(${helper.generateGenericTypeNames(1, tupleSize, 't')})], [(${helper.generateRepeatingTokenWithIndex(1, i, "otherTuple.elem%d()")})]);
+  }
+
+  [/]
+
+  [# th:each="i : ${#numbers.sequence(1, tupleSize, 1)}"]
+  /** Creates a new tuple instance without the element at position [(${i})].
+   * For example
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).dropElem([(${i})])}
+   * </pre>
+   * would give
+   * <pre>
+   *   {@code Tuple[(${tupleSize - 1})].of([(${helper.generateSampleArgsDropping(1, tupleSize, i)})])}
+   * </pre>
+   *
+   * Remember: tuples are indexed from one.
+   *
+   * @return a new Tuple[(${tupleSize - 1})] instance containing all the elements of this tuple except for the one
+   *         at position [(${i})].
+   */
+  public final Tuple[(${tupleSize - 1})][(${helper.angledTypeParamsDropping(1, tupleSize, i)})] dropElem[(${i})]() {
+    return Tuple[(${tupleSize - 1})].of([(${helper.paramsDropping(1, tupleSize, i)})]);
+  }
+
+  [/]
+
+  [# th:each="i : ${#numbers.sequence(1, tupleSize - 1, 1)}"]
+  /** Creates a new tuple instance consisting of the first [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
+   * For example
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).take[(${i})]()}
+   * </pre>
+   * would give
+   * <pre>
+   *   {@code Tuple[(${i})].of([(${helper.generateSampleArgs(1, i)})])}
+   * </pre>
+   *
+   * Remember: tuples are indexed from one.
+   *
+   * @return a new tuple instance containing the first [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
+   */
+  public final Tuple[(${i})]<[(${helper.generateGenericTypeNames(1, i, 'T')})]> take[(${i})]() {
+    return Tuple[(${i})].of([(${helper.generateGenericTypeNames(1, i, 't')})]);
+  }
+
+  [/]
+
+  [# th:each="i : ${#numbers.sequence(1, tupleSize - 1, 1)}"]
+  /** Creates a new tuple instance consisting of the last [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
+   * For example
+   * </pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).takeRight[(${i})]()}
+   * </pre>
+   * would give
+   * <pre>
+   *   {@code Tuple[(${i})].of([(${helper.generateSampleArgs(tupleSize - i + 1, tupleSize)})])}
+   * </pre>
+   *
+   * Remember: tuples are indexed from one.
+   *
+   * @return a new tuple instance containing the last [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
+   */
+  public final Tuple[(${i})]<[(${helper.generateGenericTypeNames(tupleSize - i + 1, tupleSize, 'T')})]> takeRight[(${i})]() {
+    return Tuple[(${i})].of([(${helper.generateGenericTypeNames(tupleSize - i + 1, tupleSize, 't')})]);
+  }
+
+  [/]
+
+  [# th:each="i : ${#numbers.sequence(1, tupleSize - 1, 1)}"]
+  /** Creates a new tuple instance without the first [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
+   * For example
+   *
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).drop[(${i})]()}
+   * </pre>
+   * would give
+   *
+   * <pre>
+   *   {@code Tuple[(${tupleSize - i})].of([(${helper.generateSampleArgs(i + 1, tupleSize)})])}
+   * </pre>
+   *
+   * Remember: tuples are indexed from one.
+   *
+   * @return a new tuple instance without the first [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
+   */
+  public final Tuple[(${tupleSize - i})]<[(${helper.generateGenericTypeNames(i + 1, tupleSize, 'T')})]> drop[(${i})]() {
+    return Tuple[(${tupleSize - i})].of([(${helper.generateGenericTypeNames(i + 1, tupleSize, 't')})]);
+  }
+
+  [/]
+
+  [# th:each="i : ${#numbers.sequence(1, tupleSize - 1, 1)}"]
+    /** Creates a new tuple instance without the last [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
+     * For example
+     * <pre>
+     *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).dropRight[(${i})]()}
+     * </pre>
+     * would give
+     * <pre>
+     *   {@code Tuple[(${i})].of([(${helper.generateSampleArgs(1, tupleSize - i)})])}
+     * </pre>
+     *
+     *
+     * Remember: tuples are indexed from one.
+     *
+     * @return a new tuple instance without the last [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
+     */
+    public final Tuple[(${tupleSize - i})]<[(${helper.generateGenericTypeNames(1, tupleSize - i, 'T')})]> dropRight[(${i})]() {
+      return Tuple[(${tupleSize - i})].of([(${helper.generateGenericTypeNames(1, tupleSize - i, 't')})]);
+    }
+
+  [/]
+
+  [# th:each="i : ${#numbers.sequence(1, tupleSize, 1)}"]
+  /** Creates a new tuple instance with the element at position [(${i})] replaced with the given value.
+   * For example
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).withElem[(${i})](42)}
+   * </pre>
+   * would give
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgsReplacing(1, tupleSize, i, "42")})])}
+   * </pre>
+   *
+   * Remember: tuples are indexed from one.
+   *
+   * @return a new tuple instance with the element at position [(${i})] replaced with the given value.
+   */
+  public final <R> Tuple[(${tupleSize})][(${helper.angledTypeParamsReplacing(1, tupleSize, i, "R")})] withElem[(${i})](R newValue) {
+    return Tuple[(${tupleSize})].of([(${helper.paramsReplacing(1, tupleSize, i, "newValue")})]);
+  }
+
+  [/]
+
+  [# th:each="i : ${#numbers.sequence(1, tupleSize, 1)}"]
+  /** Creates a new tuple instance with the element at position [(${i})] replaced with the result of applying the given function.
+   *
+   * Remember: tuples are indexed from one.
+   *
+   * @return a new tuple instance with the element at position [(${i})] replaced with the given value.
+   */
+  public final <R> Tuple[(${tupleSize})][(${helper.angledTypeParamsReplacing(1, tupleSize, i, "R")})] mapElem[(${i})](Function<T[(${i})], R> function) {
+    return Tuple[(${tupleSize})].of([(${helper.paramsReplacing_(1, tupleSize, i, "function.apply(tXXX)")})]);
+  }
+
+  [/]
+
+  @Override
+  public final String toString() {
+    return String.format("([# th:each="i,iterStat : ${#numbers.sequence(1, tupleSize, 1)}"]%s[(${iterStat.last == false} ? ', ')][/])",
+                           [# th:each="i,iterStat : ${#numbers.sequence(1, tupleSize, 1)}"]t[(${i})][(${iterStat.last == false} ? ', ')][/]);
+  }
+}
