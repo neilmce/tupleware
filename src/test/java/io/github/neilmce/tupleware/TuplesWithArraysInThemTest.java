@@ -35,6 +35,4 @@ class TuplesWithArraysInThemTest {
 
     assertNotEquals(t1, t2);
   }
-
-  // TODO Other arities.
 }
