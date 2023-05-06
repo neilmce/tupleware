@@ -75,12 +75,17 @@ public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 
   [# th:each="i : ${#numbers.sequence( 1, tupleSize - 1, 1)}"]
   /**
    * Splits this tuple into two parts. The split is performed after element [(${i})].
-   * For example {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).splitAfterElement[(${i})]()}
+   * For example
+   * <pre>
+   * {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).splitAfterElement[(${i})]()}
+   * </pre>
    * would give
+   * <pre>
    * {@code Tuple2.of(
    *   Tuple[(${i})].of([(${helper.generateSampleArgs(1, i)})]),
    *   Tuple[(${tupleSize - i})].of([(${helper.generateSampleArgs(i + 1, tupleSize)})])
    * )}
+   * </pre>
    *
    * Remember: tuples are indexed from one.
    *
@@ -97,9 +102,14 @@ public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 
 
   [# th:each="i : ${#numbers.sequence(1, 10 - tupleSize, 1)}"]
   /** Concatenates this tuple with the provided tuple.
-   * For example {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).concat(Tuple[(${i})].of([(${helper.generateSampleArgs(tupleSize + 1, tupleSize + i)})]))}
+   * For example
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).concat(Tuple[(${i})].of([(${helper.generateSampleArgs(tupleSize + 1, tupleSize + i)})]))}
+   *   </pre>
    * would give
-   * {@code Tuple[(${tupleSize + i})].of([(${helper.generateSampleArgs(1, tupleSize + i)})])}
+   * <pre>
+   *   {@code Tuple[(${tupleSize + i})].of([(${helper.generateSampleArgs(1, tupleSize + i)})])}
+   * </pre>
    *
    * Remember: tuples are indexed from one.
    *
@@ -115,9 +125,14 @@ public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 
 
   [# th:each="i : ${#numbers.sequence(1, tupleSize, 1)}"]
   /** Creates a new tuple instance without the element at position [(${i})].
-   * For example {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).dropElem([(${i})])}
+   * For example
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).dropElem([(${i})])}
+   * </pre>
    * would give
-   * {@code Tuple[(${tupleSize - 1})].of([(${helper.generateSampleArgsDropping(1, tupleSize, i)})])}
+   * <pre>
+   *   {@code Tuple[(${tupleSize - 1})].of([(${helper.generateSampleArgsDropping(1, tupleSize, i)})])}
+   * </pre>
    *
    * Remember: tuples are indexed from one.
    *
@@ -132,9 +147,14 @@ public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 
 
   [# th:each="i : ${#numbers.sequence(1, tupleSize - 1, 1)}"]
   /** Creates a new tuple instance consisting of the first [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
-   * For example {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).take[(${i})]()}
+   * For example
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).take[(${i})]()}
+   * </pre>
    * would give
-   * {@code Tuple[(${i})].of([(${helper.generateSampleArgs(1, i)})])}
+   * <pre>
+   *   {@code Tuple[(${i})].of([(${helper.generateSampleArgs(1, i)})])}
+   * </pre>
    *
    * Remember: tuples are indexed from one.
    *
@@ -148,9 +168,14 @@ public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 
 
   [# th:each="i : ${#numbers.sequence(1, tupleSize - 1, 1)}"]
   /** Creates a new tuple instance consisting of the last [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
-   * For example {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).takeRight[(${i})]()}
+   * For example
+   * </pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).takeRight[(${i})]()}
+   * </pre>
    * would give
-   * {@code Tuple[(${i})].of([(${helper.generateSampleArgs(tupleSize - i + 1, tupleSize)})])}
+   * <pre>
+   *   {@code Tuple[(${i})].of([(${helper.generateSampleArgs(tupleSize - i + 1, tupleSize)})])}
+   * </pre>
    *
    * Remember: tuples are indexed from one.
    *
@@ -164,9 +189,16 @@ public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 
 
   [# th:each="i : ${#numbers.sequence(1, tupleSize - 1, 1)}"]
   /** Creates a new tuple instance without the first [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
-   * For example {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).drop[(${i})]()}
+   * For example
+   *
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).drop[(${i})]()}
+   * </pre>
    * would give
-   * {@code Tuple[(${tupleSize - i})].of([(${helper.generateSampleArgs(i + 1, tupleSize)})])}
+   *
+   * <pre>
+   *   {@code Tuple[(${tupleSize - i})].of([(${helper.generateSampleArgs(i + 1, tupleSize)})])}
+   * </pre>
    *
    * Remember: tuples are indexed from one.
    *
@@ -180,9 +212,15 @@ public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 
 
   [# th:each="i : ${#numbers.sequence(1, tupleSize - 1, 1)}"]
     /** Creates a new tuple instance without the last [(${i})] [(${i == 1}? 'element' : 'elements')] of this tuple.
-     * For example {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).dropRight[(${i})]()}
+     * For example
+     * <pre>
+     *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).dropRight[(${i})]()}
+     * </pre>
      * would give
-     * {@code Tuple[(${i})].of([(${helper.generateSampleArgs(1, tupleSize - i)})])}
+     * <pre>
+     *   {@code Tuple[(${i})].of([(${helper.generateSampleArgs(1, tupleSize - i)})])}
+     * </pre>
+     *
      *
      * Remember: tuples are indexed from one.
      *
@@ -196,9 +234,14 @@ public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 
 
   [# th:each="i : ${#numbers.sequence(1, tupleSize, 1)}"]
   /** Creates a new tuple instance with the element at position [(${i})] replaced with the given value.
-   * For example {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).withElem[(${i})](42)}
+   * For example
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).withElem[(${i})](42)}
+   * </pre>
    * would give
-   * {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgsReplacing(1, tupleSize, i, "42")})])}
+   * <pre>
+   *   {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgsReplacing(1, tupleSize, i, "42")})])}
+   * </pre>
    *
    * Remember: tuples are indexed from one.
    *
