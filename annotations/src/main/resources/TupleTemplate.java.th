@@ -212,16 +212,13 @@ public class [(${className})]<[(${helper.generateGenericTypeNames(1, tupleSize, 
 
   [# th:each="i : ${#numbers.sequence(1, tupleSize, 1)}"]
   /** Creates a new tuple instance with the element at position [(${i})] replaced with the result of applying the given function.
-   * For example {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgs(1, tupleSize)})]).mapElem[(${i})](42)}
-   * would give
-   * {@code Tuple[(${tupleSize})].of([(${helper.generateSampleArgsReplacing(1, tupleSize, i, "42")})])}
    *
    * Remember: tuples are indexed from one.
    *
    * @return a new tuple instance with the element at position [(${i})] replaced with the given value.
    */
   public final <R> Tuple[(${tupleSize})][(${helper.angledTypeParamsReplacing(1, tupleSize, i, "R")})] mapElem[(${i})](Function<T[(${i})], R> function) {
-    return Tuple[(${tupleSize})].of([(${helper.paramsReplacingPuke(1, tupleSize, i, "function.apply(tXXX)")})]);
+    return Tuple[(${tupleSize})].of([(${helper.paramsReplacing_(1, tupleSize, i, "function.apply(tXXX)")})]);
   }
 
   [/]

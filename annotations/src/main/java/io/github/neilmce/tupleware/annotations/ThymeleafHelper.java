@@ -93,7 +93,7 @@ public class ThymeleafHelper {
 
     requireFromNotAfterTo(fromIncl, toIncl);
 
-    return IntStream.range(fromIncl - 1, toIncl - 1)
+    return IntStream.range(fromIncl - 1, toIncl)
                     .filter(n -> n != (dropIndex - 1))
                     .mapToObj(sampleElements::get)
                     .collect(joining(", "));
@@ -147,8 +147,7 @@ public class ThymeleafHelper {
                     .collect(joining(", "));
   }
 
-  // FIXME Fix name.
-  public String paramsReplacingPuke(int fromIncl, int toIncl, int replaceIndex, String replaceWith) {
+  public String paramsReplacing_(int fromIncl, int toIncl, int replaceIndex, String replaceWith) {
     return IntStream.range(fromIncl, toIncl + 1)
                     .mapToObj(i -> {
                       if (i == replaceIndex) {
